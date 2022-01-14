@@ -35,7 +35,14 @@ class CreateMenusTable extends Migration
                 array(
                     'id' => '2',
                     'matrice_id' => '2',
-                    'name' => "EAU1",
+                    'name' => "SOL1",
+                    "prix_ht" => 200,
+                    "prix_supv" => 100
+                ),
+                array(
+                    'id' => '3',
+                    'matrice_id' => '3',
+                    'name' => "DIAG1",
                     "prix_ht" => 200,
                     "prix_supv" => 100
                 )

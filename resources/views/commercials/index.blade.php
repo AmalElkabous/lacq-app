@@ -55,7 +55,9 @@
                             <tr>
                                 <th class="text-center">Nom</th>
                                 <th class="text-center">Zone</th>
-                                <th class="text-right pr-4">Action</th>
+                                @if(Auth::user()->role_id <= 2)
+                                    <th class="text-right pr-4">Action</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -63,14 +65,15 @@
                             <tr>
                                 <td class="text-center">{{ $commercial->name }}</td>
                                 <td class="text-center"><span class="badge badge-success">{{ $commercial->zone }}</span></td>
-                                
-                                <td class="text-right">
-                                    <form class="d-inline p-2" method="POST" action="{{ url('/commercials/'.$commercial->id) }}">
-                                        @csrf
-                                        {{@method_field("DELETE")}}
-                                        <button type="supmit" class="btn btn-danger btn-sm "><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                    </form>
-                                </td>
+                                @if(Auth::user()->role_id <= 2)
+                                    <td class="text-right">
+                                        <form class="d-inline p-2" method="POST" action="{{ url('/commercials/'.$commercial->id) }}">
+                                            @csrf
+                                            {{@method_field("DELETE")}}
+                                            <button type="supmit" class="btn btn-danger btn-sm "><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                        </form>
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                         </tbody>

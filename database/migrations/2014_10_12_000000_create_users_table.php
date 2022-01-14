@@ -34,44 +34,72 @@ class CreateUsersTable extends Migration
                     'name' => "mohammed",
                     "last_name" => "el-abidi",
                     "email" => "mohammed.el-abidi@elephant-vert.com",
-                    "password" =>  Hash::make("admin@admin"),
+                    "password" =>  Hash::make("Xwgpdz1ds5@"),
                     "role_id" => 1,
                     "avatar" => "user.png"
                 ),
                 array(
                     'id' => '2',
-                    'name' => "mohammed",
-                    "last_name" => "el-abidi",
-                    "email" => "test@elephant-vert.com",
-                    "password" =>  Hash::make("admin@admin"),
-                    "role_id" => 2,
+                    'name' => "faical",
+                    "last_name" => "rouissi",
+                    "email" => "faical.rouissi@elephant-vert.com",
+                    "password" =>  Hash::make("Xwgpdz1ds5@"),
+                    "role_id" => 1,
                     "avatar" => "user.png"
                 ),
                 array(
                     'id' => '3',
-                    'name' => "mohammed",
-                    "last_name" => "el-abidi",
-                    "email" => "test2@elephant-vert.com",
-                    "password" =>  Hash::make("admin@admin"),
-                    "role_id" => 3,
+                    'name' => "mohammed oussama",
+                    "last_name" => "mousaouy",
+                    "email" => "m-o.el-mousaouy@elephant-vert.com",
+                    "password" =>  Hash::make("Xwgpdz1ds5@"),
+                    "role_id" => 1,
                     "avatar" => "user.png"
                 ),
                 array(
                     'id' => '4',
-                    'name' => "mohammed",
-                    "last_name" => "el-abidi",
-                    "email" => "test3@elephant-vert.com",
-                    "password" =>  Hash::make("admin@admin"),
-                    "role_id" => 4,
+                    'name' => "amal",
+                    "last_name" => "el-kabous",
+                    "email" => "amal.el-kabous@elephant-vert.com",
+                    "password" =>  Hash::make("Xwgpdz1ds5@"),
+                    "role_id" => 1,
                     "avatar" => "user.png"
                 ),
                 array(
                     'id' => '5',
-                    'name' => "mohammed",
-                    "last_name" => "el-abidi",
-                    "email" => "test4@elephant-vert.com",
-                    "password" =>  Hash::make("admin@admin"),
+                    'name' => "amine",
+                    "last_name" => "el-kabous",
+                    "email" => "amine.bouslamti@elephant-vert.com",
+                    "password" =>  Hash::make("Lacq2021"),
                     "role_id" => 1,
+                    "avatar" => "user.png"
+                ),
+                
+                array(
+                    'id' => '6',
+                    'name' => "asmaa",
+                    "last_name" => "benhida",
+                    "email" => "asmaa.benhida@elephant-vert.com",
+                    "password" =>  Hash::make("Lacq2021"),
+                    "role_id" => 2,
+                    "avatar" => "user.png"
+                ),
+                array(
+                    'id' => '7',
+                    'name' => "mohamed",
+                    "last_name" => "amzad",
+                    "email" => "mohamed.amzad@elephant-vert.com",
+                    "password" =>  Hash::make("Lacq2021"),
+                    "role_id" => 3,
+                    "avatar" => "user.png"
+                ),
+                array(
+                    'id' => '8',
+                    'name' => "fatima",
+                    "last_name" => "zarrouk",
+                    "email" => "fatima.zarrouk@elephant-vert.com",
+                    "password" =>  Hash::make("Lacq2021"),
+                    "role_id" => 4,
                     "avatar" => "user.png"
                 )
             )

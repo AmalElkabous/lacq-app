@@ -62,9 +62,11 @@
                             <tr>
                                 <th class="text-center">CIN/RC</th>
                                 <th class="text-center">Address</th>
-                                <th class="text-right pr-4">Exploiteur</th>
-                                <th class="text-right pr-4">Organisme</th>
-                                <th class="text-right pr-4">Action</th>
+                                <th class="text-center ">Exploiteur</th>
+                                <th class="text-center ">Organisme</th>
+                                @if(Auth::user()->role_id <= 2)
+                                    <th class="text-right pr-4">Action</th>
+                                @endif
 
                             </tr>
                         </thead>
@@ -75,16 +77,18 @@
                                 <td class="text-center">{{ $client->address }}</td>
                                 <td class="text-center">{{ $client->exploiteur }}</td>
                                 <td class="text-center">{{ $client->organisme }}</td>
-                                <td class="text-right">
-                                    <div class="d-inline p-2">
-                                        <button class="btn btn-primary btn-sm " onclick="openEditClientModal({{ $client->id }})"><i class="fa fa-edit"></i></button>
-                                    </div>
-                                    <form class="d-inline p-2" method="POST" action="{{ url('/clients/'.$client->id) }}">
-                                        @csrf
-                                        {{@method_field("DELETE")}}
-                                        <button type="supmit" class="btn btn-danger btn-sm "><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                    </form>
-                                </td>
+                                @if(Auth::user()->role_id <= 2)
+                                    <td class="text-right">
+                                        <div class="d-inline p-2">
+                                            <button class="btn btn-primary btn-sm " onclick="openEditClientModal({{ $client->id }})"><i class="fa fa-edit"></i></button>
+                                        </div>
+                                        <form class="d-inline p-2" method="POST" action="{{ url('/clients/'.$client->id) }}">
+                                            @csrf
+                                            {{@method_field("DELETE")}}
+                                            <button type="supmit" class="btn btn-danger btn-sm "><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                        </form>
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                         </tbody>

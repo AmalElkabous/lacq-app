@@ -27,19 +27,14 @@
 
 <div class="navbarList">
   <div class='navbarItimes'>
-    <img  src="{{ asset('img/LOGO-EV_FR.png') }}" style="float:left;width: 90px;margin-left:20px;">
+    <!---<img  src="{{ asset('img/LOGO-EV_FR.png') }}" style="float:left;width: 90px;margin-left:20px;">--->
     <a class="dropbtn ml-5 mr-2" href="{{ url("/") }}" style="border-radius: 3px;" >Accueil</a>
-    <a class="dropbtn" href="{{ url("/users") }}" style="border-radius: 3px; ">Utilisateurs</a>
+    @if(Auth::user()->rol_id == 1)
+      <a class="dropbtn" href="{{ url("/users") }}" style="border-radius: 3px; ">Utilisateurs</a>
+    @endif
     <a class="dropbtn" href="{{ url("/clients") }}" style="border-radius: 3px; ">Clients</a>
     <a class="dropbtn" href="{{ url("/commandes") }}" style="border-radius: 3px; ">Commandes</a>
-    <div class="dropdownList"  >
-      <a class="dropbtn mr-2" href="planning.php" style="border-radius: 3px;">Table de Bord <div class="separ"></div><i class="fa fa-caret-down" aria-hidden="true"></i> </a>
-      <div class="dropdownList-one" style=" width: 140px;margin-left: 20px;">
-        <a class="dItem" href="planning.php?vueCoordinateur">Vue Coordinateur</a>
-        <a class="dItem" href="analyse.php">analyses</a>
-      </div>
-    </div>
-    <a class="dItem" href="planning.php" style="width:140px;">Vue Coordinateur</a>
+    <a class="dropbtn" href="{{ url("/dashboard") }}" style="border-radius: 3px; ">Dashboard</a>
     </div>
     <div class="dropdownList">
       <a class="dropbtn mr-2"  style= "border-radius: 3px;padding: 18px 15px;color:white;">Base de donnée <div class="separ"></div><i class="fa fa-caret-down" aria-hidden="true"></i> </a>
@@ -65,7 +60,7 @@
 </div>
 </div>
 </div>
-<div class="px-3 mx-auto">
+<div class="px-3 mx-auto mt-5">
     @yield("content")
 </div>
 <!------------------------------------------------------------------------->

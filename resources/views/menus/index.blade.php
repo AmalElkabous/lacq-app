@@ -68,7 +68,9 @@
                                 <th class="text-center">Nom</th>
                                 <th class="text-center">Prix hor tax</th>
                                 <th class="text-center">Prix Supvendioner</th>
-                                <th class="text-right pr-4">Action</th>
+                                @if(Auth::user()->role_id <= 2)
+                                    <th class="text-right pr-4">Action</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -78,17 +80,18 @@
                                 <td class="text-center">{{ $menu->name }}</td>
                                 <td class="text-center">{{ $menu->prix_ht }}</td>
                                 <td class="text-center">{{ $menu->prix_supv }}</td>
-                                <td class="text-right text-nowrap" >
-                                    <div class="d-inline p-2">
-                                        <button class="btn btn-primary btn-sm " onclick="openEditMenuModal({{ $menu->id }})"><i class="fa fa-edit"></i></button>
-                                    </div>
-                                    <form class="d-inline p-2" method="POST" action="{{ url('/menus/'.$menu->id) }}">
-                                        @csrf
-                                        {{@method_field("DELETE")}}
-                                        <button type="supmit" class="btn btn-danger btn-sm "><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                    </form>
-                                        
-                                </td>
+                                @if(Auth::user()->role_id <= 2)
+                                    <td class="text-right text-nowrap" >
+                                        <div class="d-inline p-2">
+                                            <button class="btn btn-primary btn-sm " onclick="openEditMenuModal({{ $menu->id }})"><i class="fa fa-edit"></i></button>
+                                        </div>
+                                        <form class="d-inline p-2" method="POST" action="{{ url('/menus/'.$menu->id) }}">
+                                            @csrf
+                                            {{@method_field("DELETE")}}
+                                            <button type="supmit" class="btn btn-danger btn-sm "><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                        </form>   
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                         

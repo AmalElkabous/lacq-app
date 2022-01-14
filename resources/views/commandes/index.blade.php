@@ -37,8 +37,6 @@
       </div>
     </div>
   </div>
-
-
 <!----------------------------------------------------------------------------------------------------->
 <!----------------------------------------- modal foem ------------------------------------------------>
 <form method="post" id="modalModal" action="{{ url('/commandes') }}"  enctype="multipart/form-data">
@@ -222,7 +220,9 @@
                                 <th class="text-center pr-4 text-nowrap">Temperature</th>
                                 <th class="text-center pr-4 text-nowrap">Date prélevement</th>
                                 <th class="text-center pr-4">Etat</th>
-                                <th class="text-center pr-4">Action</th>
+                                @if(Auth::user()->role_id <= 2)
+                                    <th class="text-center pr-4">Action</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -245,7 +245,8 @@
                                 <td class="text-center text-nowrap">{{ $commande->temperateur }}</td>
                                 <td class="text-center text-nowrap">{{ $commande->date_prelevement }}</td>
                                 <td class="text-center text-nowrap">{{ $commande->state }}</td>
-                                <td class="text-right text-nowrap" >
+                                @if(Auth::user()->role_id <= 2)
+                                <td class="text-right text-nowrap" > 
                                     @if($commande->state != "Valid")
                                         <div class="d-inline p-0" >
                                             <button class="btn btn-success btn-sm btnAction" onclick="validerCommande({{$commande->id}})"><i class="fa fa-check" aria-hidden="true"></i></button>
@@ -272,6 +273,7 @@
                                     </form>
                                     @endif
                                 </td>
+                                @endif
                             </tr>
                         @endforeach
                         </tbody>
@@ -328,7 +330,8 @@
         });
 
     }
-    function rejeterCommande(){
+    function rejeterCommande(){ 
+        $("#modalCommantaire").modal("hide")
         $("html").preloader({text:'Loading'});
         commantaire = $("#commantaireInpute").val()
         if(commantaire == ""){
@@ -345,7 +348,7 @@
                 commantaire : commantaire
             },
             success:function(response){
-                $("#modalCommantaire").modal("hide")
+               
                 $(".card-body").html($(response).find( ".card-body" ).html())
                 $('html').preloader('remove')
             },
