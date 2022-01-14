@@ -19,7 +19,7 @@ div.form {
     height: 55px;
     margin-bottom: 30px;
     background-color: #1e871e;
-    z-index: 1;
+    z-index: auto;
     position: sticky;
     top: 0;
 }
