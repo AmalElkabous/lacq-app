@@ -1,0 +1,327 @@
+html,
+body {
+    background-image: url("../../img/bcgr-EV-LACQ.JPG");
+    background-size: cover;
+}
+
+div.form {
+    margin: 0;
+}
+
+#header img {
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 20px
+}
+
+.navbarList {
+    display: block;
+    height: 55px;
+    margin-bottom: 30px;
+    background-color: #1e871e;
+    z-index: auto;
+    position: sticky;
+    top: 0;
+}
+
+.navbarList a {
+    display: block;
+    font-size: 13px;
+    font-family: system-ui;
+    float: left;
+    color: white;
+    text-align: left;
+    text-decoration: none;
+}
+
+.dropdownList {
+    float: left;
+}
+
+
+/*.dropbtn {   
+    background-color:#1e871e;
+  }*/
+
+.navbarList a:hover,
+.dropdownList:hover .dropbtn {
+    background-color: #006400;
+    color: black;
+}
+
+.dropdownList-one {
+    cursor: pointer;
+    display: none;
+    position: absolute;
+    top: 55px;
+    width: 200px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 60%);
+}
+
+.dropdownList-two {
+    cursor: pointer;
+    display: none;
+    position: absolute;
+    left: 200px;
+    top: 54px;
+    min-width: 200px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 60%);
+    z-index: 1;
+}
+
+.dropdownList:hover .dropdownList-one,
+#link1:hover>.dropdownList-two {
+    z-index: 1;
+    display: block;
+}
+
+.dropdownList-one .dItem {
+    color: black;
+    padding: 4px 16px;
+    display: block;
+    text-align: left;
+    width: 100%;
+}
+
+.dropdownList-one .dItem:hover,
+.dropdownList-two a:hover {
+    background-color: #5F9EA0;
+}
+
+.navbarItimes a {
+    display: block;
+    padding: 18px 15px;
+}
+
+.imgUser img {
+    padding: 0px;
+    margin: 0;
+    width: 35px;
+    height: 35px;
+}
+
+.imgUser {
+    padding: 10px;
+    margin: 0px;
+}
+
+.navbarItimes {
+    color: #FFFFFF;
+    border-radius: 2px;
+    font-size: 13px;
+    margin-left: 0px;
+}
+
+.btnDeconnecter {
+    float: right;
+    border: none;
+    padding: 15px;
+    background: #1e871e;
+    border-radius: 5px;
+    color: white;
+}
+
+.btnDeconnecter:hover {
+    background: #006400;
+}
+
+.separ {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+#wrap {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -80px;
+    padding: 20px 0 80px
+}
+
+.card,
+.navbar-light {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.login,
+.password {
+    text-align: center;
+    padding: 20px
+}
+
+#footer {
+    height: 60px;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    padding-top: 10px;
+    overflow: hidden;
+    margin-top: 246px;
+}
+
+.avatar {
+    margin-left: 5px;
+    margin-top: 1px;
+    padding: 0;
+    width: 39px;
+    height: 39px;
+}
+
+.name {
+    color: #FFFFFF;
+    margin: 9px 12px;
+}
+
+.separateur {
+    margin: 10px;
+    float: right;
+}
+
+.loading {
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+
+/* Transparent Overlay */
+
+.loading:before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+
+/* :not(:required) hides these rules from IE9 and below */
+
+.loading:not(:required) {
+    /* hide "loading..." text */
+    font: 0/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
+}
+
+.loading:not(:required):after {
+    content: '';
+    display: block;
+    font-size: 10px;
+    width: 1em;
+    height: 1em;
+    margin-top: -0.5em;
+    -webkit-animation: spinner 1500ms infinite linear;
+    -moz-animation: spinner 1500ms infinite linear;
+    -ms-animation: spinner 1500ms infinite linear;
+    -o-animation: spinner 1500ms infinite linear;
+    animation: spinner 1500ms infinite linear;
+    border-radius: 0.5em;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0, rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+    box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) -1.5em 0 0 0, rgba(0, 0, 0, 0.75) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+}
+
+
+/* Animation */
+
+@-webkit-keyframes spinner {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes spinner {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@-o-keyframes spinner {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spinner {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.scrollbar {
+    overflow-y: auto;
+    margin-bottom: 25px;
+}
+
+.CostumScrolBar::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #F5F5F5;
+    border-radius: 30px;
+}
+
+.CostumScrolBar::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
+}
+
+.CostumScrolBar::-webkit-scrollbar-thumb {
+    border-radius: 30px;
+    background-color: #1e871e;
+}
