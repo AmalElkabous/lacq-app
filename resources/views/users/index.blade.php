@@ -46,10 +46,20 @@
                     <label for="email" >{{ __('E-Mail Address') }}</label>
                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
                 </div>
-                <div class="form-row">
+                <div class="form-group input-group-sm">
+                    <label for="Role">{{ __('Role') }}</label>
+                        <select id="user_role" type="text" class="form-control @error('user_role') is-invalid @enderror" name="user_role" value="{{ old('user_role') }}" required autocomplete="user_role" autofocus>
+                            <option value="">select ..</option>
+                            <option value="1">administrateur</option>
+                            <option value="2">responsable</option>
+                            <option value="3">cordinateur</option>
+                            <option value="4">receptionniste</option>
+                        </select>
+                </div>
+                <div class="form-row alert alert-danger">
                     <div class="form-group input-group-sm col-md-6">
                         <label for="password" >{{ __('Password') }}</label>
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password">
                         @error('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -58,25 +68,8 @@
                     </div>
                     <div class="form-group input-group-sm col-md-6">
                         <label for="password-confirm">{{ __('Confirm Password') }}</label>
-                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation"  autocomplete="new-password">
                     </div>
-                </div>
-
-                
-                <div class="form-group input-group-sm">
-                    <label for="name">{{ __('Name') }}</label>
-                        <select id="user_role" type="text" class="form-control @error('user_role') is-invalid @enderror" name="user_role" value="{{ old('user_role') }}" required autocomplete="user_role" autofocus>
-                            <option value="">select ..</option>
-                            <option value="1">administrateur</option>
-                            <option value="2">responsable</option>
-                            <option value="3">cordinateur</option>
-                            <option value="4">receptionniste</option>
-                        </select>
-                    @error('user_role')
-                        <span class="invalid-fe edback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
                 </div>
           </div>
           <div class="modal-footer">
@@ -91,6 +84,14 @@
 <div class="container">
     @if($message=Session::get('success'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>{{ $message}}</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    @endif
+    @if($message=Session::get('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
       <strong>{{ $message}}</strong>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>

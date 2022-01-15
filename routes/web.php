@@ -27,6 +27,10 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 Route::group(['middleware' => ['auth']], function() {
     //
+    Route::post('/users/update', [userController::class,'update']);
+    Route::get('/users/edit', function(){
+        return view("users/edit");
+    });
     Route::group(['middleware' => ['is_admin']], function() {
         Route::resource('/users',userController::class);
     });

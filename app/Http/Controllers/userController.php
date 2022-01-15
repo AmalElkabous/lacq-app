@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -95,14 +96,42 @@ class userController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function passwordValidation($oldPassword = null ,$password,$confirmPassword){
+        if($oldPassword != null){
+            if(!Hash::check($oldPassword, Auth::user()->password)){
+                return array("valid" => false,"msg" => "Error password incorect ");
+            }
+        }
+        if(strlen($password) < 8){
+            return array("valid" => false,"msg" => "Error password length < 8 ");
+        }
+        if($password != $confirmPassword){
+            return array("valid" => false,"msg" => "Error password confermation");
+        }
+        return array("valid" => true,"msg" => "");
+    }
+    public function update(Request $request, $id = null)
     {
         //
+        if(!empty($request->input("oldPassword"))){
+            $passwordValidation = self::passwordValidation($request->input("oldPassword"),$request->input("password"),$request->input("password_confirmation"));
+            if($passwordValidation["valid"] == false)
+            return redirect()->back()->with('error',$passwordValidation["msg"]);
+        }
+        if(!empty($request->input("password"))){
+            $passwordValidation = self::passwordValidation(null,$request->input("password"),$request->input("password_confirmation"));
+            if($passwordValidation["valid"] == false)
+            return redirect()->back()->with('error',$passwordValidation["msg"]);
+        }
+        
+        ($id == null) ? $id = Auth::user()->id : $id = $id;
         $user = User::find($id);
         $user->name = $request->input("name");
         $user->last_name = $request->input("last_name");
         $user->email = $request->input("email");
-        $user->role_id = $request->input("user_role");
+        if(Auth::user()->id == $id) $user->role_id = Auth::user()->role_id;
+        else $user->role_id = $request->input("user_role");
+        
         $user->password = Hash::make($request->input("password"));        
         if($request->hasFile('uAvatar')){
             $data=$request->input('uAvatar');

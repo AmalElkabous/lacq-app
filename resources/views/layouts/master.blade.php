@@ -27,9 +27,9 @@
 
 <div class="navbarList">
   <div class='navbarItimes'>
-    <!---<img  src="{{ asset('img/LOGO-EV_FR.png') }}" style="float:left;width: 90px;margin-left:20px;">--->
+    <img  src="{{ asset('img/LOGO-EV_FR.png') }}" style="float:left;width: 90px;margin-left:20px;">
     <a class="dropbtn ml-5 mr-2" href="{{ url("/") }}" style="border-radius: 3px;" >Accueil</a>
-    @if(Auth::user()->rol_id == 1)
+    @if(Auth::user()->role_id == 1)
       <a class="dropbtn" href="{{ url("/users") }}" style="border-radius: 3px; ">Utilisateurs</a>
     @endif
     <a class="dropbtn" href="{{ url("/clients") }}" style="border-radius: 3px; ">Clients</a>
@@ -48,9 +48,9 @@
 <a  style=" color: #f1f3ce;padding:16px;font-size: 14px;" class="text-uppercase"> {{ Auth::user()->name }} {{ Auth::user()->last_name }}</a>
 <div class="dropdownList" >
   <div class='userInfoAvatar' >
-    <a href="UserInfo.php" class="imgUser " ><img style="border-radius:50%" src="{{ asset('img/user.png') }}"></a>
+    <a  class="imgUser " ><img style="border-radius:50%" src="{{ asset('img/'.Auth::user()->avatar) }}"></a>
     <div class="dropdownList-one"  style=" right: 0px; ">
-      <a class="dItem" href="UserInfo.php">Mon compte</a>
+      <a class="dItem" href="{{url('users/edit')}}">Mon compte</a>
       <a style="color:Black;"  class="dItem" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
       <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
         @csrf
