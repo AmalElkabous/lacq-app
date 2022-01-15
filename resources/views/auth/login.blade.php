@@ -1,8 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+
+.child {
+  /*background-color: red;*/
+  /* Center vertically and horizontally */
+  width: 70%;
+  position: absolute;
+  transform: translate(-50%, -50%); 
+  top: 40%;
+  left: 50%;
+  /*margin: -25px 0 0 -25px; /* Apply negative top and left margins to truly center the element */
+}
+</style>
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center child">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
@@ -52,11 +65,10 @@
                         </div>
 
                         <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
+                            <div class="col-md-8 offset-md-5">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
-
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}

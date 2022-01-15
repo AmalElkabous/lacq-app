@@ -24,7 +24,8 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
+Auth::routes(['register' => false, 'password.request' => false, 'reset' => false]);
+
 Route::group(['middleware' => ['auth']], function() {
     //
     Route::post('/users/update', [userController::class,'update']);
