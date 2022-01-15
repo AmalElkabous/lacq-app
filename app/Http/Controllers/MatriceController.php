@@ -14,7 +14,7 @@ class MatriceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public static function index()
     {
         //
         $listMatrice = Matrice::paginate(8);
@@ -112,5 +112,14 @@ class MatriceController extends Controller
         $matrice = Matrice::find($id);
         $matrice->delete();
         return redirect()->back()->with('success','Matrice supprimer avec success');
+    }
+    public static function search(Request $request){
+        $buffer = $request->input("buffer");
+        if(empty($buffer)) return self::index();
+        $statu = "En cours";
+        $listMatrice = Matrice::where("code", 'LIKE', '%' . $buffer . '%')
+        ->orWhere("name", 'LIKE', '%' . $buffer . '%')
+        ->get();
+        return view("matrices.index",["listMatrice" => $listMatrice]);
     }
 }

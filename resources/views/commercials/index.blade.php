@@ -46,6 +46,7 @@
     @endif
     <div class="card" style="background-color: rgb(255, 255, 255)">
         <div class="card-header">{{ __('List des Commercial') }}
+            <input id="searchInput" type="text" class="ml-3 d-inline  form-control form-control-sm col-2">
             <button class="btn btn-success btn-sm float-right" onclick="addCommercialBlade()">Ajouter un Commercial</button> 
         </div>
             <div class="card-body">
@@ -53,6 +54,7 @@
                     <table class="table table-striped table-sm ">
                         <thead class="thead-light">
                             <tr>
+                                <th class="text-center">id</th>
                                 <th class="text-center">Nom</th>
                                 <th class="text-center">Zone</th>
                                 @if(Auth::user()->role_id <= 2)
@@ -63,6 +65,7 @@
                         <tbody>
                         @foreach ($listCommercials as $commercial)
                             <tr>
+                                <td class="text-center">{{ $commercial->id }}</td>
                                 <td class="text-center">{{ $commercial->name }}</td>
                                 <td class="text-center"><span class="badge badge-success">{{ $commercial->zone }}</span></td>
                                 @if(Auth::user()->role_id <= 2)
@@ -79,13 +82,16 @@
                         </tbody>
                     </table>
                 </div>
+                @if($listCommercials instanceof \Illuminate\Pagination\LengthAwarePaginator)
+                    <div class="d-flex justify-content-center mt-2">
+                        {!! $listCommercials->links("pagination::bootstrap-4") !!}
+                    </div>
+                @endif
             </div>
         </div>
     </div>
 
-<div class="d-flex justify-content-center mt-2">
-    {!! $listCommercials->links("pagination::bootstrap-4") !!}
-</div><script>
+<script>
     $(document).ready(function () {
       $.ajaxSetup({
           headers: {
@@ -117,5 +123,20 @@
           })
           $('#modalEditCommercial').modal('show');
       }
+      document.getElementById("searchInput").addEventListener("keyup", e => {
+        $('table').preloader({text:'Loading'})
+        $.ajax({
+            url: "{{ url('/commercials/search')}}",
+            type:"POST",
+            data:{
+                "_token": "{{ csrf_token() }}",
+                buffer : $("#searchInput").val(),
+            },
+            success:function(response){
+                $(".card-body").html($(response).find( ".card-body" ).html())
+                $('table').preloader('remove')
+            },
+        });
+    })
   </script>
 @endsection

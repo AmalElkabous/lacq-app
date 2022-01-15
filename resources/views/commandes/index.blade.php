@@ -280,13 +280,15 @@
                         </tbody>
                     </table>
                 </div>
+                @if($listCommandes instanceof \Illuminate\Pagination\LengthAwarePaginator)
+                    <div class="d-flex justify-content-center mt-2">
+                        {!! $listCommandes->links("pagination::bootstrap-4") !!}  
+                    </div>
+                @endif
             </div>
         </div>
     </div>
 
-<div class="d-flex justify-content-center mt-2">
-    {!! $listCommandes->links("pagination::bootstrap-4") !!}
-</div>
 
 <script>
     document.getElementById("commantaireInpute").addEventListener("keyup", e => {
@@ -302,9 +304,8 @@
                 buffer : $("#searchInput").val(),
             },
             success:function(response){
-               
-                $("table").html($(response).find( "table" ).html())
-                $('.table-responsive').preloader('remove')
+                $(".card-body").html($(response).find( ".card-body" ).html())
+                $('table').preloader('remove')
             },
         });
     })

@@ -19,7 +19,7 @@ class CommandeController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    public function index()
+    public static function index()
     {
         //
         $listMatrices = Matrice::get();
@@ -182,13 +182,14 @@ class CommandeController extends Controller
         return  $code;
     }
     public static function search(Request $request){
+        $buffer = $request->input("buffer");
+        if(empty($buffer)) return self::index();
         $listMatrices = Matrice::get();
         $listCultures = Commande::select('culture')->distinct()->get();
         $listNatures  = Commande::select('nature')->distinct()->get();
         $listVarites  = Commande::select('varite')->distinct()->get();
         $listCommercials  = Commercial::get();
         $listClients  = Client::get();
-        $buffer = $request->input("buffer");
         $statu = "En cours";
         $listCommandes = Commande::join('clients', 'clients.id', '=', 'commandes.client_id')
         ->join('commercials', 'commercials.id', '=', 'commandes.commercial_id')->join('menus', 'menus.id', '=', 'commandes.menu_id')
@@ -199,7 +200,7 @@ class CommandeController extends Controller
         ->orWhere("commercials.name", 'LIKE', '%' . $buffer . '%')
         ->orWhere("clients.exploiteur", 'LIKE', '%' . $buffer . '%')
         ->orWhere("menus.name", 'LIKE', '%' . $buffer . '%')
-        ->paginate(8);
+        ->get();
         return view("commandes.index",["listCommandes" => $listCommandes ,"listMatrices" => $listMatrices,"listCultures" => $listCultures ,"listNatures" => $listNatures , "listVarites" => $listVarites, "listCommercials" => $listCommercials,"listClients" => $listClients,"state" => 0]);
 
     }

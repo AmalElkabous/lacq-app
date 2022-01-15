@@ -50,6 +50,7 @@
     @endif
     <div class="card" style="background-color: rgb(255, 255, 255)">
         <div class="card-header">{{ __('List des Matrice') }}
+            <input id="searchInput" type="text" class="ml-3 d-inline  form-control form-control-sm col-2">
             <button class="btn btn-success btn-sm float-right" onclick="addMatriceBlade()">Ajouter un Matrice</button> 
         </div>
             <div class="card-body">
@@ -57,6 +58,7 @@
                     <table class="table table-striped table-sm ">
                         <thead class="thead-light">
                             <tr>
+                                <th class="text-center">#</th>
                                 <th class="text-center">Nom</th>
                                 <th class="text-center">Code</th>
                                 <th class="text-center">delai</th>
@@ -68,6 +70,7 @@
                         <tbody>
                         @foreach ($listMatrice as $matrice)
                             <tr>
+                                <td class="text-center">{{ $matrice->id }}</td>
                                 <td class="text-center"><span class="badge badge-success">{{ $matrice->name }}</span></td>
                                 <td class="text-center">{{ $matrice->code }}</td>
                                 <td class="text-center">{{ $matrice->delai }}</td>
@@ -89,13 +92,15 @@
                         </tbody>
                     </table>
                 </div>
+                @if($listMatrice instanceof \Illuminate\Pagination\LengthAwarePaginator)
+                    <div class="d-flex justify-content-center mt-2">
+                        {!! $listMatrice->links("pagination::bootstrap-4") !!}
+                    </div>
+                @endif
             </div>
         </div>
     </div>
-
-<div class="d-flex justify-content-center mt-2">
-    {!! $listMatrice->links("pagination::bootstrap-4") !!}
-</div><script>
+<script>
     $(document).ready(function () {
       $.ajaxSetup({
           headers: {
@@ -103,6 +108,7 @@
           }
           });
       });
+
     
     //_method:PATCH
       function addMatriceBlade(){
@@ -128,5 +134,21 @@
           })
           $('#modalEditMatrice').modal('show');
       }
-  </script>
+      document.getElementById("searchInput").addEventListener("keyup", e => {
+        $('table').preloader({text:'Loading'})
+        $.ajax({
+            url: "{{ url('/matrices/search')}}",
+            type:"POST",
+            data:{
+                "_token": "{{ csrf_token() }}",
+                buffer : $("#searchInput").val(),
+            },
+            success:function(response){
+               
+                $(".card-body").html($(response).find( ".card-body" ).html())
+                $('table').preloader('remove')
+            },
+        });
+        })
+</script>
 @endsection

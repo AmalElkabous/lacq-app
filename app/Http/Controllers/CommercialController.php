@@ -14,10 +14,11 @@ class CommercialController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public static function index()
     {
         //
-        $listCommercials = Commercial::paginate(8);
+        $listCommercials = Commercial::orderBy('id', 'asc')
+        ->paginate(8);
         return view("commercials.index",["listCommercials" => $listCommercials]);
     }
 
@@ -100,5 +101,14 @@ class CommercialController extends Controller
         $commercial = Commercial::find($id);
         $commercial->delete();
         return redirect()->back()->with('success','Commercial supprimer avec success');
+    }
+    public static function search(Request $request){
+        $buffer = $request->input("buffer");
+        if(empty($buffer)) return self::index();
+        $listCommercials = Commercial::where("zone", 'LIKE', '%' . $buffer . '%')
+        ->orWhere("name", 'LIKE', '%' . $buffer . '%')
+        ->orderBy('id', 'asc')
+        ->get();
+        return view("commercials.index",["listCommercials" => $listCommercials]);
     }
 }

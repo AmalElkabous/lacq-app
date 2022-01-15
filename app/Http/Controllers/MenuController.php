@@ -14,13 +14,13 @@ class MenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public static function index()
     {
         //
         $listMatrice = Matrice::get();
         $listMenu = Menu::join('matrices', 'matrices.id', '=', 'menus.matrice_id')
         ->select("menus.*","matrices.name as matrice")
-        ->orderBy('menus.matrice_id', 'asc')
+        ->orderBy('menus.id', 'asc')
         ->paginate(8);
         return view("menus.index",["listMenu" => $listMenu,"listMatrice" => $listMatrice]);
     }
@@ -113,5 +113,18 @@ class MenuController extends Controller
         $menu = Menu::find($id);
         $menu->delete();
         return redirect()->back()->with('success','Menu supprimer avec success');
+    }
+    public static function search(Request $request){
+        $buffer = $request->input("buffer");
+        if(empty($buffer)) return self::index();
+        $listMatrice = Matrice::get();
+        $listMenu = Menu::join('matrices', 'matrices.id', '=', 'menus.matrice_id')
+        ->select("menus.*","matrices.name as matrice")
+        ->where("menus.name", 'LIKE', '%' . $buffer . '%')
+        ->orWhere("matrices.name", 'LIKE', '%' . $buffer . '%')
+        ->orWhere("menus.prix_ht", 'LIKE', '%' . $buffer . '%')
+        ->orderBy('menus.id', 'asc')
+        ->get();
+        return view("menus.index",["listMenu" => $listMenu,"listMatrice" => $listMatrice]);
     }
 }

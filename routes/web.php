@@ -42,6 +42,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/menus/{id}/edit', [MenuController::class,'edit'])->middleware('is_responsable');
     Route::PATCH('/menus/{id}', [MenuController::class,'update'])->middleware('is_responsable');
     Route::DELETE('/menus/{id}', [MenuController::class,'destroy'])->middleware('is_responsable');
+                                ////////////////////////////
+    Route::post('/menus/search/',[MenuController::class,'search']);
     //////////////////////////////////////////////////////////////////////////////
     Route::get('/matrices', [MatriceController::class,'index']);
     Route::get('/matrices/create', [MatriceController::class,'create']);
@@ -49,6 +51,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/matrices/{id}/edit', [MatriceController::class,'edit'])->middleware('is_responsable');
     Route::PATCH('/matrices/{id}', [MatriceController::class,'update'])->middleware('is_responsable');
     Route::DELETE('/matrices/{id}', [MatriceController::class,'destroy'])->middleware('is_responsable');
+                                ////////////////////////////
+    Route::post('/matrices/search/',[MatriceController::class,'search']);
     /////////////////////////////////////////////////////////////////////////////
     Route::DELETE('/commandes/{id}', [CommandeController::class,'destroy'])->middleware('is_admin');
     Route::resource('/commandes',CommandeController::class);
@@ -61,7 +65,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/commandes/{matrice_is}/menuOfMatrice',[CommandeController::class,'menuOfMatrice']);
     ////////////////////////////////////////////////////////////////////////////////
     Route::get('/dashboard', [DashboardController::class,'index']);
-    Route::DELETE('/commercials/{id}', [CommercialController::class,'destroy'])->middleware('is_responsable');;
+    Route::DELETE('/commercials/{id}', [CommercialController::class,'destroy'])->middleware('is_responsable');
+                                ////////////////////////////
+    Route::post('/commercials/search/',[CommercialController::class,'search']);
     Route::resource('/commercials',CommercialController::class);
     Route::resource('/clients',ClientController::class);
     ///////////////////////////////////////////////////////////////////////////////

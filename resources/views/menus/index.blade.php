@@ -57,6 +57,7 @@
     @endif
     <div class="card" style="background-color: rgb(255, 255, 255)">
         <div class="card-header">{{ __('List des Menu') }}
+            <input id="searchInput" type="text" class="ml-3 d-inline  form-control form-control-sm col-2">
             <button class="btn btn-success btn-sm float-right" onclick="addMenuBlade()">Ajouter un Menu</button> 
         </div>
             <div class="card-body">
@@ -64,6 +65,7 @@
                     <table class="table table-striped table-sm ">
                         <thead class="thead-light">
                             <tr>
+                                <th class="text-center">#</th>
                                 <th class="text-center">Matrice</th>
                                 <th class="text-center">Nom</th>
                                 <th class="text-center">Prix hor tax</th>
@@ -76,6 +78,7 @@
                         <tbody>
                         @foreach ($listMenu as $menu)
                             <tr>
+                                <td class="text-center">{{ $menu->id }}</td>
                                 <td class="text-center"><span class="badge badge-success">{{ $menu->matrice }}</span></td>
                                 <td class="text-center">{{ $menu->name }}</td>
                                 <td class="text-center">{{ $menu->prix_ht }}</td>
@@ -98,13 +101,15 @@
                         </tbody>
                     </table>
                 </div>
+                @if($listMenu instanceof \Illuminate\Pagination\LengthAwarePaginator)
+                    <div class="d-flex justify-content-center mt-2">
+                        {!! $listMenu->links("pagination::bootstrap-4") !!}
+                    </div>
+                @endif
             </div>
         </div>
     </div>
-
-<div class="d-flex justify-content-center mt-2">
-    {!! $listMenu->links("pagination::bootstrap-4") !!}
-</div><script>
+<script>
     $(document).ready(function () {
       $.ajaxSetup({
           headers: {
@@ -138,5 +143,21 @@
           })
           $('#modalEditMenu').modal('show');
       }
+      document.getElementById("searchInput").addEventListener("keyup", e => {
+        $('table').preloader({text:'Loading'})
+        $.ajax({
+            url: "{{ url('/menus/search')}}",
+            type:"POST",
+            data:{
+                "_token": "{{ csrf_token() }}",
+                buffer : $("#searchInput").val(),
+            },
+            success:function(response){
+               
+                $(".card-body").html($(response).find( ".card-body" ).html())
+                $('table').preloader('remove')
+            },
+        });
+        })
   </script>
 @endsection
