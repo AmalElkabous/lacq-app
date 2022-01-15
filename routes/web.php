@@ -52,6 +52,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::DELETE('/commandes/{id}', [CommandeController::class,'destroy'])->middleware('is_admin');
     Route::resource('/commandes',CommandeController::class);
                         //////////////////////////////////////////
+    Route::post('/commandes/search/',[CommandeController::class,'search']);
     Route::get('/commandes/commantaire/{commande_id}',[CommandeController::class,'getCommantaire']);
     Route::post('/commandes/reject',[CommandeController::class,'reject'])->middleware('is_responsable');
     Route::get('/commandes/search/{state}',[CommandeController::class,'getCommandesWhereState']);

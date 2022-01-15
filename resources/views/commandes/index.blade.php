@@ -197,6 +197,7 @@
                 <option value="2" {{($state == 2) ? "selected":""}}>Valid</option>
                 <option value="3" {{($state == 3) ? "selected":""}}>Rejete</option>
             </select>
+            <input id="searchInput" type="text" class="ml-3 d-inline  form-control form-control-sm col-2">
             <a class="btn btn-success btn-sm float-right d-inline " href="{{url("/commandes/create")}}">Ajouter une Commande</a> 
         </div>
             <div class="card-body">
@@ -290,6 +291,22 @@
 <script>
     document.getElementById("commantaireInpute").addEventListener("keyup", e => {
         $("#commantaireValidation").addClass("d-none");
+    })
+    document.getElementById("searchInput").addEventListener("keyup", e => {
+        $('.table-responsive').preloader({text:'Loading'})
+        $.ajax({
+            url: "{{ url('/commandes/search')}}",
+            type:"POST",
+            data:{
+                "_token": "{{ csrf_token() }}",
+                buffer : $("#searchInput").val(),
+            },
+            success:function(response){
+               
+                $("table").html($(response).find( "table" ).html())
+                $('.table-responsive').preloader('remove')
+            },
+        });
     })
 
     $(document).ready(function () {

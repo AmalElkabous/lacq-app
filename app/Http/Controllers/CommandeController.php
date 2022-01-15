@@ -181,6 +181,28 @@ class CommandeController extends Controller
         (!empty($lastCode)) ? $code = $lastCode["code"] + 1 : $code = $codeMatrice."001";
         return  $code;
     }
+    public static function search(Request $request){
+        $listMatrices = Matrice::get();
+        $listCultures = Commande::select('culture')->distinct()->get();
+        $listNatures  = Commande::select('nature')->distinct()->get();
+        $listVarites  = Commande::select('varite')->distinct()->get();
+        $listCommercials  = Commercial::get();
+        $listClients  = Client::get();
+        $buffer = $request->input("buffer");
+        $statu = "En cours";
+        $listCommandes = Commande::join('clients', 'clients.id', '=', 'commandes.client_id')
+        ->join('commercials', 'commercials.id', '=', 'commandes.commercial_id')->join('menus', 'menus.id', '=', 'commandes.menu_id')
+        ->select("commandes.*","menus.name as menu","clients.exploiteur as client","commercials.name as commercial")
+        ->where("commandes.id", 'LIKE', '%' . $buffer . '%')
+        ->orWhere("code_commande", 'LIKE', '%' . $buffer . '%')
+        ->orWhere("date_reception", 'LIKE', '%' . $buffer . '%')
+        ->orWhere("commercials.name", 'LIKE', '%' . $buffer . '%')
+        ->orWhere("clients.exploiteur", 'LIKE', '%' . $buffer . '%')
+        ->orWhere("menus.name", 'LIKE', '%' . $buffer . '%')
+        ->paginate(8);
+        return view("commandes.index",["listCommandes" => $listCommandes ,"listMatrices" => $listMatrices,"listCultures" => $listCultures ,"listNatures" => $listNatures , "listVarites" => $listVarites, "listCommercials" => $listCommercials,"listClients" => $listClients,"state" => 0]);
+
+    }
     public static function getCommandesWhereState($state)
     {
         $listMatrices = Matrice::get();
@@ -224,7 +246,7 @@ class CommandeController extends Controller
             
         }
     }
-    public function reject(Request $request,){
+    public function reject(Request $request){
         $validated = $request->validate([
             'commantaire' => 'required|min:1',
         ]);
