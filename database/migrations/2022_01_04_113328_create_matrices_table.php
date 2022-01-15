@@ -25,31 +25,64 @@ class CreateMatricesTable extends Migration
             array(
                 array(
                     'id' => '1',
-                    'name' => "SOL",
+                    'name' => "EAU",
                     "code" => 100,
-                    "delai" => 5,
+                    "delai" => 4,
                     
                 ),
                 array(
                     'id' => '2',
-                    'name' => "EAU",
-                    "code" => 101,
-                    "delai" => 2,
+                    'name' => "EAU POTABLE",
+                    "code" => 102,
+                    "delai" => 4,
                     
                 ),
                 array(
                     'id' => '3',
-                    'name' => "DIAG",
-                    "code" => 102,
-                    "delai" => 6,
+                    'name' => "SOL",
+                    "code" => 103,
+                    "delai" => 7,
                     
                 ),
                 array(
                     'id' => '4',
-                    'name' => "POTA",
-                    "code" => 103,
-                    "delai" => 4,
+                    'name' => "VEG",
+                    "code" => 106,
+                    "delai" => 4, 
+                ),
+                array(
+                    'id' => '5',
+                    'name' => "AMEO",
+                    "code" => 109,
+                    "delai" => 7,
                     
+                ),
+                array(
+                    'id' => '6',
+                    'name' => "MIC",
+                    "code" => 110,
+                    "delai" => 7,
+                    
+                ),
+                array(
+                    'id' => '7',
+                    'name' => "SPV",
+                    "code" => 111,
+                    "delai" => 7,
+                    
+                ),
+                array(
+                    'id' => '8',
+                    'name' => "DIAG",
+                    "code" => 112,
+                    "delai" => 7,
+                    
+                ),
+                array(
+                    'id' => '9',
+                    'name' => "EAP",
+                    "code" => 113,
+                    "delai" => 5,
                 )
             )
         );
