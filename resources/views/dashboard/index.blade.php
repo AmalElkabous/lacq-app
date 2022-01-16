@@ -34,7 +34,7 @@
             <select id="stateFilter" class="ml-3 d-none  form-control col-2">
                 
             </select>
-            <a class="btn btn-success btn-sm float-right d-inline " href="{{url("/analyse")}}">Analyse</a> 
+            <a class="btn btn-success btn-sm float-right d-inline " href="{{url("/analyses")}}">Analyse</a> 
         </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -67,8 +67,6 @@
                         @if($commande->tempLabo > 2)
                             <tr class="table-success">
                         @endif
-                        
-                            <tr class="table-success">
                                 <td class="text-center text-nowrap">{{ $commande->id }}</td>
                                 <td class="text-center"><span class="badge badge-success">{{ $commande->code_commande }}</span></td>
                                 <td class="text-center text-nowrap"><span class="badge badge-primary">{{ $commande->matrice }}</span></td>

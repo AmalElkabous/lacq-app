@@ -8,6 +8,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\CommercialController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\AnalyseController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -73,9 +74,15 @@ Route::group(['middleware' => ['auth']], function() {
     ///////////////////////////////////////////////////////////////////////////////
 
 
+
+
+
+
+
+
+    Route::get('/analyses', [AnalyseController::class,'index']);
     Route::get('/', function () {
         return view('layouts.master');
     });
-
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });

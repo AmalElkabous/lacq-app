@@ -10,6 +10,7 @@ use App\Models\Menu;
 use App\Models\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CommandeController extends Controller
 {
@@ -222,7 +223,8 @@ class CommandeController extends Controller
         }
         if($statu != "")
         $listCommandes  = Commande::join('clients', 'clients.id', '=', 'commandes.client_id')
-        ->join('commercials', 'commercials.id', '=', 'commandes.commercial_id')->join('menus', 'menus.id', '=', 'commandes.menu_id')
+        ->join('commercials', 'commercials.id', '=', 'commandes.commercial_id')
+        ->join('menus', 'menus.id', '=', 'commandes.menu_id')
         ->select("commandes.*","menus.name as menu","clients.exploiteur as client","commercials.name as commercial")
         ->where("state","=",$statu)
         ->paginate(8);
@@ -241,7 +243,23 @@ class CommandeController extends Controller
             $commande->code_commande = (empty($commande->code_commande)) ? self::genirationCodeCommande($id) : $commande->code_commande;
             $commande->state = "Valid";
             $commande->save();
-            return redirect()->back()->with('success','Commande valider avec success'); 
+
+            $commandeMatrice = Commande::join('menus', 'menus.id', '=', 'commandes.menu_id')
+            ->join('matrices', 'matrices.id', '=', 'menus.matrice_id')
+            ->select("matrices.name as matrice")
+            ->where("commandes.id","=",$id)
+            ->first()["matrice"];
+            $analyse_table = $commandeMatrice;
+            $analyse_table = strtolower($analyse_table); 
+            $analyse_table = str_replace(' ', '_', $analyse_table); 
+            $analyse_table = "analyse_".$analyse_table;
+
+            DB::table($analyse_table)->insert([
+                'commande_id' => $id,
+                'lieu_id' => 1
+            ]);
+
+            return redirect()->back()->with('success','Commande valider avec success '); 
         }catch(\Exception $e){
             echo $e->getMessage();
             //return redirect()->back()->with('error','Commande n\'pas valider !');
