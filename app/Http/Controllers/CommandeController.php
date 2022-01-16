@@ -33,6 +33,7 @@ class CommandeController extends Controller
         ->join('menus', 'menus.id', '=', 'commandes.menu_id')
         ->select("commandes.*","menus.name as menu","clients.exploiteur as client","commercials.name as commercial")
         ->paginate(8);
+        $listCommandes->setPath('/commandes');
         return view("commandes.index",["listCommandes" => $listCommandes,"listMatrices" => $listMatrices,"listCultures" => $listCultures ,"listNatures" => $listNatures , "listVarites" => $listVarites, "listCommercials" => $listCommercials,"listClients" => $listClients,"state" => 0]);
     }
 

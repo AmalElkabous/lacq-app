@@ -19,6 +19,8 @@ class CommercialController extends Controller
         //
         $listCommercials = Commercial::orderBy('id', 'asc')
         ->paginate(8);
+        //dd($listCommercials);
+        $listCommercials->setPath('/commercials');
         return view("commercials.index",["listCommercials" => $listCommercials]);
     }
 

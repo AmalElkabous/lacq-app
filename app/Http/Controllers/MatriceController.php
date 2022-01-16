@@ -18,6 +18,7 @@ class MatriceController extends Controller
     {
         //
         $listMatrice = Matrice::paginate(8);
+        $listMatrice->setPath('/matrices');
         return view("matrices.index",["listMatrice" => $listMatrice]);
     }
 
