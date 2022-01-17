@@ -79,7 +79,8 @@ Route::group(['middleware' => ['auth']], function() {
 
 
 
-
+    Route::PATCH('/analyses', [AnalyseController::class,'update']);
+    Route::post('/analyses', [AnalyseController::class,'index']);
     Route::get('/analyses', [AnalyseController::class,'index']);
     Route::get('/', function () {
         return view('layouts.master');

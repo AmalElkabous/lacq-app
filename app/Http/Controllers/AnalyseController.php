@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+use App\Models\Matrice;
 use Illuminate\Http\Request;
+use App\Models\Lieu;
 
 class AnalyseController extends Controller
 {
@@ -12,16 +14,32 @@ class AnalyseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $table = "analyse_eau_potable";
-        $columns =  Schema::getColumnListing($table);
-        $listData = DB::table($table)
-        ->join("commandes","commandes.id","=", $table.".commande_id")
-        ->join("lieus","lieus.id","=", $table.".lieu_id")
-        ->select($table.".*","commandes.code_commande","lieus.lieu as lieu")
+        
+        $analyse_table = (empty($request["matrice"])) ? "analyse_eau_potable" : $request["matrice"];
+        $selectedMatrice = 2;
+        if($analyse_table != 'analyse_eau_potable'){
+            $selectedMatrice = $request["matrice"];
+            $analyse_table = Matrice::find($analyse_table)['name'];
+            $analyse_table = strtolower($analyse_table); 
+            $analyse_table = str_replace(' ', '_', $analyse_table); 
+            $analyse_table = "analyse_".$analyse_table;
+            //echo  $analyse_table;
+            //dd($request);
+        }
+        
+        $listLieus = Lieu::get();
+        $listMatrices = Matrice::get();
+        $columns =  Schema::getColumnListing($analyse_table);
+        $listData = DB::table($analyse_table)
+        ->join("commandes","commandes.id","=", $analyse_table.".commande_id")
+        ->join("lieus","lieus.id","=", $analyse_table.".lieu_id")
+        ->select($analyse_table.".*","commandes.code_commande","lieus.lieu as lieu")
+        ->orderBy($analyse_table.".id","asc")
         ->paginate(8);
-        return view("analyses.index",["columns" => $columns,"listData" => $listData]);
+        return view("analyses.index",["columns" => $columns,"listData" => $listData,"listLieus" =>$listLieus,"listMatrices" => $listMatrices,"selectedMatrice" => $selectedMatrice]);
+
     }
 
     /**
@@ -74,9 +92,33 @@ class AnalyseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $table = $request["selectedMatrice"];
+        $table = Matrice::find($table)['name'];
+        $table = strtolower($table); 
+        $table = str_replace(' ', '_', $table); 
+        $table = "analyse_".$table;
+        $columns =  Schema::getColumnListing($table);
+        $count = count($columns);
+        ///dd($request);
+        for($i = 0 ; $i<$count;$i++){
+            $column = $columns[$i];
+            if($column == "deleted_at" || $column == "id" || $column == "created_at" || $column == "updated_at" || $column == "commande_id" ){
+                unset($columns[$i]);
+            }
+        }        
+        for($i = 0 ; $i<count($request["id"]);$i++){
+            $analyseData = [];
+            foreach ($columns as $column){
+                array_push($analyseData,[$column => $request[$column][$i]]);
+            }
+            $analyseData = call_user_func_array('array_merge', $analyseData);
+            $analyse = DB::table($table)
+            ->where('id', '=', $request["id"][$i])
+            ->update($analyseData);
+        }
+        return redirect()->back()->with('success','mise a jour des analyse fait  avec success');
     }
 
     /**
