@@ -8,6 +8,7 @@ use Notification;
 use App\Notifications\SendEmailNotification;
 
 
+
 class HomeController extends Controller
 {
     /**
@@ -39,7 +40,8 @@ class HomeController extends Controller
             "actionurl" => "/",
             "lastline" => "last line",
         ];
-        Notification::send("mohammed.el-abidi@elephant-vert.com",new SendEmailNotification($details));
+        Notification::route('mail', "mohammed.el-abidi@elephant-vert.com") ->notify(new SendEmailNotification($details));
+        //Notification::send(array(=> 'med'),new SendEmailNotification($details));
         dd("done");
     }
 }
