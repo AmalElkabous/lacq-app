@@ -78,7 +78,7 @@ Route::group(['middleware' => ['auth']], function() {
 
 
 
-
+    Route::get('/send', [HomeController::class,'send']);
     Route::PATCH('/analyses', [AnalyseController::class,'update']);
     Route::post('/analyses', [AnalyseController::class,'index']);
     Route::get('/analyses', [AnalyseController::class,'index']);

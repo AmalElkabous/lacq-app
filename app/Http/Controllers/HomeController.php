@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Model\User;
+use App\Notifications\SendEmailNotification;
+use Notification;
 
 class HomeController extends Controller
 {
@@ -24,5 +27,11 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+    public function send()
+    {
+        $user = User::find(1);
+        Notification::send($user,new SendEmailNotification());
+        dd("done");
     }
 }
