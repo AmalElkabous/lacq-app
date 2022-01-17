@@ -37,6 +37,7 @@ class HomeController extends Controller
             "greeting" => "hi i m mohammed from laravel",
             "body" => "body line",
             "actiontext" => "clik her",
+            "actionurl" => "www.facebook.com",
             "lastline" => "last line",
         ];
         Notification::route('mail', "mohammed.el-abidi@elephant-vert.com") ->notify(new SendEmailNotification($details));
