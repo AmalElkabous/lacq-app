@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Notifications\SendEmailNotification;
 use Notification;
+use App\Notifications\SendEmailNotification;
+
 
 class HomeController extends Controller
 {
@@ -30,8 +31,15 @@ class HomeController extends Controller
     }
     public function send()
     {
-        $user = User::find(1);
-        Notification::send($user,new SendEmailNotification());
+        $user = User::find(2);
+        $details=[
+            "greeting" => "hi i m mohammed from laravel",
+            "body" => "body line",
+            "actiontext" => "clik her",
+            "actionurl" => "/",
+            "lastline" => "last line",
+        ];
+        Notification::send("mohammed.el-abidi@elephant-vert.com",new SendEmailNotification($details));
         dd("done");
     }
 }
