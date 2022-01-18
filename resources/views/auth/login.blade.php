@@ -14,6 +14,11 @@
   /*margin: -25px 0 0 -25px; /* Apply negative top and left margins to truly center the element */
 }
 </style>
+@if ($errors->any())
+    @foreach ($errors->all() as $error)
+        <div>{{$error}}</div>
+    @endforeach
+@endif
 <div class="container">
     <div class="row justify-content-center child">
         <div class="col-md-8">

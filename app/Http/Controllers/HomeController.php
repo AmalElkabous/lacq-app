@@ -40,8 +40,7 @@ class HomeController extends Controller
             "actionurl" => "www.facebook.com",
             "lastline" => "last line",
         ];
-        Notification::route('mail', "mohammed.el-abidi@elephant-vert.com") ->notify(new SendEmailNotification($details));
+        Notification::route('mail', "mohammed.el-abidi@elephant-vert.com")->notify(new SendEmailNotification($details));
         //Notification::send(array(=> 'med'),new SendEmailNotification($details));
-        dd("done");
     }
 }

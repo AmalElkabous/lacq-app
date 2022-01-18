@@ -42,6 +42,7 @@ class SendEmailNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    ->subject('Commande '.$this->details['codeCommande']." valide par ".$this->details['actioneur'])
                     ->greeting($this->details['greeting'])
                     ->line($this->details['body'])
                     ->action($this->details['actiontext'], $this->details['actionurl'])

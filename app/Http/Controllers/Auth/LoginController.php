@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -33,6 +33,14 @@ class LoginController extends Controller
      *
      * @return void
      */
+        //added to overwrite the login credentials
+        public function authenticated()
+        {
+            if (!Auth::user()->is_active) {
+                Auth::logout();
+                return redirect('login')->withErrors(['Your account is inactive']);
+            }
+        }
     public function __construct()
     {
         $this->middleware('guest')->except('logout');

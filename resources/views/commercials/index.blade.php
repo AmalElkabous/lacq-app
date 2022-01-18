@@ -13,7 +13,6 @@
           </div>
           <div class="modal-body">
             @csrf
-                
             <div class="form-row">
                 <div class="form-group input-group-sm col-md-4">
                     <label for="name">{{ __('Nom') }}</label>
@@ -24,10 +23,14 @@
                     <label for="zone">{{ __('Zone') }}</label>
                     <input id="zone" type="text" class="form-control @error('zone') is-invalid @enderror" name="zone" value="{{ old('zone') }}" required autocomplete="zone" autofocus>
                 </div>
+                <div class="form-group input-group-sm col-md-4">
+                    <label for="email">{{ __('Email') }}</label>
+                    <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email " value="{{ old('email') }}" required autocomplete="email" autofocus>
+                </div>
             </div> 
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary btn-sm">Save changes</button>
+                <button id="btnSave" type="button" class="btn btn-primary btn-sm">Save changes</button>
             </div>
         </div>
       </div>
@@ -35,7 +38,6 @@
     </div>
   </form>
   <!------------------------------------------------------------------------->
-
     @if($message=Session::get('success'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
       <strong>{{ $message}}</strong>
@@ -54,9 +56,10 @@
                     <table class="table table-striped table-sm ">
                         <thead class="thead-light">
                             <tr>
-                                <th class="text-center">id</th>
+                                <th class="text-center">#</th>
                                 <th class="text-center">Nom</th>
                                 <th class="text-center">Zone</th>
+                                <th class="text-center">Email</th>
                                 @if(Auth::user()->role_id <= 2)
                                     <th class="text-right pr-4">Action</th>
                                 @endif
@@ -65,11 +68,16 @@
                         <tbody>
                         @foreach ($listCommercials as $commercial)
                             <tr>
-                                <td class="text-center">{{ $commercial->id }}</td>
-                                <td class="text-center">{{ $commercial->name }}</td>
-                                <td class="text-center"><span class="badge badge-success">{{ $commercial->zone }}</span></td>
+                                <td id='id' class="text-center">{{ $commercial->id }}</td>
+                                <td id='name' class="text-center">{{ $commercial->name }}</td>
+                                <td id='zone' class="text-center"><span class="badge badge-success">{{ $commercial->zone }}</span></td>
+                                <td id='email' class="text-center">{{ $commercial->email }}</td>
+
                                 @if(Auth::user()->role_id <= 2)
                                     <td class="text-right">
+                                        <div class="d-inline p-2"><!------onclick="openEditCommercialModal({{ $commercial->id }})"--->
+                                            <button class="btn btn-primary btn-sm editBtn" ><i class="fa fa-edit"></i></button>
+                                        </div>
                                         <form class="d-inline p-2" method="POST" action="{{ url('/commercials/'.$commercial->id) }}">
                                             @csrf
                                             {{@method_field("DELETE")}}
@@ -93,34 +101,52 @@
 
 <script>
     $(document).ready(function () {
+      btnSaveRole = null;
+      idCommercial = null;
       $.ajaxSetup({
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
           });
       });
-    
+      $(".editBtn").click(function(){
+        idCommercial = $(this).parent().parent().parent().children("#id").html();
+        name = $(this).parent().parent().parent().children("#name").html();
+        zone = $(this).parent().parent().parent().children("#zone").children("span").html();
+        email = $(this).parent().parent().parent().children("#email").html();
+        $("#modalModal")[0].reset();
+        $("#ModalTitle").text("Modifier");
+        $('#modalModal').append("<input id='method' type='hidden' name='_method' value='PATCH'/>");
+        $('#modalModal').attr('action', '{{ url("/commercials")}}'+"/"+idCommercial);
+        $("#name").val(name);
+        $("#zone").val(zone);
+        $("#email").val(email);
+        btnSaveRole = "PATCH";
+        $('#modalEditCommercial').modal('show');
+      });
+      $("#btnSave").click(function(){
+        (btnSaveRole == "PATCH") ? url = "/commercials/"+idCommercial : url = "/commercials"; 
+        $('table').preloader({text:'Loading'})
+        data = $("#modalModal").serialize();
+        $.ajax({
+            url: url,
+            type:"POST",
+            data:data,
+            success:function(response){
+                $(".card-body").html($(response).find( ".card-body" ).html())
+                $('table').preloader('remove')
+                
+            },
+        });
+        console.log(btnSaveRole);
+      })
     //_method:PATCH
       function addCommercialBlade(){
-          //$("#method").remove();
-          //$('#modalModal').attr('action', '{{ url("/commercials")}}');
+        btnSaveRole = "ADD"
+          $("#method").remove();
+          $('#modalModal').attr('action', '{{ url("/commercials")}}');
           $("#modalModal")[0].reset();
           $("#ModalTitle").text("Ajouter un commercial");
-          $('#modalEditCommercial').modal('show');
-      }
-      function openEditCommercialModal(id){
-          $("#modalModal")[0].reset();
-          $("#ModalTitle").text("Modifier");
-          $('#modalModal').append("<input id='method' type='hidden' name='_method' value='PATCH'/>"); 
-          //$("#password-confirm").hide();
-          var user_id = id;
-          $.get('/commercials/' + user_id +'/edit', function (data) {
-              data = JSON.parse(data);
-              $('#modalModal').attr('action', '{{ url("/commercials")}}'+"/"+data.id);
-              $("#name").val(data.name);
-              $("#code").val(data.code);
-              $("#delai").val(data.delai);
-          })
           $('#modalEditCommercial').modal('show');
       }
       document.getElementById("searchInput").addEventListener("keyup", e => {

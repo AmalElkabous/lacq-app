@@ -16,7 +16,7 @@
             <div class="form-row">
                 <div class="form-group input-group-sm col-md-3">
                     <label for="matrice">{{ __('matrice') }}</label>
-                    <select id="matrice" class="form-control @error('matrice') is-invalid @enderror" name="matrice" value="{{ old('matrice') }}" required autocomplete="matrice" autofocus>
+                    <select id="matrice" class="form-control " name="matrice" required autocomplete="matrice" autofocus>
                     @foreach ($listMatrice as $matrice)
                     <option value="{{ $matrice->id}}" >{{ $matrice->name}}</option>
                     @endforeach
@@ -78,15 +78,15 @@
                         <tbody>
                         @foreach ($listMenu as $menu)
                             <tr>
-                                <td class="text-center">{{ $menu->id }}</td>
-                                <td class="text-center"><span class="badge badge-success">{{ $menu->matrice }}</span></td>
-                                <td class="text-center">{{ $menu->name }}</td>
-                                <td class="text-center">{{ $menu->prix_ht }}</td>
-                                <td class="text-center">{{ $menu->prix_supv }}</td>
+                                <td class="text-center" id="id" >{{ $menu->id }}</td>
+                                <td class="text-center" id="matrice" ><span class="badge badge-success">{{ $menu->matrice }}</span></td>
+                                <td class="text-center" id="name" >{{ $menu->name }}</td>
+                                <td class="text-center" id="prix_ht" >{{ $menu->prix_ht }}</td>
+                                <td class="text-center" id="prix_supv" >{{ $menu->prix_supv }}</td>
                                 @if(Auth::user()->role_id <= 2)
                                     <td class="text-right text-nowrap" >
                                         <div class="d-inline p-2">
-                                            <button class="btn btn-primary btn-sm " onclick="openEditMenuModal({{ $menu->id }})"><i class="fa fa-edit"></i></button>
+                                            <button class="btn btn-primary btn-sm editBtn" onclick="openEditMenuModal({{ $menu->id }})"><i class="fa fa-edit"></i></button>
                                         </div>
                                         <form class="d-inline p-2" method="POST" action="{{ url('/menus/'.$menu->id) }}">
                                             @csrf
@@ -119,6 +119,24 @@
       });
     
     //_method:PATCH
+    /*$(".editBtn").click(function(){
+        idMenu = $(this).parent().parent().parent().children("#id").html();
+        matrice = $(this).parent().parent().parent().children("#matrice").children("span").html();
+        name = $(this).parent().parent().parent().children("#name").html();
+        prix_ht = $(this).parent().parent().parent().children("#prix_ht").html();
+        prix_supv = $(this).parent().parent().parent().children("#prix_supv").html();
+        $("#modalModal")[0].reset();
+        $("#ModalTitle").text("Modifier");
+        $('#modalModal').append("<input id='method' type='hidden' name='_method' value='PATCH'/>");
+        $('#modalModal').attr('action', '{{ url("/menus")}}'+"/"+idMenu);
+        $("#matrice option:contains("+matrice+")").attr('selected', 'selected');
+
+        $("#name").val(name);
+        $("#prix_ht").val(prix_ht);
+        $("#prix_supv").val(prix_supv);        
+        btnSaveRole = "PATCH";
+        $('#modalEditMenu').modal('show');
+      });*/
       function addMenuBlade(){
           $("#method").remove();
           $("#modalModal")[0].reset();

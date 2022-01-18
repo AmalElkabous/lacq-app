@@ -48,6 +48,8 @@ class CommercialController extends Controller
         $commercial= new Commercial();
         $commercial->name = $request->input("name");
         $commercial->zone = $request->input("zone");
+        $commercial->email = $request->input("email");
+
         $commercial->save();
         return redirect()->back()->with('success','Commercial ajouter avec success');
 
@@ -72,11 +74,9 @@ class CommercialController extends Controller
      */
     public function edit($id)
     {
-        /*
+        
         $commercial = Commercial::find($id);
         echo json_encode($commercial);
-        exit();
-        */
     }
 
     /**
@@ -86,9 +86,16 @@ class CommercialController extends Controller
      * @param  \App\Models\Commercial  $commercial
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Commercial $commercial)
+    public function update(Request $request, $id)
     {
-        //
+        $request["name"] = Str::upper($request["name"]);
+        $request["zone"] = Str::upper($request["zone"]);
+        $commercial=  Commercial::find($id);
+        $commercial->name = $request->input("name");
+        $commercial->zone = $request->input("zone");
+        $commercial->email = $request->input("email");
+        $commercial->save();
+        return redirect()->back()->with('success','Commercial modifier avec success');
     }
 
     /**

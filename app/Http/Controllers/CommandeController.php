@@ -11,6 +11,9 @@ use App\Models\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use Notification;
+use App\Notifications\SendEmailNotification;
 
 class CommandeController extends Controller
 {
@@ -167,6 +170,25 @@ class CommandeController extends Controller
     {
         //
     }
+    public function notifCommandeValider($idCommande)
+    {
+        $CommandeDetaile = Commande::join('clients', 'clients.id', '=', 'commandes.client_id')
+        ->where("commandes.id","=",$idCommande)
+        ->first();
+        $user = User::find(2);
+        $body = "<tr><th>Actionneur : ";
+        $details=[
+            "codeCommande" => $CommandeDetaile->code_commande,
+            "actioneur" => Auth::user()->last_name." ".Auth::user()->name,
+            "greeting" => "commande ". $CommandeDetaile->code_commande ." récemment validée :",
+            "body" => "Actionneur : ".Auth::user()->last_name."</td> ".Auth::user()->name,
+            "actiontext" => "Go to Commandes",
+            "actionurl" => url("/commandes"),
+            "lastline" => "last line",
+        ];
+        Notification::route('mail', "mohammed.el-abidi@elephant-vert.com")->notify(new SendEmailNotification($details));
+        //Notification::send(array(=> 'med'),new SendEmailNotification($details));
+    }
 
     /////////////////////////////////////////////////////////
     public function genirationCodeCommande($id){
@@ -240,7 +262,8 @@ class CommandeController extends Controller
         
         try{
             $commande = Commande::find($id);
-            $commande->code_commande = (empty($commande->code_commande)) ? self::genirationCodeCommande($id) : $commande->code_commande;
+            $codeCommande = self::genirationCodeCommande($id);
+            $commande->code_commande = (empty($commande->code_commande)) ? $codeCommande : $commande->code_commande;
             $commande->state = "Valid";
             $commande->save();
 
@@ -258,6 +281,8 @@ class CommandeController extends Controller
                 'commande_id' => $id,
                 'lieu_id' => 1
             ]);
+            
+            self::notifCommandeValider($id);
 
             return redirect()->back()->with('success','Commande valider avec success '); 
         }catch(\Exception $e){
