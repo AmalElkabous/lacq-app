@@ -181,7 +181,7 @@ class CommandeController extends Controller
             "codeCommande" => $CommandeDetaile->code_commande,
             "actioneur" => Auth::user()->last_name." ".Auth::user()->name,
             "greeting" => "commande ". $CommandeDetaile->code_commande ." récemment validée :",
-            "body" => "Actionneur : ".Auth::user()->last_name."</td> ".Auth::user()->name,
+            "body" => "Actionneur : ".Auth::user()->last_name." ".Auth::user()->name,
             "actiontext" => "Go to Commandes",
             "actionurl" => url("/commandes"),
             "lastline" => "last line",
