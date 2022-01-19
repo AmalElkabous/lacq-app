@@ -24,7 +24,7 @@ class ActivityController extends Controller
     public function index(){
         $Activitys = Activity::paginate(8);
         //dd($Activitys);
-        return view("Activitys.index",["Activitys" => $Activitys]);
+        return view("activitys.index",["Activitys" => $Activitys]);
     }
     public static  function updateActivity($model,$msg){
         activity("update")
