@@ -49,6 +49,8 @@ class ClientController extends Controller
         $client->exploiteur = $request->input("exploiteur");   
         $client->organisme = $request->input("organisme");    
         $client->save();
+        ActivityController::addActivity(new Client(),$client->id);
+
         return redirect()->back()->with('success','Client ajouter avec success');
     }
 
@@ -96,6 +98,8 @@ class ClientController extends Controller
         $client->exploiteur = $request->input("exploiteur");   
         $client->organisme = $request->input("organisme");    
         $client->save();
+        ActivityController::updateActivity(new Client(),$id);
+
         return redirect()->back()->with('success','Client mise a jour avec success');
     }
 
@@ -110,6 +114,7 @@ class ClientController extends Controller
         //
         $client = Client::find($id);
         $client->delete();
+        ActivityController::deleteActivity(new Client(),$id);
         return redirect()->back()->with('success','Client supprimer avec success');
     }
 }

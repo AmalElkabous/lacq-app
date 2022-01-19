@@ -42,11 +42,11 @@ class SendEmailNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Commande '.$this->details['codeCommande']." valide par ".$this->details['actioneur'])
+                    ->subject('Commande '.$this->details['codeCommande'])
                     ->greeting($this->details['greeting'])
-                    ->line($this->details['body'])
-                    ->action($this->details['actiontext'], $this->details['actionurl'])
-                    ->line($this->details['lastline']);
+                    ->line($this->details['body'][1])
+                    ->line($this->details['body'][2])
+                    ->action($this->details['actiontext'], $this->details['actionurl']);
     }
 
     /**

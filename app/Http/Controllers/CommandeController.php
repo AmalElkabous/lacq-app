@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Notification;
 use App\Notifications\SendEmailNotification;
+use App\Http\Controllers\ActivityController;
 
 class CommandeController extends Controller
 {
@@ -38,6 +39,8 @@ class CommandeController extends Controller
         ->select("commandes.*","menus.name as menu","clients.exploiteur as client","commercials.name as commercial")
         ->paginate(8);
         $listCommandes->setPath('/commandes');
+
+
         return view("commandes.index",["listCommandes" => $listCommandes,"listMatrices" => $listMatrices,"listCultures" => $listCultures ,"listNatures" => $listNatures , "listVarites" => $listVarites, "listCommercials" => $listCommercials,"listClients" => $listClients,"state" => 0]);
     }
 
@@ -93,6 +96,7 @@ class CommandeController extends Controller
             $commande->date_edition = date('Y-m-d');
             $commande->state =  "En cours";
             $commande->save();
+            ActivityController::addActivity(new Commande(),$commande->id);
         }
         return redirect()->back()->with('success','Commande ajouter avec success');
     }
@@ -140,7 +144,6 @@ class CommandeController extends Controller
         //
         $commercial = $request->input("commercial");
         $id_commercial = Commercial::select("id")->where("name","=",$commercial)->first()["id"];
-
         $commande = Commande::find($id);
         $commande->client_id = $request->input("client");
         $commande->commercial_id = $id_commercial;
@@ -157,6 +160,9 @@ class CommandeController extends Controller
         $commande->date_reception = $request->input("date_reception");
         $commande->date_prelevement = $request->input("date_prelevement");
         $commande->save();
+        ActivityController::updateActivity(new Commande(),$id);
+        return redirect()->back()->with('success','Commande updated avec success');
+       
         
     }
 
@@ -169,25 +175,29 @@ class CommandeController extends Controller
     public function destroy($id)
     {
         //
+        $commande = Commande::find($id);
+        $commande->delete();
+        ActivityController::deleteActivity(new Commande(),$id);
+        return redirect()->back()->with('success','Commande supprimer avec success');
+        
     }
     public function notifCommandeValider($idCommande)
     {
         $CommandeDetaile = Commande::join('clients', 'clients.id', '=', 'commandes.client_id')
         ->where("commandes.id","=",$idCommande)
+        ->select("clients.*","commandes.*")
         ->first();
         $user = User::find(2);
         $body = "<tr><th>Actionneur : ";
         $details=[
             "codeCommande" => $CommandeDetaile->code_commande,
-            "actioneur" => Auth::user()->last_name." ".Auth::user()->name,
             "greeting" => "Commande ". $CommandeDetaile->code_commande ." récemment validée :",
-            "body" => "Actionneur : ".Auth::user()->last_name." ".Auth::user()->name,
+            "body" => [ 1 => "L'échantillon du Exploiteur ". $CommandeDetaile->exploiteur ." été receptione physiquement " , 2 => "Organisme : ".$CommandeDetaile->organisme],
             "actiontext" => "Go to Commandes",
             "actionurl" => url("/commandes"),
-            "lastline" => "last line",
         ];
-        Notification::route('mail', "mohammed.el-abidi@elephant-vert.com")->notify(new SendEmailNotification($details));
-        //Notification::send(array(=> 'med'),new SendEmailNotification($details));
+        //Notification::route('mail', "mohammed.el-abidi@elephant-vert.com")->notify(new SendEmailNotification($details));
+        Notification::send($user,new SendEmailNotification($details));
     }
 
     /////////////////////////////////////////////////////////
@@ -283,7 +293,7 @@ class CommandeController extends Controller
             ]);
             
             self::notifCommandeValider($id);
-
+            ActivityController::CommandeValider($id);
             return redirect()->back()->with('success','Commande valider avec success '); 
         }catch(\Exception $e){
             echo $e->getMessage();
@@ -304,6 +314,7 @@ class CommandeController extends Controller
         $commande = Commande::find($commande_id);
         $commande->state = "Rejete";
         $commande->save();
+        ActivityController::CommandeRejter($commande_id);
         return redirect()->back()->with('success','Commande rejete avec success');
     }
     public function menuOfMatrice($matrice_id){
