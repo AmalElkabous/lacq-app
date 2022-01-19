@@ -21,6 +21,7 @@ class CommercialController extends Controller
         ->paginate(8);
         //dd($listCommercials);
         $listCommercials->setPath('/commercials');
+        
         return view("commercials.index",["listCommercials" => $listCommercials]);
     }
 

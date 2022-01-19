@@ -8,6 +8,8 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\CommercialController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ActivityController;
+
 use App\Http\Controllers\AnalyseController;
 use Illuminate\Support\Facades\Auth;
 
@@ -78,7 +80,7 @@ Route::group(['middleware' => ['auth']], function() {
 
 
 
-    Route::get('/send', [App\Http\Controllers\HomeController::class,'send']);
+    Route::get('/activitys', [ActivityController::class,'index'])->middleware('is_admin');
     Route::PATCH('/analyses', [AnalyseController::class,'update']);
     Route::post('/analyses', [AnalyseController::class,'index']);
     Route::get('/analyses', [AnalyseController::class,'index']);

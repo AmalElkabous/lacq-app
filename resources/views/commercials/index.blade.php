@@ -1,6 +1,17 @@
 @extends('layouts.master')
 @section('content')
 <!----------------------------------------- modal foem ------------------------------------------------>
+<style>
+    th{
+        font-size: 11px;
+    }
+    td{
+        font-size: 13px;
+    }
+    .btnAction{
+        font-size: 10px;
+    }
+</style>
 <form method="post" id="modalModal" action="{{ url('/commercials') }}"  enctype="multipart/form-data">
     <div class="modal fade bd-example-modal-lg" id="modalEditCommercial" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
@@ -76,12 +87,12 @@
                                 @if(Auth::user()->role_id <= 2)
                                     <td class="text-right">
                                         <div class="d-inline p-2"><!------onclick="openEditCommercialModal({{ $commercial->id }})"--->
-                                            <button class="btn btn-primary btn-sm editBtn" ><i class="fa fa-edit"></i></button>
+                                            <button class="btn btn-primary btn-sm editBtn btnAction" ><i class="fa fa-edit"></i></button>
                                         </div>
                                         <form class="d-inline p-2" method="POST" action="{{ url('/commercials/'.$commercial->id) }}">
                                             @csrf
                                             {{@method_field("DELETE")}}
-                                            <button type="supmit" class="btn btn-danger btn-sm "><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                            <button type="supmit" class="btn btn-danger btn-sm btnAction"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                         </form>
                                     </td>
                                 @endif

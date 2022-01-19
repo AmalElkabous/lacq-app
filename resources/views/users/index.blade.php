@@ -1,5 +1,16 @@
 @extends('layouts.master')
 @section('content')
+<style>
+    th{
+        font-size: 11px;
+    }
+    td{
+        font-size: 13px;
+    }
+    .btnAction{
+        font-size: 10px;
+    }
+</style>
 <!----------------------------------------- modal foem ------------------------------------------------>
 <form method="post" id="modalModal" action="{{ url('/users') }}"  enctype="multipart/form-data">
     <div class="modal fade bd-example-modal-lg" id="modalEditUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -73,7 +84,7 @@
                 </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger btn-sm " data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary btn-sm">Save changes</button>
           </div>
         </div>
@@ -128,13 +139,13 @@
                             <td>
                                 <div class="row">
                                     <div class="col">
-                                        <button class="btn btn-primary btn-sm" onclick="openEditUserModal({{ $user->id }})"><i class="fa fa-edit"></i></button>
+                                        <button class="btn btn-primary btn-sm btnAction" onclick="openEditUserModal({{ $user->id }})"><i class="fa fa-edit"></i></button>
                                     </div>
                                     <div class="col">
                                         <form method="POST" action="{{ url('/users/'.$user->id) }}">
                                             @csrf
                                             {{@method_field("DELETE")}}
-                                            <button type="supmit" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                            <button type="supmit" class="btn btn-danger btn-sm btnAction"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                         </form>
                                     </div>
                                 </div>

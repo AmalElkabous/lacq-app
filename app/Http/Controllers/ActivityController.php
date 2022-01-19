@@ -15,11 +15,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Notification;
+use Spatie\Activitylog\Models\Activity;
 
 
 class ActivityController extends Controller
 {
     //
+    public function index(){
+        $Activitys = Activity::paginate(8);
+        //dd($Activitys);
+        return view("Activitys.index",["Activitys" => $Activitys]);
+    }
     public static  function updateActivity($model,$msg){
         activity("update")
         ->causedBy(Auth::user()->id)

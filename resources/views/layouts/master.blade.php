@@ -29,13 +29,11 @@
   <div class='navbarItimes'>
     <img  src="{{ asset('img/LOGO-EV_FR.png') }}" style="float:left;width: 90px;margin-left:20px;">
     <a class="dropbtn ml-5 mr-2" href="{{ url("/") }}" style="border-radius: 3px;" >Accueil</a>
-    @if(Auth::user()->role_id == 1)
-      <a class="dropbtn" href="{{ url("/users") }}" style="border-radius: 3px; ">Utilisateurs</a>
-    @endif
+    
     <a class="dropbtn" href="{{ url("/clients") }}" style="border-radius: 3px; ">Clients</a>
     <a class="dropbtn" href="{{ url("/commandes") }}" style="border-radius: 3px; ">Commandes</a>
     <a class="dropbtn" href="{{ url("/dashboard") }}" style="border-radius: 3px; ">Dashboard</a>
-    </div>
+    
     <div class="dropdownList">
       <a class="dropbtn mr-2"  style= "border-radius: 3px;padding: 18px 15px;color:white;">Base de donnée <div class="separ"></div><i class="fa fa-caret-down" aria-hidden="true"></i> </a>
       <div class="dropdownList-one" style=" max-width: 150px;">
@@ -44,6 +42,11 @@
         <a class="dItem" href="{{url("/commercials")}}">Commercial</a>
       </div>
     </div>
+    @if(Auth::user()->role_id == 1)
+      <a class="dropbtn" href="{{ url("/users") }}" style="border-radius: 3px; ">Utilisateurs</a>
+      <a class="dropbtn" href="{{ url("/activitys") }}" style="border-radius: 3px; ">Log</a>
+    @endif
+  </div>
 <div style="float:right;" >
 <a  style=" color: #f1f3ce;padding:16px;font-size: 14px;" class="text-uppercase"> {{ Auth::user()->name }} {{ Auth::user()->last_name }}</a>
 <div class="dropdownList" >
