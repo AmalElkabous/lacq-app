@@ -65,14 +65,14 @@ class ActivityController extends Controller
         activity("Login")
         ->causedBy(Auth::user()->id)
         ->performedOn(new User())
-        ->log('Loged in');
+        ->log(strtoupper(Auth::user()->last_name.' '.Auth::user()->name).' Loged in ');
     }
     public static function logoutActivity(){
 
         activity("Logout")
         ->causedBy(Auth::user()->id)
         ->performedOn(new User())
-        ->log('Loged Out');
+        ->log(strtoupper(Auth::user()->last_name.' '.Auth::user()->name).'Loged Out');
     }
     
 }
