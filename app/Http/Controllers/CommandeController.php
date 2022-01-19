@@ -187,7 +187,8 @@ class CommandeController extends Controller
         ->where("commandes.id","=",$idCommande)
         ->select("clients.*","commandes.*")
         ->first();
-        $user = User::find(2);
+        $user = User::where("role_id","=","1")
+        ->get();
         $body = "<tr><th>Actionneur : ";
         $details=[
             "codeCommande" => $CommandeDetaile->code_commande,
