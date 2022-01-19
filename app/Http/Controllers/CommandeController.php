@@ -192,7 +192,7 @@ class CommandeController extends Controller
         $details=[
             "codeCommande" => $CommandeDetaile->code_commande,
             "greeting" => "Commande ". $CommandeDetaile->code_commande ." récemment validée :",
-            "body" => [ 1 => "L'échantillon de Exploiteur ". $CommandeDetaile->exploiteur ." été receptione physiquement " , 2 => "Organisme : ".$CommandeDetaile->organisme],
+            "body" => [ 1 => "L'échantillon de l'exploiteur ". $CommandeDetaile->exploiteur ." été receptione physiquement " , 2 => "Organisme : ".$CommandeDetaile->organisme],
             "actiontext" => "Go to Commandes",
             "actionurl" => url("/commandes"),
         ];
