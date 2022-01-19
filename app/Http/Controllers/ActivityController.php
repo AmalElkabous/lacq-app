@@ -59,19 +59,19 @@ class ActivityController extends Controller
     }
     /////////////////---------------------------------------------------------------///////////////////
 
-    public static function loginActivity($model){
+    public static function loginActivity(){
 
-        activity("update")
+        activity("Login")
         ->causedBy(Auth::user()->id)
-        ->performedOn($model)
-        ->log('show commande table');
+        ->performedOn(new User())
+        ->log('Loged in');
     }
-    public static function logoutActivity($model){
+    public static function logoutActivity(){
 
-        activity("update")
+        activity("Logout")
         ->causedBy(Auth::user()->id)
-        ->performedOn($model)
-        ->log('show commande table');
+        ->performedOn(new User())
+        ->log('Loged Out');
     }
     
 }

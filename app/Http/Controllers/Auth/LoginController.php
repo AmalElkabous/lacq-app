@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Http\Controllers\ActivityController;
 
 class LoginController extends Controller
 {
@@ -36,6 +37,8 @@ class LoginController extends Controller
         //added to overwrite the login credentials
         public function authenticated()
         {
+            ActivityController::loginActivity();
+            
             if (!Auth::user()->is_active) {
                 Auth::logout();
                 return redirect('login')->withErrors(['Your account is inactive']);
