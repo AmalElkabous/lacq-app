@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Http\Controllers\ActivityController;
+use Illuminate\Http\Request;
+
 
 class LoginController extends Controller
 {
@@ -41,8 +43,17 @@ class LoginController extends Controller
             
             if (!Auth::user()->is_active) {
                 Auth::logout();
+                
                 return redirect('login')->withErrors(['Your account is inactive']);
             }
+        }
+        public function logout(Request $request)
+        {
+            ActivityController::logoutActivity();
+            $this->guard()->logout();
+            $request->session()->flush();
+            $request->session()->regenerate();
+            return redirect('/');
         }
     public function __construct()
     {
