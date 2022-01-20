@@ -55,7 +55,7 @@ class CreateUsersTable extends Migration
                     'name' => "mohammed oussama",
                     "last_name" => "mousaouy",
                     "email" => "m-o.el-mousaouy@elephant-vert.com",
-                    "password" =>  Hash::make("@"),
+                    "password" =>  Hash::make("Xwgpdz1ds5@"),
                     "role_id" => 1,
                     "is_active" => true,
                     "avatar" => "user.png"
