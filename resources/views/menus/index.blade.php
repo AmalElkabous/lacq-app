@@ -48,8 +48,8 @@
                 </div>
             </div> 
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary btn-sm">Save changes</button>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-primary btn-sm">Sauvegarder/button>
             </div>
         </div>
       </div>
@@ -67,9 +67,9 @@
     </div>
     @endif
     <div class="card" style="background-color: rgb(255, 255, 255)">
-        <div class="card-header">{{ __('List des Menu') }}
+        <div class="card-header">{{ __('La liste des Menus') }}
             <input id="searchInput" type="text" class="ml-3 d-inline  form-control form-control-sm col-2">
-            <button class="btn btn-success btn-sm float-right" onclick="addMenuBlade()">Ajouter un Menu</button> 
+            <button class="btn btn-success btn-sm float-right" onclick="addMenuBlade()">Ajouter un menu</button> 
         </div>
             <div class="card-body">
                 <div class="table-responsive-sm ">
@@ -82,7 +82,7 @@
                                 <th class="text-center">Prix hor tax</th>
                                 <th class="text-center">Prix Supvendioner</th>
                                 @if(Auth::user()->role_id <= 2)
-                                    <th class="text-right pr-4">Action</th>
+                                    <th class="text-right pr-4">Actions</th>
                                 @endif
                             </tr>
                         </thead>

@@ -31,7 +31,7 @@
                     <input id="cin_rc" type="text" class="form-control @error('cin_rc') is-invalid @enderror" name="cin_rc" value="{{ old('cin_rc') }}" required autocomplete="cin_rc" autofocus>
                 </div>
                 <div class="form-group input-group-sm col-md-3">
-                    <label for="zone">{{ __('Address') }}</label>
+                    <label for="zone">{{ __('Adresse') }}</label>
                     <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address" autofocus>
                 </div>
                 <div class="form-group input-group-sm col-md-3">
@@ -44,8 +44,8 @@
                 </div>
             </div> 
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary btn-sm">Save changes</button>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-primary btn-sm">Sauvegarder</button>
             </div>
         </div>
       </div>
@@ -63,8 +63,8 @@
     </div>
     @endif
     <div class="card" style="background-color: rgb(255, 255, 255)">
-        <div class="card-header">{{ __('List des Client') }}
-            <button class="btn btn-success btn-sm float-right" onclick="addClientBlade()">Ajouter un Client</button> 
+        <div class="card-header">{{ __('La liste des Clients') }}
+            <button class="btn btn-success btn-sm float-right" onclick="addClientBlade()">Ajouter un nouveau client</button> 
         </div>
             <div class="card-body">
                 <div class="table-responsive-sm ">
@@ -72,11 +72,11 @@
                         <thead class="thead-light">
                             <tr>
                                 <th class="text-center">CIN/RC</th>
-                                <th class="text-center">Address</th>
+                                <th class="text-center">Adresse</th>
                                 <th class="text-center ">Exploiteur</th>
                                 <th class="text-center ">Organisme</th>
                                 @if(Auth::user()->role_id <= 2)
-                                    <th class="text-right pr-4">Action</th>
+                                    <th class="text-right pr-4">Actions</th>
                                 @endif
 
                             </tr>

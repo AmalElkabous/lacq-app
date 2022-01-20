@@ -36,7 +36,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="name">{{ __('Name') }}</label>
+                                <label for="name">{{ __('Nom') }}</label>
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ Auth::user()->name }}" required autocomplete="name" autofocus>
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -45,7 +45,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="last_name">{{ __('Last Name') }}</label>
+                                <label for="last_name">{{ __('Prénom') }}</label>
                                 <input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ Auth::user()->last_name }}" required autocomplete="last_name" autofocus>
                                 @error('last_name')
                                     <span class="invalid-feedback" role="alert">
@@ -58,7 +58,7 @@
                         
 
                         <div class="form-group">
-                            <label for="email" >{{ __('E-Mail Address') }}</label>
+                            <label for="email" >{{ __('Adresse mail') }}</label>
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ Auth::user()->email }}" required autocomplete="email">
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -81,7 +81,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="password-confirm">{{ __('Confirm Password') }}</label>
+                                <label for="password-confirm">{{ __('Confirmer Password') }}</label>
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation"  autocomplete="new-password">
                             </div>
                         </div>

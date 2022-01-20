@@ -22,7 +22,7 @@
     </div>
     @endif
     <div class="card" style="background-color: rgb(255, 255, 255)">
-        <div class="card-header">{{ __('List des Menu') }}
+        <div class="card-header">{{ __('La liste des Menus') }}
             <input id="searchInput" type="text" class="ml-3 d-inline  form-control form-control-sm col-2">
         </div>
             <div class="card-body">

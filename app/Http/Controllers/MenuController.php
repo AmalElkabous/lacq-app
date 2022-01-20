@@ -53,7 +53,7 @@ class MenuController extends Controller
         $menu->prix_ht = $request->input("prix_ht");     
         $menu->prix_supv = $request->input("prix_supv");   
         $menu->save();
-        return redirect()->back()->with('success','Menu ajouter avec success');
+        return redirect()->back()->with('success','Menu ajouté avec succès');
     }
 
     /**
@@ -99,7 +99,7 @@ class MenuController extends Controller
         $menu->prix_ht = $request->input("prix_ht");     
         $menu->prix_supv = $request->input("prix_supv");   
         $menu->save();
-        return redirect()->back()->with('success','Menu mis à jour avec success');
+        return redirect()->back()->with('success','Menu modifié avec succès');
     }
 
     /**
@@ -113,7 +113,7 @@ class MenuController extends Controller
         //
         $menu = Menu::find($id);
         $menu->delete();
-        return redirect()->back()->with('success','Menu supprimer avec success');
+        return redirect()->back()->with('success','Menu supprimé avec succès');
     }
     public static function search(Request $request){
         $buffer = $request->input("buffer");

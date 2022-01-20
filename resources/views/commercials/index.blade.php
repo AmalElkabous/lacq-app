@@ -40,8 +40,8 @@
                 </div>
             </div> 
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
-                <button id="btnSave" type="button" class="btn btn-primary btn-sm">Save changes</button>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Fermer</button>
+                <button id="btnSave" type="button" class="btn btn-primary btn-sm">Sauvegarder</button>
             </div>
         </div>
       </div>
@@ -58,9 +58,9 @@
     </div>
     @endif
     <div class="card" style="background-color: rgb(255, 255, 255)">
-        <div class="card-header">{{ __('List des Commercial') }}
+        <div class="card-header">{{ __('La liste des commerciaux') }}
             <input id="searchInput" type="text" class="ml-3 d-inline  form-control form-control-sm col-2">
-            <button class="btn btn-success btn-sm float-right" onclick="addCommercialBlade()">Ajouter un Commercial</button> 
+            <button class="btn btn-success btn-sm float-right" onclick="addCommercialBlade()">Ajouter un nouveau Commercial</button> 
         </div>
             <div class="card-body">
                 <div class="table-responsive-sm ">
@@ -72,7 +72,7 @@
                                 <th class="text-center">Zone</th>
                                 <th class="text-center">Email</th>
                                 @if(Auth::user()->role_id <= 2)
-                                    <th class="text-right pr-4">Action</th>
+                                    <th class="text-right pr-4">Actions</th>
                                 @endif
                             </tr>
                         </thead>
