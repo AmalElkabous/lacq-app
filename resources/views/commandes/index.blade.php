@@ -26,7 +26,7 @@
         <div class="modal-body">
             <div class="form-group col">
                 <textarea id="commantaireInpute"  class="form-control form-control-sm" name="commantaire" value="{{ old('commantaire') }}" required autocomplete="commantaire"></textarea>
-                <div id="commantaireValidation" class="d-none"><small  class="text-danger font-weight-bold d-inline">Remplire le commantaire *</small></div>
+                <div id="commantaireValidation" class="d-none"><small  class="text-danger font-weight-bold d-inline">Écrivez votre commentaire *</small></div>
                 <label id="commantaireLabel"></label>
             </div>
         </div>
@@ -75,6 +75,14 @@
                     <div class="form-group col">
                         <label for="date_reception" >{{ __('Date reception') }}</label>
                         <input id="date_reception" type="date" class="form-control form-control-sm " name="date_reception" required autocomplete="date_reception">
+                    </div>
+                    <div class="form-group col">
+                        <label for="lieu_id" >{{ __('Lieu') }}</label>
+                        <select id="lieu_id" name="lieu_id" class='form-control form-control-sm' >
+                            @foreach ($listLieus as $lieu)
+                                <option value="{{ $lieu->id }}">{{ $lieu->lieu }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
             </div>
@@ -190,7 +198,7 @@
     </div>
     @endif
     <div class="card " style=" background-color: rgb(255, 255, 255)">
-        <div class="card-header d-inline ">{{ __('List des Commande') }}
+        <div class="card-header d-inline ">{{ __('La liste des Commandes') }}
             <select id="stateFilter" class="ml-3 d-inline  form-control form-control-sm col-2">
                 <option value="0" {{($state == 0) ? "selected":""}}>Toute les commande</option>
                 <option value="1" {{($state == 1) ? "selected":""}}>En cours</option>
@@ -242,8 +250,12 @@
                                 <td class="text-center text-nowrap">{{ $commande->varite }}</td>
                                 <td class="text-center text-nowrap">{{ $commande->gps_1 }}</td>
                                 <td class="text-center text-nowrap">{{ $commande->gps_2 }}</td>
-                                <td class="text-center text-nowrap">{{ $commande->horizon_1 }}</td>
-                                <td class="text-center text-nowrap">{{ $commande->temperateur }}</td>
+                                <td class="text-center text-nowrap">
+                                    @if(!empty($commande->horizon_2))
+                                        {{ $commande->horizon_1 }} --> {{ $commande->horizon_2 }}
+                                    @endif
+                                </td>
+                                <td class="text-center text-nowrap">{{ $commande->temperature }}</td>
                                 <td class="text-center text-nowrap">{{ $commande->date_prelevement }}</td>
                                 <td class="text-center text-nowrap">{{ $commande->state }}</td>
                                 @if(Auth::user()->role_id <= 2)
@@ -388,6 +400,7 @@
             $("#ref_client").val(data.ref_client);
             $("#date_reception").val(data.date_reception);
             $("#menu").val(data.menu);
+            $("#lieu_id").val(data.lieu_id);
             $("#date_prelevement").val(data.date_prelevement);
             $("#varite").val(data.varite);
             $("#nature").val(data.nature);
@@ -399,7 +412,7 @@
             $("#gps_2").val(data.gps_2);
             $("#horizon_1").val(data.horizon_1);
             $("#horizon_2").val(data.horizon_2);
-            $("#temperateur").val(data.temperateur);
+            $("#temperateur").val(data.temperature);
             $("#horizon_2").val(data.horizon_2);
             $('#modalEditCommande').modal('show');
             $('html').preloader('remove')

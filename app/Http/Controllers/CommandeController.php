@@ -7,6 +7,8 @@ use App\Models\Commercial;
 use App\Models\Commantaire;
 use App\Models\Matrice;
 use App\Models\Menu;
+use App\Models\Lieu;
+
 use App\Models\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -28,6 +30,7 @@ class CommandeController extends Controller
     {
         //
         $listMatrices = Matrice::get();
+        $listLieus = Lieu::get();
         $listCultures = Commande::select('culture')->distinct()->get();
         $listNatures  = Commande::select('nature')->distinct()->get();
         $listVarites  = Commande::select('varite')->distinct()->get();
@@ -41,7 +44,7 @@ class CommandeController extends Controller
         $listCommandes->setPath('/commandes');
 
 
-        return view("commandes.index",["listCommandes" => $listCommandes,"listMatrices" => $listMatrices,"listCultures" => $listCultures ,"listNatures" => $listNatures , "listVarites" => $listVarites, "listCommercials" => $listCommercials,"listClients" => $listClients,"state" => 0]);
+        return view("commandes.index",["listLieus" => $listLieus,"listCommandes" => $listCommandes,"listMatrices" => $listMatrices,"listCultures" => $listCultures ,"listNatures" => $listNatures , "listVarites" => $listVarites, "listCommercials" => $listCommercials,"listClients" => $listClients,"state" => 0]);
     }
 
     /**
@@ -51,14 +54,14 @@ class CommandeController extends Controller
      */
     public function create()
     {
+        $listLieus = Lieu::get();
         $listMatrices = Matrice::get();
         $listCultures = Commande::select('culture')->distinct()->get();
         $listNatures  = Commande::select('nature')->distinct()->get();
         $listVarites  = Commande::select('varite')->distinct()->get();
-        $listLieu  = Commande::select('varite')->distinct()->get();
         $listCommercials  = Commercial::get();
         $listClients  = Client::get();
-        return view("commandes.create",["listLieu" => $listLieu,"listMatrices" => $listMatrices,"listCultures" => $listCultures ,"listNatures" => $listNatures , "listVarites" => $listVarites, "listCommercials" => $listCommercials,"listClients" => $listClients]);
+        return view("commandes.create",["listLieus" => $listLieus,"listMatrices" => $listMatrices,"listCultures" => $listCultures ,"listNatures" => $listNatures , "listVarites" => $listVarites, "listCommercials" => $listCommercials,"listClients" => $listClients]);
     }
 
     /**
@@ -83,6 +86,7 @@ class CommandeController extends Controller
             $commande->client_id = $id_client;
             $commande->commercial_id = $id_commercial;
             $commande->menu_id = $request["menu"][$i];
+            $commande->lieu_id = $request["lieu_id"][0];
             $commande->ref_client = $request["ref_client"][$i];
             $commande->nature = $request["nature"][$i];
             $commande->culture = $request["culture"][$i];
@@ -99,7 +103,7 @@ class CommandeController extends Controller
             $commande->save();
             ActivityController::addActivity(new Commande(),$commande->id);
         }
-        return redirect()->back()->with('success','Commande ajouter avec success');
+        return redirect()->back()->with('success','Commande ajoutée avec succès');
     }
 
     /**
@@ -149,6 +153,7 @@ class CommandeController extends Controller
         $commande->client_id = $request->input("client");
         $commande->commercial_id = $id_commercial;
         $commande->menu_id = $request->input("menu");
+        $commande->lieu_id = $request->input("lieu_id");
         $commande->ref_client = $request->input("ref_client");
         $commande->nature = $request->input("nature");
         $commande->culture = $request->input("culture");
@@ -162,7 +167,7 @@ class CommandeController extends Controller
         $commande->date_prelevement = $request->input("date_prelevement");
         $commande->save();
         ActivityController::updateActivity(new Commande(),$id);
-        return redirect()->back()->with('success','Commande updated avec success');
+        return redirect()->back()->with('success','Commande modifiée avec succès');
        
         
     }
@@ -179,7 +184,7 @@ class CommandeController extends Controller
         $commande = Commande::find($id);
         $commande->delete();
         ActivityController::deleteActivity(new Commande(),$id);
-        return redirect()->back()->with('success','Commande supprimer avec success');
+        return redirect()->back()->with('success','Commande supprimée avec succès');
         
     }
     public function notifCommandeValider($idCommande)
@@ -299,7 +304,7 @@ class CommandeController extends Controller
             
             self::notifCommandeValider($id);
             ActivityController::CommandeValider($id);
-            return redirect()->back()->with('success','Commande valider avec success '); 
+            return redirect()->back()->with('success','Commande validée avec succès'); 
         }catch(\Exception $e){
             echo $e->getMessage();
             //return redirect()->back()->with('error','Commande n\'pas valider !');
@@ -320,7 +325,7 @@ class CommandeController extends Controller
         $commande->state = "Rejete";
         $commande->save();
         ActivityController::CommandeRejter($commande_id);
-        return redirect()->back()->with('success','Commande rejete avec success');
+        return redirect()->back()->with('success','Commande rejetée avec succès');
     }
     public function menuOfMatrice($matrice_id){
         $listMenus = Menu::where("matrice_id","=",$matrice_id)

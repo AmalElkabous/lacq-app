@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Http\\Controllers\\ActivityController' => $baseDir . '/app/Http/Controllers/ActivityController.php',
     'App\\Http\\Controllers\\AnalyseController' => $baseDir . '/app/Http/Controllers/AnalyseController.php',
     'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -36,6 +37,8 @@ return array(
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Http\\Middleware\\responsable' => $baseDir . '/app/Http/Middleware/responsable.php',
     'App\\Http\\Middleware\\roles' => $baseDir . '/app/Http/Middleware/roles.php',
+    'App\\Models\\Analys' => $baseDir . '/app/Models/Analys.php',
+    'App\\Models\\AnalyseEau' => $baseDir . '/app/Models/AnalyseEau.php',
     'App\\Models\\AnalyseEauPotable' => $baseDir . '/app/Models/AnalyseEauPotable.php',
     'App\\Models\\Client' => $baseDir . '/app/Models/Client.php',
     'App\\Models\\Commande' => $baseDir . '/app/Models/Commande.php',

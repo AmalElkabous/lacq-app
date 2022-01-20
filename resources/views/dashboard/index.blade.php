@@ -30,7 +30,7 @@
     </div>
     @endif
     <div class="card " style=" background-color: rgb(255, 255, 255)">
-        <div class="card-header d-inline ">{{ __('List des analyse en cours') }}
+        <div class="card-header d-inline ">{{ __('La liste des analyses en cours') }}
             <select id="stateFilter" class="ml-3 d-none  form-control col-2">
                 
             </select>

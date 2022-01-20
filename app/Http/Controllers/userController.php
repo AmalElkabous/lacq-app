@@ -58,7 +58,7 @@ class userController extends Controller
         }
         $user->avatar =  $photo;
         $user->save();
-        return redirect()->back()->with('success','user ajouter avec success');
+        return redirect()->back()->with('success','utilisateur ajouté avec succès');
     }
 
     /**
@@ -99,14 +99,14 @@ class userController extends Controller
     public function passwordValidation($oldPassword = null ,$password,$confirmPassword){
         if($oldPassword != null){
             if(!Hash::check($oldPassword, Auth::user()->password)){
-                return array("valid" => false,"msg" => "Error password incorect ");
+                return array("valid" => false,"msg" => "Erreur password incorrect");
             }
         }
         if(strlen($password) < 8){
-            return array("valid" => false,"msg" => "Error password length < 8 ");
+            return array("valid" => false,"msg" => "Erreur password doit < 8 ");
         }
         if($password != $confirmPassword){
-            return array("valid" => false,"msg" => "Error password confermation");
+            return array("valid" => false,"msg" => "Erreur de confirmation du password");
         }
         return array("valid" => true,"msg" => "");
     }
@@ -144,7 +144,7 @@ class userController extends Controller
         }
         $user->avatar =  $photo;
         $user->save();
-        return redirect()->back()->with('success','user modifier avec success');
+        return redirect()->back()->with('success','utilisateur modifié avec succès');
     }
 
     /**
@@ -157,6 +157,6 @@ class userController extends Controller
     {
         $user = User::find($id);
         $user->delete();
-        return redirect()->back()->with('success','utilisateur supprimer avec success');
+        return redirect()->back()->with('success','utilisateur supprimé avec succès');
     }
 }

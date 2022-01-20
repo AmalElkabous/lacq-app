@@ -50,7 +50,7 @@ class MatriceController extends Controller
         $matrice->code = $request->input("code");
         $matrice->delai = $request->input("delai");       
         $matrice->save();
-        return redirect()->back()->with('success','Matrice ajouter avec success');
+        return redirect()->back()->with('success','Matrice ajoutée avec succès');
     }
 
     /**
@@ -97,7 +97,7 @@ class MatriceController extends Controller
         $matrice->code = $request->input("code");
         $matrice->delai = $request->input("delai");       
         $matrice->save();
-        return redirect()->back()->with('success','Matrice mis à jour avec success');
+        return redirect()->back()->with('success','Matrice modifiée avec succès');
 
     }
 
@@ -112,7 +112,7 @@ class MatriceController extends Controller
         //
         $matrice = Matrice::find($id);
         $matrice->delete();
-        return redirect()->back()->with('success','Matrice supprimer avec success');
+        return redirect()->back()->with('success','Matrice supprimée avec succès');
     }
     public static function search(Request $request){
         $buffer = $request->input("buffer");

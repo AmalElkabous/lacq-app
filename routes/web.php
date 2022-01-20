@@ -40,8 +40,8 @@ Route::group(['middleware' => ['auth']], function() {
     });
     /////////////////////////////////////////////////////////////////////////////////
     Route::get('/menus', [MenuController::class,'index']);
-    Route::get('/menus/create', [MenuController::class,'create']);
-    Route::post('/menus', [MenuController::class,'store']);
+    Route::get('/menus/create', [MenuController::class,'create'])->middleware('is_responsable');
+    Route::post('/menus', [MenuController::class,'store'])->middleware('is_responsable');
     Route::get('/menus/{id}/edit', [MenuController::class,'edit'])->middleware('is_responsable');
     Route::PATCH('/menus/{id}', [MenuController::class,'update'])->middleware('is_responsable');
     Route::DELETE('/menus/{id}', [MenuController::class,'destroy'])->middleware('is_responsable');
@@ -49,8 +49,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/menus/search/',[MenuController::class,'search']);
     //////////////////////////////////////////////////////////////////////////////
     Route::get('/matrices', [MatriceController::class,'index']);
-    Route::get('/matrices/create', [MatriceController::class,'create']);
-    Route::post('/matrices', [MatriceController::class,'store']);
+    Route::get('/matrices/create', [MatriceController::class,'create'])->middleware('is_responsable');
+    Route::post('/matrices', [MatriceController::class,'store'])->middleware('is_responsable');
     Route::get('/matrices/{id}/edit', [MatriceController::class,'edit'])->middleware('is_responsable');
     Route::PATCH('/matrices/{id}', [MatriceController::class,'update'])->middleware('is_responsable');
     Route::DELETE('/matrices/{id}', [MatriceController::class,'destroy'])->middleware('is_responsable');

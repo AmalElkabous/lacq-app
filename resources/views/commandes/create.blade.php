@@ -19,7 +19,7 @@
                     <input id="cin_rc" type="text" class="form-control @error('cin_rc') is-invalid @enderror" name="cin_rc" value="{{ old('cin_rc') }}" required autocomplete="cin_rc" autofocus>
                 </div>
                 <div class="form-group input-group-sm col-md-3">
-                    <label for="address">{{ __('Address') }}</label>
+                    <label for="address">{{ __('Adresse') }}</label>
                     <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address" autofocus>
                 </div>
                 <div class="form-group input-group-sm col-md-3">
@@ -32,8 +32,8 @@
                 </div>
             </div> 
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary btn-sm">Save changes</button>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-primary btn-sm">Sauvegarder </button>
             </div>
         </div>
       </div>
@@ -62,8 +62,8 @@
                             <label for="client" >{{ __('CIN/RC') }}</label>
                             <input list="listClients" id="client" type="text" class="form-control form-control-sm " name="client[]" required autocomplete="client">
                             <span id="cliantValidation" class="d-none">
-                                <small  class="text-danger font-weight-bold d-inline">Client not exist !</small>
-                                <button type="button" class="btn btn-link text-danger btn-sm font-weight-bold p-0 mx-1" style="font-size: 12.8px" onclick="addClient();"> do you want to add it ?</button>
+                                <small  class="text-danger font-weight-bold d-inline">Client n'existe pas !</small>
+                                <button type="button" class="btn btn-link text-danger btn-sm font-weight-bold p-0 mx-1" style="font-size: 12.8px" onclick="addClient();"> Voulez-vous l'ajouter ?</button>
                             </span>
                         </div>
                         <div class="form-group col">
@@ -78,13 +78,16 @@
                             <label for="date_reception" >{{ __('Date reception') }}</label>
                             <input id="date_reception" type="date" class="form-control form-control-sm " name="date_reception[]" required autocomplete="date_reception">
                         </div>
+                        <div class="form-group col">
+                            <label for="lieu_id" >{{ __('Lieu') }}</label>
+                            <select id="lieu_id" name="lieu_id" class='form-control form-control-sm' >
+                                @foreach ($listLieus as $lieu)
+                                    <option value="{{ $lieu->id }}">{{ $lieu->lieu }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <select name="lieu_id[]" style='width:80px;' class='form-control form-control-sm' disabled>
-                    @foreach ($listLieus as $lieu)
-                        <option value="{{ $lieu->id }}" {{ ($lieu->id == $data->lieu_id) ? "selected" : ""}}>{{ $lieu->lieu }}</option>
-                    @endforeach
-                </select>
                 <div class="groupRow">
                     <div  class="card px-2 py-2">
                         <div class="form-row">
@@ -146,12 +149,12 @@
                         <div class="form-row">
                             
                         </div>
-                        <button  class="btn btn-warning btn-sm" class="add" type="button"  name="add" id="add" > AJOUTER</button>
+                        <button  class="btn btn-warning btn-sm" class="add" type="button"  name="add" id="add" > Ajouter</button>
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-2 offset-md-5 text-center">
-                        <button type="submit" class="btn btn-primary">{{ __('Ajouter') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Enregistrer ') }}</button>
                     </div>
                 </div>
                 

@@ -39,7 +39,7 @@
 <form action="/analyses" method="POST">
 
     <div class="card " style=" background-color: rgb(255, 255, 255)">
-        <div class="card-header d-inline ">{{ __('List des analyse') }}
+        <div class="card-header d-inline ">{{ __('La liste des analyses') }}
             <select name="selectedMatrice"  id="matriceFilter" class="ml-3 d-inline  form-control form-control-sm col-2 float-right">
                 @foreach ($listMatrices as $matrice)
                     <option value="{{ $matrice->id }}" {{($matrice->id == $selectedMatrice || $selectedMatrice == null) ? "selected":""}}>{{ $matrice->name }}</option>
@@ -83,7 +83,7 @@
                         </tbody>
                     </table>
                 </div>
-                <center><button id="save" type="submit" class="btn btn-success btn-sm d-lg-none mt-3 px-5">save</button></center>
+                <center><button id="save" type="submit" class="btn btn-success btn-sm d-lg-none mt-3 px-5">Sauvegarder</button></center>
             </div>
         
         </div>
@@ -105,14 +105,14 @@
             else if(this.id !== "notModifiable") 
             $(this).html("<input style='width:100px;' class='form-control form-control-sm' name='"+this.id+"[]' value='"+$(this).html()+"' >");
         });
-      $("#cadenas").html('<div class="alert alert-danger py-2" role="alert"><i class="fa fa-unlock mr-2" aria-hidden="true"></i>Cadenas Opend</div>');
+      $("#cadenas").html('<div class="alert alert-danger py-2" role="alert"><i class="fa fa-unlock mr-2" aria-hidden="true"></i>Cadenas ouvertes </div>');
       $( "#save" ).removeClass( "d-lg-none" );
     }
     function InputsToArray(){
         $("td").each(function() {
             $(this).html($(this).children("input").val());
         });
-        $("#cadenas").html('<div class="alert alert-primary py-2" role="alert"><i class="fa fa-lock" aria-hidden="true"></i> Click here To open cadenas</div>');
+        $("#cadenas").html('<div class="alert alert-primary py-2" role="alert"><i class="fa fa-lock" aria-hidden="true"></i> Cliquez ici pour ouvrir les cadenas </div>');
         $( "#save" ).addClass("d-lg-none");
     }
     $( "#matriceFilter" ).change(function() {
