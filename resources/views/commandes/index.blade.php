@@ -229,9 +229,7 @@
                                 <th class="text-center pr-4 text-nowrap">Temperature</th>
                                 <th class="text-center pr-4 text-nowrap">Date prélevement</th>
                                 <th class="text-center pr-4">Etat</th>
-                                @if(Auth::user()->role_id <= 2)
-                                    <th class="text-center pr-4">Action</th>
-                                @endif
+                                <th class="text-center pr-4">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -258,35 +256,37 @@
                                 <td class="text-center text-nowrap">{{ $commande->temperature }}</td>
                                 <td class="text-center text-nowrap">{{ $commande->date_prelevement }}</td>
                                 <td class="text-center text-nowrap">{{ $commande->state }}</td>
-                                @if(Auth::user()->role_id <= 2)
+                                
                                 <td class="text-right text-nowrap" > 
-                                    @if($commande->state != "Valid")
+                                    @if(Auth::user()->role_id <= 2)
+                                        @if($commande->state != "Valid")
+                                            <div class="d-inline p-0" >
+                                                <button class="btn btn-success btn-sm btnAction" onclick="validerCommande({{$commande->id}})"><i class="fa fa-check" aria-hidden="true"></i></button>
+                                            </div>
+                                        @endif
+                                        @if($commande->state != "Rejete")
+                                            <div class="d-inline p-0" >
+                                                <button class="btn btn-warning btn-sm btnAction"  onclick="openModalRejeterCommande({{$commande->id}})"><i class="fa fa-undo" aria-hidden="true"></i></button>
+                                            </div>
+                                        @endif
+                                        @if($commande->state == "Rejete")
+                                            <div class="d-inline p-0" >
+                                                <button class="btn btn-warning btn-sm btnAction"  onclick="showCommantaire({{$commande->id}})"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></button>
+                                            </div>
+                                        @endif
+                                    @endif
                                         <div class="d-inline p-0" >
-                                            <button class="btn btn-success btn-sm btnAction" onclick="validerCommande({{$commande->id}})"><i class="fa fa-check" aria-hidden="true"></i></button>
+                                            <button class="btn btn-primary btn-sm btnAction" onclick="openEditCommandeModal({{ $commande->id }})"><i class="fa fa-edit"></i></button>
                                         </div>
-                                    @endif
-                                    @if($commande->state != "Rejete")
-                                        <div class="d-inline p-0" >
-                                            <button class="btn btn-warning btn-sm btnAction"  onclick="openModalRejeterCommande({{$commande->id}})"><i class="fa fa-undo" aria-hidden="true"></i></button>
-                                        </div>
-                                    @endif
-                                    @if($commande->state == "Rejete")
-                                        <div class="d-inline p-0" >
-                                            <button class="btn btn-warning btn-sm btnAction"  onclick="showCommantaire({{$commande->id}})"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></button>
-                                        </div>
-                                    @endif
-                                    <div class="d-inline p-0" >
-                                        <button class="btn btn-primary btn-sm btnAction" onclick="openEditCommandeModal({{ $commande->id }})"><i class="fa fa-edit"></i></button>
-                                    </div>
-                                    @if(Auth::user()->role_id == 1)
-                                    <form class="d-inline p-0" method="POST" action="{{ url('/commandes/'.$commande->id) }}">
-                                        @csrf
-                                        {{@method_field("DELETE")}}
-                                        <button type="supmit" class="btn btn-danger btn-sm btnAction"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                    </form>
-                                    @endif
+                                        @if(Auth::user()->role_id == 1)
+                                            <form class="d-inline p-0" method="POST" action="{{ url('/commandes/'.$commande->id) }}">
+                                                @csrf
+                                                {{@method_field("DELETE")}}
+                                                <button type="supmit" class="btn btn-danger btn-sm btnAction"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                            </form>
+                                        @endif
+                                    
                                 </td>
-                                @endif
                             </tr>
                         @endforeach
                         </tbody>

@@ -64,7 +64,9 @@
     @endif
     <div class="card" style="background-color: rgb(255, 255, 255)">
         <div class="card-header">{{ __('La liste des Clients') }}
-            <button class="btn btn-success btn-sm float-right" onclick="addClientBlade()">Ajouter un nouveau client</button> 
+            @if(Auth::user()->role_id <= 2)
+                <button class="btn btn-success btn-sm float-right" onclick="addClientBlade()">Ajouter un nouveau client</button> 
+            @endif
         </div>
             <div class="card-body">
                 <div class="table-responsive-sm ">

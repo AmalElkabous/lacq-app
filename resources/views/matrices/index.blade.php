@@ -62,7 +62,9 @@
     <div class="card" style="background-color: rgb(255, 255, 255)">
         <div class="card-header">{{ __('La liste des Matrices') }}
             <input id="searchInput" type="text" class="ml-3 d-inline  form-control form-control-sm col-2">
-            <button class="btn btn-success btn-sm float-right" onclick="addMatriceBlade()">Ajouter une matrice</button> 
+            @if(Auth::user()->role_id <= 2)
+                <button class="btn btn-success btn-sm float-right" onclick="addMatriceBlade()">Ajouter une matrice</button> 
+            @endif
         </div>
             <div class="card-body">
                 <div class="table-responsive-sm ">

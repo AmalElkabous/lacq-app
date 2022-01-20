@@ -69,7 +69,9 @@
     <div class="card" style="background-color: rgb(255, 255, 255)">
         <div class="card-header">{{ __('La liste des Menus') }}
             <input id="searchInput" type="text" class="ml-3 d-inline  form-control form-control-sm col-2">
-            <button class="btn btn-success btn-sm float-right" onclick="addMenuBlade()">Ajouter un menu</button> 
+            @if(Auth::user()->role_id <= 2)
+                <button class="btn btn-success btn-sm float-right" onclick="addMenuBlade()">Ajouter un menu</button> 
+            @endif
         </div>
             <div class="card-body">
                 <div class="table-responsive-sm ">
