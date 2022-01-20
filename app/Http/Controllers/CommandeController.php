@@ -296,7 +296,6 @@ class CommandeController extends Controller
             if(!DB::table($analyse_table)->where("commande_id","=",$id)->first()){
                 DB::table($analyse_table)->insert([
                     'commande_id' => $id,
-                    'lieu_id' => 1
                 ]);
             }
 
