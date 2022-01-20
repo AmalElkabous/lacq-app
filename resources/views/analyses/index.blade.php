@@ -57,9 +57,8 @@
                             <tr>
                                 <th class="text-center text-nowrap">#</th>
                                 <th class="text-center text-nowrap">Code commande</th>
-                                <th class="text-center text-nowrap">Lieu</th>
                                 @foreach ($columns as $column)
-                                    @if($column == "deleted_at" || $column == "id" || $column == "created_at" || $column == "updated_at" || $column == "commande_id" || $column == "lieu_id")
+                                    @if($column == "deleted_at" || $column == "id" || $column == "created_at" || $column == "updated_at" || $column == "commande_id")
                                         @continue
                                     @endif
                                         <th class="text-center text-nowrap">{{$column}}</th>
@@ -72,16 +71,8 @@
                                 <tr>
                                     <td class="text-center text-nowrap" id="id_analyse">{{$data->id}}</td>
                                     <td class="text-center text-nowrap" id="notModifiable">{{$data->code_commande}}</td>
-                                    <td class="text-center text-nowrap" id="id_lieu">
-                                        <select name="lieu_id[]" style='width:80px;' class='form-control form-control-sm' disabled>
-                                            @foreach ($listLieus as $lieu)
-                                                <option value="{{ $lieu->id }}" {{ ($lieu->id == $data->lieu_id) ? "selected" : ""}}>{{ $lieu->lieu }}</option>
-                                            @endforeach
-                                        </select>
-                                        
-                                    </td>
                                     @foreach ($columns as $column)
-                                    @if($column == "deleted_at" || $column == "id" || $column == "created_at" || $column == "updated_at" || $column == "commande_id" || $column == "lieu_id")
+                                    @if($column == "deleted_at" || $column == "id" || $column == "created_at" || $column == "updated_at" || $column == "commande_id")
                                         @continue
                                     @endif
                                     <td class="text-center text-nowrap" id="{{$column}}">{{$data->$column}}</td>
@@ -111,9 +102,6 @@
         $("td").each(function() {
             if(this.id == "id_analyse") 
             $(this).html("<input  style='width:100px;' class='form-control form-control-sm' name='id[]' value='"+$(this).html()+"' readonly='readonly' >");
-            else if(this.id == "id_lieu")
-            $(this).children("select").removeAttr('disabled ');
-
             else if(this.id !== "notModifiable") 
             $(this).html("<input style='width:100px;' class='form-control form-control-sm' name='"+this.id+"[]' value='"+$(this).html()+"' >");
         });
@@ -122,9 +110,6 @@
     }
     function InputsToArray(){
         $("td").each(function() {
-            if(this.id == "id_lieu")
-            $(this).children("select").attr('disabled',"");
-            else 
             $(this).html($(this).children("input").val());
         });
         $("#cadenas").html('<div class="alert alert-primary py-2" role="alert"><i class="fa fa-lock" aria-hidden="true"></i> Click here To open cadenas</div>');

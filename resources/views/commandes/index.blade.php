@@ -429,7 +429,7 @@
             $("#horizon1Group").removeAttr('required');
             $("#horizon_2").removeAttr('required');
         }
-        if(matrice == "EAU"){
+        if(matrice == "EAU" || matrice == "EAU POTABLE"){
             $("#temperateurGroup").removeClass("d-none")
             $("#temperateur").attr('required', '');
         }else{

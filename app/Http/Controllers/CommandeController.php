@@ -55,9 +55,10 @@ class CommandeController extends Controller
         $listCultures = Commande::select('culture')->distinct()->get();
         $listNatures  = Commande::select('nature')->distinct()->get();
         $listVarites  = Commande::select('varite')->distinct()->get();
+        $listLieu  = Commande::select('varite')->distinct()->get();
         $listCommercials  = Commercial::get();
         $listClients  = Client::get();
-        return view("commandes.create",["listMatrices" => $listMatrices,"listCultures" => $listCultures ,"listNatures" => $listNatures , "listVarites" => $listVarites, "listCommercials" => $listCommercials,"listClients" => $listClients]);
+        return view("commandes.create",["listLieu" => $listLieu,"listMatrices" => $listMatrices,"listCultures" => $listCultures ,"listNatures" => $listNatures , "listVarites" => $listVarites, "listCommercials" => $listCommercials,"listClients" => $listClients]);
     }
 
     /**
@@ -287,11 +288,14 @@ class CommandeController extends Controller
             $analyse_table = strtolower($analyse_table); 
             $analyse_table = str_replace(' ', '_', $analyse_table); 
             $analyse_table = "analyse_".$analyse_table;
+            if(!DB::table($analyse_table)->where("commande_id","=",$id)->first()){
+                DB::table($analyse_table)->insert([
+                    'commande_id' => $id,
+                    'lieu_id' => 1
+                ]);
+            }
 
-            DB::table($analyse_table)->insert([
-                'commande_id' => $id,
-                'lieu_id' => 1
-            ]);
+          
             
             self::notifCommandeValider($id);
             ActivityController::CommandeValider($id);

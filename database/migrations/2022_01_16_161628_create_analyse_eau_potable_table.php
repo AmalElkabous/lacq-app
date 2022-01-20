@@ -16,7 +16,6 @@ class CreateAnalyseEauPotableTable extends Migration
         Schema::create('analyse_eau_potable', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("commande_id");
-            $table->unsignedBigInteger("lieu_id")->nullable();
             $table->float("temp_°C")->nullable();
             $table->float("Cl2_ppm")->nullable();
             $table->float("O2_ppm")->nullable();
@@ -39,7 +38,6 @@ class CreateAnalyseEauPotableTable extends Migration
             $table->float("Fe_ppm")->nullable();
             $table->float("B_ppm")->nullable();
             $table->foreign('commande_id')->references('id')->on('commandes')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('lieu_id')->references('id')->on('lieus')->onDelete('cascade')->onUpdate('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

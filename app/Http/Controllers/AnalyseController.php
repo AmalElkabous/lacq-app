@@ -32,16 +32,14 @@ class AnalyseController extends Controller
             //dd($request);
         }
         
-        $listLieus = Lieu::get();
         $listMatrices = Matrice::get();
         $columns =  Schema::getColumnListing($analyse_table);
         $listData = DB::table($analyse_table)
         ->join("commandes","commandes.id","=", $analyse_table.".commande_id")
-        ->join("lieus","lieus.id","=", $analyse_table.".lieu_id")
-        ->select($analyse_table.".*","commandes.code_commande","lieus.lieu as lieu")
+        ->select($analyse_table.".*","commandes.code_commande")
         ->orderBy($analyse_table.".id","asc")
         ->paginate(8);
-        return view("analyses.index",["columns" => $columns,"listData" => $listData,"listLieus" =>$listLieus,"listMatrices" => $listMatrices,"selectedMatrice" => $selectedMatrice]);
+        return view("analyses.index",["columns" => $columns,"listData" => $listData,"listMatrices" => $listMatrices,"selectedMatrice" => $selectedMatrice]);
 
     }
 
@@ -107,7 +105,7 @@ class AnalyseController extends Controller
         ///dd($request);
         for($i = 0 ; $i<$count;$i++){
             $column = $columns[$i];
-            if($column == "deleted_at" || $column == "id" || $column == "created_at" || $column == "updated_at" || $column == "commande_id" ){
+            if($column == "deleted_at" || $column == "id" || $column == "created_at" || $column == "updated_at" || $column == "commande_id"){
                 unset($columns[$i]);
             }
         }        
@@ -120,9 +118,9 @@ class AnalyseController extends Controller
             $analyse = DB::table($table)
             ->where('id', '=', $request["id"][$i])
             ->update($analyseData);
-            Analys::updateActivity(null,"analyse ".$request["id"][$i]." update");
+            ActivityController::updateActivity(new Analys(),"analyse ".$request["id"][$i]." update");
         }
-        return redirect()->back()->with('success','mise a jour des analyse fait  avec success');
+        return redirect()->back()->with('success','mise a jour des analyse fait avec success');
     }
 
     /**

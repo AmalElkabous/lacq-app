@@ -19,6 +19,7 @@ class CreateCommandesTable extends Migration
             $table->unsignedBigInteger("client_id");
             $table->unsignedBigInteger("commercial_id");
             $table->unsignedBigInteger("menu_id");
+            $table->unsignedBigInteger("lieu_id");
             $table->string("ref_client",50);
             $table->string("nature",50);
             $table->string("culture",50);
@@ -32,6 +33,7 @@ class CreateCommandesTable extends Migration
             $table->date("date_prelevement");
             $table->date("date_edition");
             $table->string("state")->nullable();
+            $table->foreign('lieu_id')->references('id')->on('lieus')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('commercial_id')->references('id')->on('commercials')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade')->onUpdate('cascade');
@@ -46,6 +48,7 @@ class CreateCommandesTable extends Migration
                     'client_id' => 1,
                     'commercial_id' => 1,
                     'menu_id' => 3,
+                    "lieu_id" => 1,
                     'ref_client' => "5862kk",
                     'nature' => "tomato",
                     'culture' => "tair",
@@ -66,6 +69,7 @@ class CreateCommandesTable extends Migration
                     'client_id' => 1,
                     'commercial_id' => 2,
                     'menu_id' => 1,
+                    "lieu_id" => 2,
                     'ref_client' => "5862kk",
                     'nature' => "tomato",
                     'culture' => "tair",
@@ -86,6 +90,7 @@ class CreateCommandesTable extends Migration
                     'client_id' => 2,
                     'commercial_id' => 3,
                     'menu_id' => 2,
+                    "lieu_id" => 2,
                     'ref_client' => "5862kk",
                     'nature' => "tomato",
                     'culture' => "tair",
@@ -106,6 +111,7 @@ class CreateCommandesTable extends Migration
                     'client_id' => 2,
                     'commercial_id' => 3,
                     'menu_id' => 3,
+                    "lieu_id" => 1,
                     'ref_client' => "5862kk",
                     'nature' => "tomato",
                     'culture' => "tair",

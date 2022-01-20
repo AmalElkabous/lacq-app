@@ -80,6 +80,11 @@
                         </div>
                     </div>
                 </div>
+                <select name="lieu_id[]" style='width:80px;' class='form-control form-control-sm' disabled>
+                    @foreach ($listLieus as $lieu)
+                        <option value="{{ $lieu->id }}" {{ ($lieu->id == $data->lieu_id) ? "selected" : ""}}>{{ $lieu->lieu }}</option>
+                    @endforeach
+                </select>
                 <div class="groupRow">
                     <div  class="card px-2 py-2">
                         <div class="form-row">
@@ -199,7 +204,7 @@
             $(matrice).parent().parent().parent().children(".row2").children("#horizon1Group").children("#horizon_1").removeAttr('required');
             $(matrice).parent().parent().parent().children(".row2").children("#horizon2Group").children("#horizon_2").removeAttr('required');
         }
-        if(text == "EAU"){
+        if(text == "EAU" || text == "EAU POTABLE"){
             $(matrice).parent().parent().parent().children(".row2").children("#temperateurGroup").removeClass("d-none")
             $(matrice).parent().parent().parent().children(".row2").children("#temperateurGroup").children("#temperateur").attr('required', '');
         }else{
