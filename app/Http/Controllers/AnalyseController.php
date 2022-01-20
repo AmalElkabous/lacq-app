@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Matrice;
 use Illuminate\Http\Request;
 use App\Models\Lieu;
+use App\Models\Analys;
+
+use App\Http\Controllers\ActivityController;
 
 class AnalyseController extends Controller
 {
@@ -117,6 +120,7 @@ class AnalyseController extends Controller
             $analyse = DB::table($table)
             ->where('id', '=', $request["id"][$i])
             ->update($analyseData);
+            Analys::updateActivity(null,"analyse ".$request["id"][$i]." update");
         }
         return redirect()->back()->with('success','mise a jour des analyse fait  avec success');
     }

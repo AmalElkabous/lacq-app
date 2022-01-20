@@ -10,6 +10,8 @@ use App\Models\Commantaire;
 use App\Models\Matrice;
 use App\Models\Menu;
 use App\Models\Client;
+use App\Models\Analys;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -29,7 +31,7 @@ class ActivityController extends Controller
         //dd($Activitys);
         return view("activitys.index",["Activitys" => $Activitys]);
     }
-    public static  function updateActivity($model,$msg){
+    public static  function updateActivity($model = null,$msg){
         activity("update")
         ->causedBy(Auth::user()->id)
         ->performedOn($model)
