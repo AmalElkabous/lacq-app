@@ -36,6 +36,7 @@
                                 <th class="text-center">subject_type</th>
                                 <th class="text-center">causer_type</th>
                                 <th class="text-center">causer_id</th>
+                                <th class="text-center">Couser Name</th>
                                 <th class="text-center">properties</th>
                                 <th class="text-center">batch_uuid</th>
                                 <th class="text-center">created_at</th>
@@ -51,6 +52,8 @@
                                 <td class="text-center">{{ $activity->subject_type }}</td>
                                 <td class="text-center">{{ $activity->causer_type }}</td>
                                 <td class="text-center">{{ $activity->causer_id }}</td>
+                                <td class="text-center">{{ $activity->name }} {{ $activity->last_name }}</td>
+
                                 <td class="text-center">{{ $activity->properties }}</td>
                                 <td class="text-center">{{ $activity->causer_type }}</td>
                                 <td class="text-center">{{ $activity->created_at }}</td>

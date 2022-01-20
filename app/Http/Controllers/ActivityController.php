@@ -22,7 +22,9 @@ class ActivityController extends Controller
 {
     //
     public function index(){
-        $Activitys = Activity::orderBy('id', 'desc')
+        $Activitys = Activity::join("users","users.id","=","activity_log.causer_id")
+        ->select("activity_log.*","users.name","users.last_name")
+        ->orderBy('id', 'desc')
         ->paginate(8);
         //dd($Activitys);
         return view("activitys.index",["Activitys" => $Activitys]);
@@ -65,14 +67,14 @@ class ActivityController extends Controller
         activity("Login")
         ->causedBy(Auth::user()->id)
         ->performedOn(new User())
-        ->log(strtoupper(Auth::user()->last_name.' '.Auth::user()->name).' Loged in ');
+        ->log('Loged in ');
     }
     public static function logoutActivity(){
 
         activity("Logout")
         ->causedBy(Auth::user()->id)
         ->performedOn(new User())
-        ->log(strtoupper(Auth::user()->last_name.' '.Auth::user()->name).'Loged Out');
+        ->log('Loged Out');
     }
     
 }
