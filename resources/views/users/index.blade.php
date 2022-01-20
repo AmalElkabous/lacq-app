@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group input-group-sm col-md-6">
-                        <label for="name">{{ __('Name') }}</label>
+                        <label for="name">{{ __('Nom') }}</label>
                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                         @error('name')
                             <span class="invalid-feedback" role="alert">
@@ -44,7 +44,7 @@
                         @enderror
                     </div>
                     <div class="form-group input-group-sm col-md-6">
-                        <label for="last_name">{{ __('Last Name') }}</label>
+                        <label for="last_name">{{ __('Prénom') }}</label>
                         <input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name" autofocus>
                         @error('last_name')
                             <span class="invalid-feedback" role="alert">
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="form-group input-group-sm">
-                    <label for="email" >{{ __('E-Mail Address') }}</label>
+                    <label for="email" >{{ __('Adresse mail') }}</label>
                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
                 </div>
                 <div class="form-group input-group-sm">
@@ -78,14 +78,14 @@
                         @enderror
                     </div>
                     <div class="form-group input-group-sm col-md-6">
-                        <label for="password-confirm">{{ __('Confirm Password') }}</label>
+                        <label for="password-confirm">{{ __('Confirmer Password') }}</label>
                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation"  autocomplete="new-password">
                     </div>
                 </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger btn-sm " data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary btn-sm">Save changes</button>
+            <button type="button" class="btn btn-danger btn-sm " data-dismiss="modal">Fermer</button>
+            <button type="submit" class="btn btn-primary btn-sm">Sauvegarder</button>
           </div>
         </div>
       </div>
@@ -110,7 +110,7 @@
     </div>
     @endif
     <div class="card" style="background-color: rgb(255, 255, 255)">
-        <div class="card-header">{{ __('List des utilisateurs') }}
+        <div class="card-header">{{ __('La liste des utilisateurs') }}
         <button class="btn btn-success btn-sm float-right" onclick="addUserBlade()">Ajouter un utilisateur</button> 
         </div>
             <div class="card-body">
@@ -119,11 +119,11 @@
                         <thead class="thead-light">
                             <tr>
                                 <th>Avatar</th>
-                                <th>Name</th>
-                                <th>Last Name </th>
+                                <th>Nom</th>
+                                <th>Prénom</th>
                                 <th>Role</th>
                                 <th>Email</th>
-                                <th>Action</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         @foreach ($listUsers as $user)

@@ -52,7 +52,7 @@ class CommercialController extends Controller
         $commercial->email = $request->input("email");
         $commercial->save();
         ActivityController::addActivity(new Commercial(),$commercial->id);
-        return redirect()->back()->with('success','Commercial ajouter avec success');
+        return redirect()->back()->with('success','Commercial ajouté avec succès');
 
     }
 
@@ -97,7 +97,7 @@ class CommercialController extends Controller
         $commercial->email = $request->input("email");
         $commercial->save();
         ActivityController::updateActivity(new Commercial(),$id);
-        return redirect()->back()->with('success','Commercial modifier avec success');
+        return redirect()->back()->with('success','Commercial modifié avec succès');
     }
 
     /**
@@ -112,7 +112,7 @@ class CommercialController extends Controller
         $commercial = Commercial::find($id);
         $commercial->delete();
         ActivityController::deleteActivity(new Commercial(),$id);
-        return redirect()->back()->with('success','Commercial supprimer avec success');
+        return redirect()->back()->with('success','Commercial supprimé avec succès');
     }
     public static function search(Request $request){
         $buffer = $request->input("buffer");

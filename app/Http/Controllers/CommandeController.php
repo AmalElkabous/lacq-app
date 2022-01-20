@@ -98,7 +98,7 @@ class CommandeController extends Controller
             $commande->save();
             ActivityController::addActivity(new Commande(),$commande->id);
         }
-        return redirect()->back()->with('success','Commande ajouter avec success');
+        return redirect()->back()->with('success','Commande ajoutée avec succès');
     }
 
     /**
@@ -161,7 +161,7 @@ class CommandeController extends Controller
         $commande->date_prelevement = $request->input("date_prelevement");
         $commande->save();
         ActivityController::updateActivity(new Commande(),$id);
-        return redirect()->back()->with('success','Commande updated avec success');
+        return redirect()->back()->with('success','Commande modifiée avec succès');
        
         
     }
@@ -178,7 +178,7 @@ class CommandeController extends Controller
         $commande = Commande::find($id);
         $commande->delete();
         ActivityController::deleteActivity(new Commande(),$id);
-        return redirect()->back()->with('success','Commande supprimer avec success');
+        return redirect()->back()->with('success','Commande supprimée avec succès');
         
     }
     public function notifCommandeValider($idCommande)
@@ -295,7 +295,7 @@ class CommandeController extends Controller
             
             self::notifCommandeValider($id);
             ActivityController::CommandeValider($id);
-            return redirect()->back()->with('success','Commande valider avec success '); 
+            return redirect()->back()->with('success','Commande validée avec succès'); 
         }catch(\Exception $e){
             echo $e->getMessage();
             //return redirect()->back()->with('error','Commande n\'pas valider !');
@@ -316,7 +316,7 @@ class CommandeController extends Controller
         $commande->state = "Rejete";
         $commande->save();
         ActivityController::CommandeRejter($commande_id);
-        return redirect()->back()->with('success','Commande rejete avec success');
+        return redirect()->back()->with('success','Commande rejetée avec succès');
     }
     public function menuOfMatrice($matrice_id){
         $listMenus = Menu::where("matrice_id","=",$matrice_id)

@@ -36,13 +36,13 @@
                     <input id="code" type="text" class="form-control @error('code') is-invalid @enderror" name="code" value="{{ old('code') }}" required autocomplete="code" autofocus>
                 </div>
                 <div class="form-group input-group-sm col-md-4">
-                    <label for="delai">{{ __('delai') }}</label>
+                    <label for="delai">{{ __('délai') }}</label>
                     <input id="delai" type="text" class="form-control @error('delai') is-invalid @enderror" name="delai" value="{{ old('delai') }}" required autocomplete="delai" autofocus>
                 </div>
             </div> 
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary btn-sm">Save changes</button>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-primary btn-sm">Sauvegarder</button>
             </div>
         </div>
       </div>
@@ -60,9 +60,9 @@
     </div>
     @endif
     <div class="card" style="background-color: rgb(255, 255, 255)">
-        <div class="card-header">{{ __('List des Matrice') }}
+        <div class="card-header">{{ __('La liste des Matrices') }}
             <input id="searchInput" type="text" class="ml-3 d-inline  form-control form-control-sm col-2">
-            <button class="btn btn-success btn-sm float-right" onclick="addMatriceBlade()">Ajouter un Matrice</button> 
+            <button class="btn btn-success btn-sm float-right" onclick="addMatriceBlade()">Ajouter une matrice</button> 
         </div>
             <div class="card-body">
                 <div class="table-responsive-sm ">
@@ -72,9 +72,9 @@
                                 <th class="text-center">#</th>
                                 <th class="text-center">Nom</th>
                                 <th class="text-center">Code</th>
-                                <th class="text-center">delai</th>
+                                <th class="text-center">délai</th>
                                 @if(Auth::user()->role_id <= 2)
-                                    <th class="text-right pr-4">Action</th>
+                                    <th class="text-right pr-4">Actions</th>
                                 @endif
                             </tr>
                         </thead>

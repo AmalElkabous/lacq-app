@@ -36,8 +36,8 @@ class ComposerStaticInitb2c676df023a5770086f6e7607dedc20
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         'ed962a97bd972bc82007176b647d4e36' => __DIR__ . '/..' . '/facade/ignition/src/helpers.php',
-        '377b22b161c09ed6e5152de788ca020a' => __DIR__ . '/..' . '/spatie/laravel-permission/src/helpers.php',
         '72b1e3f4a2af9b30b3f137b3ec2057fc' => __DIR__ . '/..' . '/spatie/laravel-activitylog/src/helpers.php',
+        '377b22b161c09ed6e5152de788ca020a' => __DIR__ . '/..' . '/spatie/laravel-permission/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -545,6 +545,7 @@ class ComposerStaticInitb2c676df023a5770086f6e7607dedc20
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\ActivityController' => __DIR__ . '/../..' . '/app/Http/Controllers/ActivityController.php',
         'App\\Http\\Controllers\\AnalyseController' => __DIR__ . '/../..' . '/app/Http/Controllers/AnalyseController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -573,6 +574,8 @@ class ComposerStaticInitb2c676df023a5770086f6e7607dedc20
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Middleware\\responsable' => __DIR__ . '/../..' . '/app/Http/Middleware/responsable.php',
         'App\\Http\\Middleware\\roles' => __DIR__ . '/../..' . '/app/Http/Middleware/roles.php',
+        'App\\Models\\Analys' => __DIR__ . '/../..' . '/app/Models/Analys.php',
+        'App\\Models\\AnalyseEau' => __DIR__ . '/../..' . '/app/Models/AnalyseEau.php',
         'App\\Models\\AnalyseEauPotable' => __DIR__ . '/../..' . '/app/Models/AnalyseEauPotable.php',
         'App\\Models\\Client' => __DIR__ . '/../..' . '/app/Models/Client.php',
         'App\\Models\\Commande' => __DIR__ . '/../..' . '/app/Models/Commande.php',

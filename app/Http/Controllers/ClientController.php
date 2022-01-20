@@ -51,7 +51,7 @@ class ClientController extends Controller
         $client->save();
         ActivityController::addActivity(new Client(),$client->id);
 
-        return redirect()->back()->with('success','Client ajouter avec success');
+        return redirect()->back()->with('success','Client ajouté avec succès');
     }
 
     /**
@@ -100,7 +100,7 @@ class ClientController extends Controller
         $client->save();
         ActivityController::updateActivity(new Client(),$id);
 
-        return redirect()->back()->with('success','Client mise a jour avec success');
+        return redirect()->back()->with('success','Client modifié avec succès');
     }
 
     /**
@@ -115,6 +115,6 @@ class ClientController extends Controller
         $client = Client::find($id);
         $client->delete();
         ActivityController::deleteActivity(new Client(),$id);
-        return redirect()->back()->with('success','Client supprimer avec success');
+        return redirect()->back()->with('success','Client supprimé avec succès');
     }
 }

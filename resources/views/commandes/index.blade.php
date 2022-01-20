@@ -26,7 +26,7 @@
         <div class="modal-body">
             <div class="form-group col">
                 <textarea id="commantaireInpute"  class="form-control form-control-sm" name="commantaire" value="{{ old('commantaire') }}" required autocomplete="commantaire"></textarea>
-                <div id="commantaireValidation" class="d-none"><small  class="text-danger font-weight-bold d-inline">Remplire le commantaire *</small></div>
+                <div id="commantaireValidation" class="d-none"><small  class="text-danger font-weight-bold d-inline">Écrivez votre commentaire *</small></div>
                 <label id="commantaireLabel"></label>
             </div>
         </div>
@@ -190,7 +190,7 @@
     </div>
     @endif
     <div class="card " style=" background-color: rgb(255, 255, 255)">
-        <div class="card-header d-inline ">{{ __('List des Commande') }}
+        <div class="card-header d-inline ">{{ __('La liste des Commandes') }}
             <select id="stateFilter" class="ml-3 d-inline  form-control form-control-sm col-2">
                 <option value="0" {{($state == 0) ? "selected":""}}>Toute les commande</option>
                 <option value="1" {{($state == 1) ? "selected":""}}>En cours</option>
