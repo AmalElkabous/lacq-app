@@ -36,7 +36,7 @@
                 </div>
                 <div class="form-group input-group-sm col-md-4">
                     <label for="email">{{ __('Email') }}</label>
-                    <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email " value="{{ old('email') }}" required autocomplete="email" autofocus>
+                    <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                 </div>
             </div> 
             <div class="modal-footer">
@@ -89,7 +89,7 @@
                                 @if(Auth::user()->role_id <= 2)
                                     <td class="text-right">
                                         <div class="d-inline p-2"><!------onclick="openEditCommercialModal({{ $commercial->id }})"--->
-                                            <button class="btn btn-primary btn-sm editBtn btnAction" ><i class="fa fa-edit"></i></button>
+                                            <button class="btn btn-primary btn-sm editBtn btnAction" onclick="modifier(this);"><i class="fa fa-edit"></i></button>
                                         </div>
                                         <form class="d-inline p-2" method="POST" action="{{ url('/commercials/'.$commercial->id) }}">
                                             @csrf
@@ -122,11 +122,11 @@
           }
           });
       });
-      $(".editBtn").click(function(){
-        idCommercial = $(this).parent().parent().parent().children("#id").html();
-        name = $(this).parent().parent().parent().children("#name").html();
-        zone = $(this).parent().parent().parent().children("#zone").children("span").html();
-        email = $(this).parent().parent().parent().children("#email").html();
+      function modifier(btn){
+        idCommercial = $(btn).parent().parent().parent().children("#id").html();
+        name = $(btn).parent().parent().parent().children("#name").html();
+        zone = $(btn).parent().parent().parent().children("#zone").children("span").html();
+        email = $(btn).parent().parent().parent().children("#email").html();
         $("#modalModal")[0].reset();
         $("#ModalTitle").text("Modifier");
         $('#modalModal').append("<input id='method' type='hidden' name='_method' value='PATCH'/>");
@@ -136,7 +136,7 @@
         $("#email").val(email);
         btnSaveRole = "PATCH";
         $('#modalEditCommercial').modal('show');
-      });
+      };
       $("#btnSave").click(function(){
         (btnSaveRole == "PATCH") ? url = "/commercials/"+idCommercial : url = "/commercials"; 
         $('table').preloader({text:'Loading'})
@@ -148,7 +148,7 @@
             success:function(response){
                 $(".card-body").html($(response).find( ".card-body" ).html())
                 $('table').preloader('remove')
-                
+                $('#modalEditCommercial').modal('hide');
             },
         });
         console.log(btnSaveRole);
