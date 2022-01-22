@@ -102,6 +102,7 @@ class CommandeController extends Controller
             $commande->state =  "En cours";
             $commande->save();
             ActivityController::addActivity(new Commande(),$commande->id);
+            self::notifNewCommande($commande->id);
         }
         return redirect()->back()->with('success','Commande ajoutée avec succès');
     }
@@ -197,9 +198,36 @@ class CommandeController extends Controller
         ->get();
         $body = "<tr><th>Actionneur : ";
         $details=[
-            "codeCommande" => $CommandeDetaile->code_commande,
+            "subject" => 'Commande '.$CommandeDetaile->code_commande,
             "greeting" => "Commande ". $CommandeDetaile->code_commande ." récemment validée :",
-            "body" => [ 1 => "L'échantillon de l'exploiteur ". $CommandeDetaile->exploiteur ." été receptioné physiquement " , 2 => "Organisme : ".$CommandeDetaile->organisme],
+            "body" => [ 1 => "L'échantillon de l'exploiteur ". $CommandeDetaile->exploiteur ." été receptioné physiquement " ,
+                        2 => "Organisme : ".$CommandeDetaile->organisme,
+                        3 => "",
+                        4 => ""
+                      ],
+            "actiontext" => "Go to Commandes",
+            "actionurl" => url("/commandes"),
+        ];
+        //Notification::route('mail', "mohammed.el-abidi@elephant-vert.com")->notify(new SendEmailNotification($details));
+        Notification::send($user,new SendEmailNotification($details));
+    }
+    public function notifNewCommande($idCommande)
+    {
+        $CommandeDetaile = Commande::join('clients', 'clients.id', '=', 'commandes.client_id')
+        ->where("commandes.id","=",$idCommande)
+        ->select("clients.*","commandes.*")
+        ->first();
+        $user = User::where("id","=","1")
+        ->get();
+        $body = "<tr><th>Actionneur : ";
+        $details=[
+            "subject" => "Nouveau échantillon ".$CommandeDetaile->id,
+            "greeting" => "Nouveau échantillon ". $CommandeDetaile->id ." :",
+            "body" => [ 1 => "Les papiers de l'échantillon de l'exploiteur ". $CommandeDetaile->exploiteur ." été réceptionné ",
+                        2 => "CIN/RC : ".$CommandeDetaile->cin_rc,
+                        3 => "Organisme : ".$CommandeDetaile->organisme,
+                        4 => "Adresse : ".$CommandeDetaile->adresse
+                     ],
             "actiontext" => "Go to Commandes",
             "actionurl" => url("/commandes"),
         ];
@@ -300,9 +328,6 @@ class CommandeController extends Controller
                     'commande_id' => $id,
                 ]);
             }
-
-          
-            
             self::notifCommandeValider($id);
             ActivityController::CommandeValider($id);
             return redirect()->back()->with('success','Commande validée avec succès'); 
