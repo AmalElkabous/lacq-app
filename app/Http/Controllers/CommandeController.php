@@ -221,8 +221,8 @@ class CommandeController extends Controller
         ->get();
         $body = "<tr><th>Actionneur : ";
         $details=[
-            "subject" => "Nouveau échantillon ".$CommandeDetaile->id,
-            "greeting" => "Nouveau échantillon ". $CommandeDetaile->id ." :",
+            "subject" => "Nouvel échantillon ".$CommandeDetaile->id,
+            "greeting" => "Nouvel échantillon ". $CommandeDetaile->id ." :",
             "body" => [ 1 => "Les papiers de l'échantillon de l'exploiteur ". $CommandeDetaile->exploiteur ." été réceptionné ",
                         2 => "CIN/RC : ".$CommandeDetaile->cin_rc,
                         3 => "Organisme : ".$CommandeDetaile->organisme,
