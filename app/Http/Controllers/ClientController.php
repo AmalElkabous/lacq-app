@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use PDF;
 
 
 class ClientController extends Controller
@@ -109,6 +110,13 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
+    public function createPDF() {
+        $data = Employee::all();
+        view()->share('employee',$data);
+        $pdf = PDF::loadView('pdf_view', $data);
+        return $pdf->download('pdf_file.pdf');
+    }
+
     public function destroy($id)
     {
         //

@@ -225,6 +225,7 @@ class CommandeController extends Controller
     public static function search(Request $request){
         $buffer = $request->input("buffer");
         if(empty($buffer)) return self::index();
+        $listLieus = Lieu::get();
         $listMatrices = Matrice::get();
         $listCultures = Commande::select('culture')->distinct()->get();
         $listNatures  = Commande::select('nature')->distinct()->get();
@@ -242,11 +243,12 @@ class CommandeController extends Controller
         ->orWhere("clients.exploiteur", 'LIKE', '%' . $buffer . '%')
         ->orWhere("menus.name", 'LIKE', '%' . $buffer . '%')
         ->get();
-        return view("commandes.index",["listCommandes" => $listCommandes ,"listMatrices" => $listMatrices,"listCultures" => $listCultures ,"listNatures" => $listNatures , "listVarites" => $listVarites, "listCommercials" => $listCommercials,"listClients" => $listClients,"state" => 0]);
+        return view("commandes.index",["listLieus" => $listLieus,"listCommandes" => $listCommandes ,"listMatrices" => $listMatrices,"listCultures" => $listCultures ,"listNatures" => $listNatures , "listVarites" => $listVarites, "listCommercials" => $listCommercials,"listClients" => $listClients,"state" => 0]);
 
     }
     public static function getCommandesWhereState($state)
     {
+        $listLieus = Lieu::get();
         $listMatrices = Matrice::get();
         $listCultures = Commande::select('culture')->distinct()->get();
         $listNatures  = Commande::select('nature')->distinct()->get();
@@ -273,7 +275,7 @@ class CommandeController extends Controller
         ->select("commandes.*","menus.name as menu","clients.exploiteur as client","commercials.name as commercial")
         ->paginate(8);
 
-        return view("commandes.index",["listCommandes" => $listCommandes ,"listMatrices" => $listMatrices,"listCultures" => $listCultures ,"listNatures" => $listNatures , "listVarites" => $listVarites, "listCommercials" => $listCommercials,"listClients" => $listClients,"state" => $state]);
+        return view("commandes.index",["listLieus" => $listLieus,"listCommandes" => $listCommandes ,"listMatrices" => $listMatrices,"listCultures" => $listCultures ,"listNatures" => $listNatures , "listVarites" => $listVarites, "listCommercials" => $listCommercials,"listClients" => $listClients,"state" => $state]);
     }
     public function valider($id){
         
