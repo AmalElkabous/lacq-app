@@ -333,7 +333,7 @@ class CommandeController extends Controller
             }catch(\Exception $e){
                 return response()->json(['status' => false,'message' => 'mail not sended'],['status' => false,'message' => 'mail not sended']);
             }
-            return response()->json(['status' => true,'message' => 'Commande validée avec succès']); 
+            return response()->json([['status' => true,'message' => 'Commande validée avec succès']]); 
         }catch(\Exception $e){
             echo $e->getMessage();
             //return redirect()->back()->with('error','Commande n\'pas valider !');
@@ -354,20 +354,20 @@ class CommandeController extends Controller
         $commande->state = "Rejete";
         $commande->save();
         ActivityController::CommandeRejter($commande_id);
-        return redirect()->back()->with('success','Commande rejetée avec succès');
+        return response()->json(['status' => false,'message' => 'Commande rejetée avec succès']);
     }
     public function menuOfMatrice($matrice_id){
         $listMenus = Menu::where("matrice_id","=",$matrice_id)
         ->select("id","name")
         ->get();
-        echo json_encode($listMenus);
+        return response()->json($listMenus);
     }
     public function getCommantaire($commande_id){
         $commantaire = Commantaire::select("content as commantaire")
         ->where("commande_id","=",$commande_id)
         ->orderByRaw('id desc')
         ->first();
-        echo json_encode($commantaire);
+        return response()->json($commantaire);
     }
 
 }

@@ -125,22 +125,16 @@
                                             name="date_prelevement" required autocomplete="date_prelevement">
                                     </div>
                                     <div class="form-group col">
-                                        <label for="varite">{{ __('Varièté') }}</label>
-                                        <input list="listVarites" id="varite" type="text"
-                                            class="form-control form-control-sm " name="varite" required
-                                            autocomplete="varite">
-                                    </div>
-                                    <div class="form-group col">
                                         <label for="nature">{{ __('Nature') }}</label>
-                                        <input list="listNatures" id="nature" type="text"
-                                            class="form-control form-control-sm" name="nature"
-                                            value="{{ old('nature') }}" required autocomplete="nature" autofocus>
+                                        <input list="listNatures" id="nature" type="text" class="form-control form-control-sm" name="nature" value="{{ old('nature') }}" required autocomplete="nature" autofocus>
                                     </div>
                                     <div class="form-group col">
-                                        <label for="culture">{{ __('Culture') }}</label>
-                                        <input list="listCultures" id="culture" type="text"
-                                            class="form-control form-control-sm " name="culture" required
-                                            autocomplete="culture">
+                                        <label for="culture" >{{ __('Culture') }}</label>
+                                        <input list="listCultures" id="culture" type="text" class="form-control form-control-sm " name="culture" required autocomplete="culture">
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="varite" >{{ __('Varièté') }}</label>
+                                        <input list="listVarites" id="varite" type="text" class="form-control form-control-sm " name="varite" required autocomplete="varite">
                                     </div>
                                 </div>
                                 <div class="form-row row2">
@@ -328,7 +322,7 @@
                                                 class="fa fa-edit"></i></button>
                                     </div>
                                     @if (Auth::user()->role_id == 1)
-                                        <form class="d-inline p-0" method="POST"
+                                        <form class="d-inline p-0 formDelete" method="POST"
                                             action="{{ url('/commandes/' . $commande->id) }}">
                                             @csrf
                                             {{ @method_field('DELETE') }}
@@ -354,6 +348,11 @@
 
 
     <script>
+        $(".formDelete").click(function(event) {
+            if(!confirm('Are you sure that you want to delete the commande') ){
+                event.preventDefault();
+            } 
+        });
         document.getElementById("commantaireInpute").addEventListener("keyup", e => {
             $("#commantaireValidation").addClass("d-none");
         })
@@ -414,9 +413,10 @@
                 text: 'Loading'
             });
             $.get('/commandes/' + id_commande + '/valider', function(response) {
-                data = JSON.parse(response);
-                $.each(data, function(status, message) {
-                    alert(status + ": " + message);
+                data = response
+                $.each(data, function(status,message) {
+                    console.log(status)
+                    alert(notif.status + " : " + notif.message);
                 });
                 $(".card-body").html($(response).find(".card-body").html())
                 $('html').preloader('remove')
@@ -487,7 +487,6 @@
                 $('#modalEditCommande').modal('show');
                 $('html').preloader('remove')
             })
-
         }
         $("#stateFilter").change(function() {
             $("html").preloader({
@@ -536,7 +535,7 @@
                 $("#menu").empty().append(options);
             } else {
                 $.get('/commandes/' + matrice_id + '/menuOfMatrice', function(listMenu) {
-                    listMenu = JSON.parse(listMenu);
+                    listMenu = listMenu;
                     var options = "<option value=''>select..</option>";
                     listMenu.forEach(menu => {
                         if (!menu_id) {

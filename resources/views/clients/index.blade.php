@@ -109,7 +109,7 @@
                                                 onclick="openEditClientModal({{ $client->id }})"><i
                                                     class="fa fa-edit"></i></button>
                                         </div>
-                                        <form class="d-inline p-2" method="POST"
+                                        <form class="d-inline p-2 formDelete" method="POST"
                                             action="{{ url('/clients/' . $client->id) }}">
                                             @csrf
                                             {{ @method_field('DELETE') }}
@@ -131,6 +131,11 @@
         {!! $listClients->links('pagination::bootstrap-4') !!}
         <script>
             $(document).ready(function() {
+                $(".formDelete").click(function(event) {
+                    if(!confirm('Are you sure that you want to delete this client') ){
+                        event.preventDefault();
+                    } 
+                });
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

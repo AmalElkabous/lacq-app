@@ -126,25 +126,25 @@
                                         name="date_prelevement[]" required autocomplete="date_prelevement">
                                 </div>
                                 <div class="form-group col">
-                                    <label for="varite">{{ __('Varièté') }}</label>
-                                    <input list="listVarites" id="varite" type="text" class="form-control form-control-sm "
-                                        name="varite[]" required autocomplete="varite">
-                                </div>
-                                <div class="form-group col">
                                     <label for="nature">{{ __('Nature') }}</label>
-                                    <input list="listNatures" id="nature" type="text" class="form-control form-control-sm"
-                                        name="nature[]" value="{{ old('nature') }}" required autocomplete="nature"
-                                        autofocus>
+                                    <input list="listNatures" id="nature" type="text" class="form-control form-control-sm" name="nature[]" value="{{ old('nature') }}" required autocomplete="nature" autofocus>
+                                </div>                            
+                                <div class="form-group col">
+                                    <label for="culture" >{{ __('Culture') }}</label>
+                                    <input list="listCultures" id="culture" type="text" class="form-control form-control-sm " name="culture[]" required autocomplete="culture">
                                 </div>
                                 <div class="form-group col">
-                                    <label for="culture">{{ __('Culture') }}</label>
-                                    <input list="listCultures" id="culture" type="text"
-                                        class="form-control form-control-sm " name="culture[]" required
-                                        autocomplete="culture">
+                                    <label for="varite" >{{ __('Varièté') }}</label>
+                                    <input list="listVarites" id="varite" type="text" class="form-control form-control-sm " name="varite[]" required autocomplete="varite">
                                 </div>
                             </div>
                             <div class="form-row row2">
-
+                                <div class="form-group col">
+                                    <label for="ref_client">{{ __('Réf Client') }}</label>
+                                    <input id="ref_client" type="ref_client" class="form-control form-control-sm"
+                                        name="ref_client[]" value="{{ old('ref_client') }}" required
+                                        autocomplete="ref_client">
+                                </div>
                                 <div class="form-group col">
                                     <label for="gps_1">{{ __('GPS 1') }}</label>
                                     <input id="gps_1" type="text" class="form-control form-control-sm " name="gps_1[]"
