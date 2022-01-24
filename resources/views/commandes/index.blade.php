@@ -69,7 +69,8 @@
                                         @foreach ($listClients as $client)
                                             <option value="{{ $client->id }}">{{ $client->cin_rc }}</option>
                                             <option style="font-size: 12px" value="" disabled>
-                                                <small>{{ $client->exploiteur }}</small></option>
+                                                <small>{{ $client->exploiteur }}</small>
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -285,8 +286,18 @@
                                 </td>
                                 <td class="text-center text-nowrap">{{ $commande->temperature }}</td>
                                 <td class="text-center text-nowrap">{{ $commande->date_prelevement }}</td>
-                                <td class="text-center text-nowrap">{{ $commande->state }}</td>
-
+                                @if ($commande->state == 'Valid')
+                                    <td class="text-center text-nowrap"> <span
+                                            class="badge badge-success">{{ $commande->state }}</td>
+                                @endif
+                                @if ($commande->state == 'Rejete')
+                                    <td class="text-center text-nowrap"> <span
+                                            class="badge badge-danger">{{ $commande->state }}</td>
+                                @endif
+                                @if ($commande->state == 'En cours')
+                                    <td class="text-center text-nowrap"> <span
+                                            class="badge badge-warning">{{ $commande->state }}</td>
+                                @endif
                                 <td class="text-right text-nowrap">
                                     @if (Auth::user()->role_id <= 2)
                                         @if ($commande->state != 'Valid')
@@ -404,8 +415,8 @@
             });
             $.get('/commandes/' + id_commande + '/valider', function(response) {
                 data = JSON.parse(response);
-                $.each(data, function( status, message ) {
-                    alert( status + ": " + message );
+                $.each(data, function(status, message) {
+                    alert(status + ": " + message);
                 });
                 $(".card-body").html($(response).find(".card-body").html())
                 $('html').preloader('remove')
