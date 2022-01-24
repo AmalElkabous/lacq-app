@@ -246,7 +246,6 @@ class CommandeController extends Controller
         ->where("code_commande","like",$codeMatrice."%")
         ->orderByRaw('updated_at desc')
         ->first();
-        echo $lastCode;
         (!empty($lastCode)) ? $code = $lastCode["code"] + 1 : $code = $codeMatrice."001";
         return  $code;
     }
@@ -328,9 +327,13 @@ class CommandeController extends Controller
                     'commande_id' => $id,
                 ]);
             }
-            self::notifCommandeValider($id);
             ActivityController::CommandeValider($id);
-            return redirect()->back()->with('success','Commande validée avec succès'); 
+            try{
+                self::notifCommandeValider($id);
+            }catch(\Exception $e){
+                return response()->json(['status' => false,'message' => 'mail not sended'],['status' => false,'message' => 'mail not sended']);
+            }
+            return response()->json(['status' => true,'message' => 'Commande validée avec succès']); 
         }catch(\Exception $e){
             echo $e->getMessage();
             //return redirect()->back()->with('error','Commande n\'pas valider !');
