@@ -85,7 +85,7 @@
                                         </td>
                                     @endforeach
                                     <th class="text-center text-nowrap"><a class="btn btn-success btn-sm btnAction"
-                                            href="#">PDF</a></th>
+                                            href="{{ url("report/") }}/{{ $data->commande_id }}">PDF</a></th>
                                 </tr>
                             @endforeach
                         </tbody>

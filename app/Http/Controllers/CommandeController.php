@@ -40,7 +40,7 @@ class CommandeController extends Controller
         ->join('commercials', 'commercials.id', '=', 'commandes.commercial_id')
         ->join('menus', 'menus.id', '=', 'commandes.menu_id')
         ->select("commandes.*","menus.name as menu","clients.exploiteur as client","commercials.name as commercial")
-        ->paginate(8);
+        ->paginate(10);
         $listCommandes->setPath('/commandes');
 
 

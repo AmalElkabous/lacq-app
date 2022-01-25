@@ -9,6 +9,7 @@ use App\Http\Controllers\CommercialController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\ReportController;
 
 use App\Http\Controllers\AnalyseController;
 use Illuminate\Support\Facades\Auth;
@@ -77,6 +78,7 @@ Route::group(['middleware' => ['auth']], function() {
 
 
 
+    
 
 
 
@@ -84,6 +86,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::PATCH('/analyses', [AnalyseController::class,'update']);
     Route::post('/analyses', [AnalyseController::class,'index']);
     Route::get('/analyses', [AnalyseController::class,'index']);
+
+    Route::get('report/{commande_id}', [ReportController::class, 'index']);
+
     Route::get('/', function () {
         return view('layouts.master');
     });
