@@ -122,6 +122,7 @@
                     }
                 });
             });
+            
 
             //_method:PATCH
             function addClientBlade() {
