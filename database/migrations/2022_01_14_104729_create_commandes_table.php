@@ -68,7 +68,7 @@ class CreateCommandesTable extends Migration
                     'code_commande' => 109517,
                     'client_id' => 1,
                     'commercial_id' => 1,
-                    'menu_id' => 11,
+                    'menu_id' => 12,
                     "lieu_id" => 1,
                     'ref_client' => "_",
                     'nature' => "_",

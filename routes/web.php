@@ -10,6 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\LieuController;
 
 use App\Http\Controllers\AnalyseController;
 use Illuminate\Support\Facades\Auth;
@@ -74,6 +75,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/commercials/search/',[CommercialController::class,'search']);
     Route::resource('/commercials',CommercialController::class);
     Route::resource('/clients',ClientController::class);
+    Route::resource('/lieus',LieuController::class);
+
     ///////////////////////////////////////////////////////////////////////////////
 
 
