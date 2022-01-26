@@ -9,6 +9,8 @@ use App\Http\Controllers\CommercialController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\LieuController;
+
 
 use App\Http\Controllers\AnalyseController;
 use Illuminate\Support\Facades\Auth;
@@ -71,6 +73,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::DELETE('/commercials/{id}', [CommercialController::class,'destroy'])->middleware('is_responsable');
                                 ////////////////////////////
     Route::post('/commercials/search/',[CommercialController::class,'search']);
+    Route::get('/lieus/json', [LieuController::class,'json']);
+    Route::resource('/lieus',LieuController::class);
     Route::resource('/commercials',CommercialController::class);
     Route::resource('/clients',ClientController::class);
     ///////////////////////////////////////////////////////////////////////////////
