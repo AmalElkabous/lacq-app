@@ -266,7 +266,7 @@
                 $("#menu").empty().append(options);
             } else {
                 $.get('/commandes/' + matrice_id.value + '/menuOfMatrice', function(listMenu) {
-                    listMenu = JSON.parse(listMenu);
+                    listMenu = listMenu;
                     var options = "<option value=''>select..</option>";
                     listMenu.forEach(menu => {
                         options += "<option value='" + menu.id + "'>" + menu.name + "</option>";
