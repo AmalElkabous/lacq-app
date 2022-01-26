@@ -61,7 +61,7 @@ class CreateCommandesTable extends Migration
                     'date_reception' => '2022/01/01',
                     'date_prelevement' => '2022/01/01',
                     'date_edition' => '2022/01/01',
-                    'state' => 'Valid'
+                    'state' => 'En cours'
                 ),
                 array(
                     'id' => '2',
@@ -82,7 +82,7 @@ class CreateCommandesTable extends Migration
                     'date_reception' => '2022/01/01',
                     'date_prelevement' => '2022/01/01',
                     'date_edition' => '2022/01/01',
-                    'state' => 'Valid'
+                    'state' => 'En cours'
                 ),
                 array(
                     'id' => '3',
@@ -103,7 +103,7 @@ class CreateCommandesTable extends Migration
                     'date_reception' => '2022/01/01',
                     'date_prelevement' => '2022/01/01',
                     'date_edition' => '2022/01/01',
-                    'state' => 'Valid'
+                    'state' => 'En cours'
                 ),
                 array(
                     'id' => '4',
@@ -124,7 +124,7 @@ class CreateCommandesTable extends Migration
                     'date_reception' => '2022/01/01',
                     'date_prelevement' => '2022/01/01',
                     'date_edition' => '2022/01/01',
-                    'state' => 'Valid'
+                    'state' => 'En cours'
                 ),
                 array(
                     'id' => '5',
@@ -145,7 +145,7 @@ class CreateCommandesTable extends Migration
                     'date_reception' => '2022/01/01',
                     'date_prelevement' => '2022/01/01',
                     'date_edition' => '2022/01/01',
-                    'state' => 'Valid'
+                    'state' => 'En cours'
                 ),
                 array(
                     'id' => '6',
@@ -166,7 +166,7 @@ class CreateCommandesTable extends Migration
                     'date_reception' => '2022/01/01',
                     'date_prelevement' => '2022/01/01',
                     'date_edition' => '2022/01/01',
-                    'state' => 'Valid'
+                    'state' => 'En cours'
                 ),
                 array(
                     'id' => '7',
@@ -187,7 +187,7 @@ class CreateCommandesTable extends Migration
                     'date_reception' => '2022/01/01',
                     'date_prelevement' => '2022/01/01',
                     'date_edition' => '2022/01/01',
-                    'state' => 'Valid'
+                    'state' => 'En cours'
                 ),
                 array(
                     'id' => '8',
@@ -208,7 +208,7 @@ class CreateCommandesTable extends Migration
                     'date_reception' => '2022/01/01',
                     'date_prelevement' => '2022/01/01',
                     'date_edition' => '2022/01/01',
-                    'state' => 'Valid'
+                    'state' => 'En cours'
                 ),
             )
         );

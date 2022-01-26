@@ -203,7 +203,7 @@
     </datalist>
 
     <!------------------------------------------------------------------------->
-
+<div id="notification">
     @if ($message = Session::get('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>{{ $message }}</strong>
@@ -220,6 +220,7 @@
             </button>
         </div>
     @endif
+</div>
     <div class="card " style=" background-color: rgb(255, 255, 255)">
         <div class="card-header d-inline ">{{ __('La liste des Commandes') }}
             <select id="stateFilter" class="ml-3 d-inline  form-control form-control-sm col-2">
@@ -233,131 +234,39 @@
                 Commande</a>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-striped table-sm ">
-                    <thead class="thead-light">
-                        <tr>
-                            <th class="text-center text-nowrap">#</th>
-                            <th class="text-center text-nowrap">Code commande</th>
-                            <th class="text-center text-nowrap">Date réception</th>
-                            <th class="text-center text-nowrap">Client</th>
-                            <th class="text-center text-nowrap">Réf client</th>
-                            <th class="text-center pr-4 text-nowrap">Commercial</th>
-                            <th class="text-center pr-4 text-nowrap">Menu</th>
-                            <th class="text-center pr-4 text-nowrap">Nature</th>
-                            <th class="text-center pr-4 text-nowrap">Culture</th>
-                            <th class="text-center pr-4 text-nowrap">Varite</th>
-                            <th class="text-center pr-4 text-nowrap">GPS1</th>
-                            <th class="text-center pr-4 text-nowrap">GPS2</th>
-                            <th class="text-center pr-4 text-nowrap">Horizon</th>
-                            <th class="text-center pr-4 text-nowrap">Temperature</th>
-                            <th class="text-center pr-4 text-nowrap">Date prélevement</th>
-                            <th class="text-center pr-4">Etat</th>
-                            <th class="text-center pr-4">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($listCommandes as $commande)
-                            <tr>
-                                <td class="text-center text-nowrap">{{ $commande->id }}</td>
-                                <td class="text-center"><span
-                                        class="badge badge-success">{{ $commande->code_commande }}</span></td>
-                                <td class="text-center text-nowrap">{{ $commande->date_reception }}</td>
-                                <td class="text-center text-nowrap">{{ $commande->client }}</td>
-                                <td class="text-center text-nowrap">{{ $commande->ref_client }}</td>
-
-                                <td class="text-center text-nowrap">{{ $commande->commercial }}</td>
-                                <td class="text-center text-nowrap">{{ $commande->menu }}</td>
-                                <td class="text-center text-nowrap">{{ $commande->nature }}</td>
-                                <td class="text-center text-nowrap">{{ $commande->culture }}</td>
-                                <td class="text-center text-nowrap">{{ $commande->varite }}</td>
-                                <td class="text-center text-nowrap">{{ $commande->gps_1 }}</td>
-                                <td class="text-center text-nowrap">{{ $commande->gps_2 }}</td>
-                                <td class="text-center text-nowrap">
-                                    @if (!empty($commande->horizon_2))
-                                        {{ $commande->horizon_1 }} --> {{ $commande->horizon_2 }}
-                                    @endif
-                                </td>
-                                <td class="text-center text-nowrap">{{ $commande->temperature }}</td>
-                                <td class="text-center text-nowrap">{{ $commande->date_prelevement }}</td>
-                                @if ($commande->state == 'Valid')
-                                    <td class="text-center text-nowrap"> <span
-                                            class="badge badge-success">{{ $commande->state }}</td>
-                                @endif
-                                @if ($commande->state == 'Rejete')
-                                    <td class="text-center text-nowrap"> <span
-                                            class="badge badge-danger">{{ $commande->state }}</td>
-                                @endif
-                                @if ($commande->state == 'En cours')
-                                    <td class="text-center text-nowrap"> <span
-                                            class="badge badge-warning">{{ $commande->state }}</td>
-                                @endif
-                                <td class="text-right text-nowrap">
-                                    @if (Auth::user()->role_id <= 2)
-                                        @if ($commande->state != 'Valid')
-                                            <div class="d-inline p-0">
-                                                <button class="btn btn-success btn-sm btnAction"
-                                                    onclick="validerCommande({{ $commande->id }})"><i
-                                                        class="fa fa-check" aria-hidden="true"></i></button>
-                                            </div>
-                                        @endif
-                                        @if ($commande->state != 'Rejete')
-                                            <div class="d-inline p-0">
-                                                <button class="btn btn-warning btn-sm btnAction"
-                                                    onclick="openModalRejeterCommande({{ $commande->id }})"><i
-                                                        class="fa fa-undo" aria-hidden="true"></i></button>
-                                            </div>
-                                        @endif
-                                        @if ($commande->state == 'Rejete')
-                                            <div class="d-inline p-0">
-                                                <button class="btn btn-warning btn-sm btnAction"
-                                                    onclick="showCommantaire({{ $commande->id }})"><i
-                                                        class="fa fa-exclamation-triangle" aria-hidden="true"></i></button>
-                                            </div>
-                                        @endif
-                                    @endif
-                                    <div class="d-inline p-0">
-                                        <button class="btn btn-primary btn-sm btnAction"
-                                            onclick="openEditCommandeModal({{ $commande->id }})"><i
-                                                class="fa fa-edit"></i></button>
-                                    </div>
-                                    @if (Auth::user()->role_id == 1)
-                                        <form class="d-inline p-0 formDelete" method="POST"
-                                            action="{{ url('/commandes/' . $commande->id) }}">
-                                            @csrf
-                                            {{ @method_field('DELETE') }}
-                                            <button type="supmit" class="btn btn-danger btn-sm btnAction"><i
-                                                    class="fa fa-trash" aria-hidden="true"></i></button>
-                                        </form>
-                                    @endif
-
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+            <div class="table-responsive-sm">
+                @include('commandes.table')
             </div>
-            @if ($listCommandes instanceof \Illuminate\Pagination\LengthAwarePaginator)
-                <div class="d-flex justify-content-center mt-2">
-                    {!! $listCommandes->links('pagination::bootstrap-4') !!}
-                </div>
-            @endif
         </div>
     </div>
     </div>
 
 
     <script>
-        $(".formDelete").click(function(event) {
-            if(!confirm('Are you sure that you want to delete the commande') ){
-                event.preventDefault();
+        function remove(btn){
+            if(confirm('Êtes-vous sûr de vouloir supprimer les données de manière permanente') ){
+                commande_id = $(btn).parent().parent().parent().children("#id").html();
+                $('table').preloader({text: 'Loading'})
+                data = "_method=DELETE&_token={{ csrf_token() }}" 
+                $.ajax({
+                    url: '/commandes/'+commande_id,
+                    type: "POST",
+                    data: data,
+                    success: function(response) {
+                        $('table').preloader('remove')
+                        renderTable();
+                        $('#modalEditLieu').modal('hide');
+                        obj = response;
+                        (obj.status == true) ? alert_success(obj.message) : alert_danger(obj.message)
+                    },
+                });
             } 
-        });
+        }
         document.getElementById("commantaireInpute").addEventListener("keyup", e => {
             $("#commantaireValidation").addClass("d-none");
         })
         document.getElementById("searchInput").addEventListener("keyup", e => {
-            $('.table-responsive').preloader({
+            $('.table-responsive-sm').preloader({
                 text: 'Loading'
             })
             $.ajax({
@@ -368,8 +277,9 @@
                     buffer: $("#searchInput").val(),
                 },
                 success: function(response) {
-                    $(".card-body").html($(response).find(".card-body").html())
-                    $('table').preloader('remove')
+                    var $container = $('.table-responsive-sm');
+                    $container.html(response.table);
+                    $('.table-responsive-sm').preloader('remove')
                 },
             });
         })
@@ -414,13 +324,12 @@
             });
             $.get('/commandes/' + id_commande + '/valider', function(response) {
                 data = response
-                $.each(data, function(status,message) {
-                    console.log(status)
-                    alert(notif.status + " : " + notif.message);
+                $.each(data, function(indx,obj) {
+                    (obj.status == true) ? alert_success(obj.message) : alert_danger(obj.message)
+                    console.log(obj);
                 });
-                $(".card-body").html($(response).find(".card-body").html())
+                renderTable()
                 $('html').preloader('remove')
-
             });
 
         }
@@ -445,8 +354,11 @@
                     commantaire: commantaire
                 },
                 success: function(response) {
-
-                    $(".card-body").html($(response).find(".card-body").html())
+                    renderTable();
+                    obj = response;
+                    (obj.status == true) ? alert_success(obj.message) : alert_danger(obj.message)
+                    console.log(obj);
+                   
                     $('html').preloader('remove')
                 },
             });
@@ -552,6 +464,35 @@
                 });
             }
 
+        }
+        function renderTable() {
+            var $request = $.get('{{ url("commandes/json") }}'); // make request
+            var $container = $('.table-responsive-sm');
+            $container.preloader({text: 'Loading'})
+            $request.done(function(data) { // success
+                $container.html(data.table);
+            });
+            $request.always(function() {
+                $container.preloader('remove')
+            });
+        }
+        function alert_success(message){
+            html = '<div class="alert alert-success alert-dismissible fade show" role="alert">'
+            html += '    <strong>'+message+'</strong>'
+            html += '   <button type="button" class="close" data-dismiss="alert" aria-label="Close">'
+            html += '        <span aria-hidden="true">&times;</span>'
+            html += '    </button>'
+            html += '</div>'
+            $("#notification").append(html);
+        }
+        function alert_danger(message){
+            html = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'
+            html += '    <strong>'+message+'</strong>'
+            html += '   <button type="button" class="close" data-dismiss="alert" aria-label="Close">'
+            html += '        <span aria-hidden="true">&times;</span>'
+            html += '    </button>'
+            html += '</div>'
+            $("#notification").append(html);
         }
     </script>
 

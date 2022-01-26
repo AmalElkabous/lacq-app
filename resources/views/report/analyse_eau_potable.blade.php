@@ -350,7 +350,7 @@
                 <td class="col-md-3 bordered">THt</td>
                 <td class="col-md-3 bordered"> Calcul.</td>
                 <td class="col-md-3 bordered">°f</td>
-                <td class="col-md-3 bordered"> <?= ($analyse_data->Ca_ppm / 20 + $analyse_data->Mg_ppm / 12) * 5 ?></td>
+                <td class="col-md-3 bordered"> <?= round(($analyse_data->Ca_ppm / 20 + $analyse_data->Mg_ppm / 12) * 5,2) ?></td>
                 <td class="col-md-3 bordered">
                     @php
                         if (($analyse_data->Ca_ppm / 20 + $analyse_data->Mg_ppm / 12) * 5 > 8.5 or ($analyse_data->Ca_ppm / 20 + $analyse_data->Mg_ppm / 12) * 5 < 6.5) {
@@ -384,7 +384,7 @@
                 <td class="col-md-3 bordered">TAC</td>
                 <td class="col-md-3 bordered"> MN ISO 9963-1 </td>
                 <td class="col-md-3 bordered">°f</td>
-                <td class="col-md-3 bordered"> <?= $analyse_data->HCO3_ppm / 12, 2 ?></td>
+                <td class="col-md-3 bordered"> <?= round($analyse_data->HCO3_ppm / 12.2 ,2) ?></td>
                 <td class="col-md-3 bordered">
                     @php
                         if ($analyse_data->HCO3_ppm / 12.2 > 8.5 or $analyse_data->HCO3_ppm / 12.2 < 6.5) {

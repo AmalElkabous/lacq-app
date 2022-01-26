@@ -15,13 +15,9 @@
         }
 
     </style>
-<<<<<<< HEAD
     <form method="post" id="modalForm" action="{{ url('/lieus') }}" enctype="multipart/form-data">
         <div class="modal fade bd-example-modal-lg" id="modalEditLieu" tabindex="-1" role="dialog"
-=======
-    <form method="post" id="modalModal" action="{{ url('/clients') }}" enctype="multipart/form-data">
-        <div class="modal fade bd-example-modal-lg" id="modalEditClient" tabindex="-1" role="dialog"
->>>>>>> development
+
             aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -51,33 +47,15 @@
         </div>
     </form>
     <!------------------------------------------------------------------------->
-<<<<<<< HEAD
     <div class="card" style="background-color: rgb(255, 255, 255)">
         <div class="card-header">{{ __('La liste des lieus') }}
             @if (Auth::user()->role_id <= 2)
                 <button class="btn btn-success btn-sm float-right" onclick="addClientBlade()">Ajouter un nouveau
                     Lieu</button>
-=======
-
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>{{ $message }}</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
-    <div class="card" style="background-color: rgb(255, 255, 255)">
-        <div class="card-header">{{ __('La liste des Clients') }}
-            @if (Auth::user()->role_id <= 2)
-                <button class="btn btn-success btn-sm float-right" onclick="addClientBlade()">Ajouter un nouveau
-                    client</button>
->>>>>>> development
             @endif
         </div>
         <div class="card-body">
             <div class="table-responsive-sm ">
-<<<<<<< HEAD
                 @include('lieus.table')
             </div>
         </div>
@@ -87,66 +65,11 @@
                 btnSaveRole = null;
                 idLieu = null;
                 
-=======
-                <table class="table table-striped table-sm ">
-                    <thead class="thead-light">
-                        <tr>
-                            <th class="text-center">id</th>
-                            <th class="text-center">Lieu</th>
-
-                            @if (Auth::user()->role_id <= 2)
-                                <th class="text-right pr-4">Actions</th>
-                            @endif
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($listLieus as $lieu)
-                            <tr>
-                                <td class="text-center"><span class="badge badge-success">{{ $lieu->id }}</span>
-                                </td>
-                                <td class="text-center">{{ $lieu->lieu }}</td>
-                                @if (Auth::user()->role_id <= 2)
-                                    <td class="text-right">
-                                        <div class="d-inline p-2">
-                                            <button class="btn btn-primary btn-sm btnAction"
-                                                onclick="openEditLieuModal({{ $lieu->id }})"><i
-                                                    class="fa fa-edit"></i></button>
-                                        </div>
-                                        <form class="d-inline p-2 formDelete" method="POST"
-                                            action="{{ url('/lieus/' . $lieu->id) }}">
-                                            @csrf
-                                            {{ @method_field('DELETE') }}
-                                            <button type="supmit" class="btn btn-danger btn-sm btnAction"><i
-                                                    class="fa fa-trash" aria-hidden="true"></i></button>
-                                        </form>
-                                    </td>
-                                @endif
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    </div>
-
-    <div class="d-flex justify-content-center mt-2">
-        {!! $listLieus->links('pagination::bootstrap-4') !!}
-        <script>
-            $(document).ready(function() {
-                $(".formDelete").click(function(event) {
-                    if(!confirm('Are you sure that you want to delete this lieu') ){
-                        event.preventDefault();
-                    } 
-                });
->>>>>>> development
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-<<<<<<< HEAD
                 $("#modalForm").submit(function(event) {
                     event.preventDefault();
                     (btnSaveRole == "PATCH") ? url = "/lieus/" + idLieu: url = "/lieus";
@@ -192,7 +115,7 @@
                 if(confirm('Are you sure that you want to delete this lieu') ){
                     idLieu = $(btn).parent().parent().parent().children("#id").children("span").html();
                     $('table').preloader({text: 'Loading'})
-                    data = '{{ @method_field('DELETE') }}'+'@csrf'
+                    data = "_method=DELETE&_token={{ csrf_token() }}" 
                     $.ajax({
                         url: '/lieus/'+idLieu,
                         type: "POST",
@@ -215,30 +138,6 @@
                 $request.always(function() {
                     $container.preloader('remove')
                 });
-=======
-            });
-            
-
-            //_method:PATCH
-            function addClientBlade() {
-                $("#modalModal")[0].reset();
-                $("#ModalTitle").text("Ajouter un client");
-                $('#modalEditClient').modal('show');
-            }
-
-            function openEditLieuModal(id) {
-                $("#modalModal")[0].reset();
-                $("#ModalTitle").text("Modifier");
-                $('#modalModal').append("<input id='method' type='hidden' name='_method' value='PATCH'/>");
-                //$("#password-confirm").hide();
-                var lieu_id = id;
-                $.get('/lieus/' + lieu_id + '/edit', function(data) {
-                    data = JSON.parse(data);
-                    $('#modalModal').attr('action', '{{ url('/clients') }}' + "/" + data.id);
-                    $("#cin_rc").val(data.lieu);
-                })
-                $('#modalEditClient').modal('show');
->>>>>>> development
             }
         </script>
     @endsection

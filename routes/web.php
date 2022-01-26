@@ -59,14 +59,15 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/matrices/search/',[MatriceController::class,'search']);
     /////////////////////////////////////////////////////////////////////////////
     Route::DELETE('/commandes/{id}', [CommandeController::class,'destroy'])->middleware('is_admin');
-    Route::resource('/commandes',CommandeController::class);
                         //////////////////////////////////////////
+    Route::get('/commandes/json', [CommandeController::class,'json']);
     Route::post('/commandes/search/',[CommandeController::class,'search']);
     Route::get('/commandes/commantaire/{commande_id}',[CommandeController::class,'getCommantaire']);
     Route::post('/commandes/reject',[CommandeController::class,'reject'])->middleware('is_responsable');
     Route::get('/commandes/search/{state}',[CommandeController::class,'getCommandesWhereState']);
     Route::get('/commandes/{id}/valider',[CommandeController::class,'valider'])->middleware('is_responsable');
     Route::get('/commandes/{matrice_is}/menuOfMatrice',[CommandeController::class,'menuOfMatrice']);
+    Route::resource('/commandes',CommandeController::class);
     ////////////////////////////////////////////////////////////////////////////////
     Route::get('/dashboard', [DashboardController::class,'index']);
     Route::DELETE('/commercials/{id}', [CommercialController::class,'destroy'])->middleware('is_responsable');
