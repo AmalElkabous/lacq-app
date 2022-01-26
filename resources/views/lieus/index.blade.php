@@ -15,8 +15,13 @@
         }
 
     </style>
+<<<<<<< HEAD
+    <form method="post" id="modalForm" action="{{ url('/lieus') }}" enctype="multipart/form-data">
+        <div class="modal fade bd-example-modal-lg" id="modalEditLieu" tabindex="-1" role="dialog"
+=======
     <form method="post" id="modalModal" action="{{ url('/clients') }}" enctype="multipart/form-data">
         <div class="modal fade bd-example-modal-lg" id="modalEditClient" tabindex="-1" role="dialog"
+>>>>>>> development
             aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -46,6 +51,13 @@
         </div>
     </form>
     <!------------------------------------------------------------------------->
+<<<<<<< HEAD
+    <div class="card" style="background-color: rgb(255, 255, 255)">
+        <div class="card-header">{{ __('La liste des lieus') }}
+            @if (Auth::user()->role_id <= 2)
+                <button class="btn btn-success btn-sm float-right" onclick="addClientBlade()">Ajouter un nouveau
+                    Lieu</button>
+=======
 
     @if ($message = Session::get('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -60,10 +72,22 @@
             @if (Auth::user()->role_id <= 2)
                 <button class="btn btn-success btn-sm float-right" onclick="addClientBlade()">Ajouter un nouveau
                     client</button>
+>>>>>>> development
             @endif
         </div>
         <div class="card-body">
             <div class="table-responsive-sm ">
+<<<<<<< HEAD
+                @include('lieus.table')
+            </div>
+        </div>
+    </div>
+        <script>
+            $(document).ready(function() {
+                btnSaveRole = null;
+                idLieu = null;
+                
+=======
                 <table class="table table-striped table-sm ">
                     <thead class="thead-light">
                         <tr>
@@ -116,11 +140,82 @@
                         event.preventDefault();
                     } 
                 });
+>>>>>>> development
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
+<<<<<<< HEAD
+                $("#modalForm").submit(function(event) {
+                    event.preventDefault();
+                    (btnSaveRole == "PATCH") ? url = "/lieus/" + idLieu: url = "/lieus";
+                    $('table').preloader({
+                        text: 'Loading'
+                    })
+                    data = $("#modalForm").serialize();
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        data: data,
+                        success: function(response) {
+                            $('table').preloader('remove')
+                            renderTable();
+                            $('#modalEditLieu').modal('hide');
+                        },
+                    });
+                });
+            });
+
+
+            //_method:PATCH
+            function addClientBlade() {
+                btnSaveRole = "ADD"
+                $("#modalForm")[0].reset();
+                $("#ModalTitle").text("Ajouter");
+                $('#modalEditLieu').modal('show');
+                $("#method").remove();
+            }
+            function openEditModale(btn){
+                btnSaveRole = "PATCH"
+                idLieu = $(btn).parent().parent().parent().children("#id").children("span").html();
+                nameLieu = $(btn).parent().parent().parent().children("#name").html();
+                console.log(idLieu+"/"+nameLieu);
+                $('#modalForm').attr('action', '{{ url("/lieus") }}' + "/" + idLieu);
+                $("#modalForm")[0].reset();
+                $("#ModalTitle").text("Modifier");
+                $('#modalForm').append("<input id='method' type='hidden' name='_method' value='PATCH'/>");
+                $("#lieu").val(nameLieu);
+                $('#modalEditLieu').modal('show');
+            };
+            function remove(btn){
+                if(confirm('Are you sure that you want to delete this lieu') ){
+                    idLieu = $(btn).parent().parent().parent().children("#id").children("span").html();
+                    $('table').preloader({text: 'Loading'})
+                    data = '{{ @method_field('DELETE') }}'+'@csrf'
+                    $.ajax({
+                        url: '/lieus/'+idLieu,
+                        type: "POST",
+                        data: data,
+                        success: function(response) {
+                            $('table').preloader('remove')
+                            renderTable();
+                            $('#modalEditLieu').modal('hide');
+                        },
+                    });
+                } 
+            }
+            function renderTable() {
+                var $request = $.get('{{ url("lieus/json") }}'); // make request
+                var $container = $('.table-responsive-sm');
+                $container.preloader({text: 'Loading'})
+                $request.done(function(data) { // success
+                    $container.html(data.table);
+                });
+                $request.always(function() {
+                    $container.preloader('remove')
+                });
+=======
             });
             
 
@@ -143,6 +238,7 @@
                     $("#cin_rc").val(data.lieu);
                 })
                 $('#modalEditClient').modal('show');
+>>>>>>> development
             }
         </script>
     @endsection
