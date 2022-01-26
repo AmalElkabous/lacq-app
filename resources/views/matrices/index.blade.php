@@ -102,7 +102,7 @@
                                                 onclick="openEditMatriceModal({{ $matrice->id }})"><i
                                                     class="fa fa-edit"></i></button>
                                         </div>
-                                        <form class="d-inline p-2" method="POST"
+                                        <form class="d-inline p-2 formDelete" method="POST"
                                             action="{{ url('/matrices/' . $matrice->id) }}">
                                             @csrf
                                             {{ @method_field('DELETE') }}
@@ -127,6 +127,11 @@
     </div>
     <script>
         $(document).ready(function() {
+            $(".formDelete").click(function(event) {
+                if(!confirm('Are you sure that you want to delete this matrice') ){
+                    event.preventDefault();
+                } 
+            });
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

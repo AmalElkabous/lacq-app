@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Lieu;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> development
 class LieuController extends Controller
 {
     /**
@@ -15,6 +19,7 @@ class LieuController extends Controller
     public function index()
     {
         $listLieus = Lieu::paginate(8);
+<<<<<<< HEAD
         $listLieus->setPath('/lieus');
         return view("lieus.index",["listLieus" => $listLieus]);
     }
@@ -24,6 +29,11 @@ class LieuController extends Controller
         $table = view('lieus.table', compact('listLieus'))->render();
         return response()->json(compact('table')); 
     }
+=======
+        return view("lieus.index",["listLieus" => $listLieus]);
+    }
+
+>>>>>>> development
     /**
      * Show the form for creating a new resource.
      *
@@ -43,10 +53,13 @@ class LieuController extends Controller
     public function store(Request $request)
     {
         //
+<<<<<<< HEAD
         $lieu= new Lieu();
         $lieu->lieu = $request->input("lieu");     
         $lieu->save();
         return response()->json(['status' => true,'message' => 'Lieu ajoutée avec succès']); 
+=======
+>>>>>>> development
     }
 
     /**
@@ -69,8 +82,13 @@ class LieuController extends Controller
     public function edit($id)
     {
         $lieu = Lieu::find($id);
+<<<<<<< HEAD
         return response()->json($lieu); 
 
+=======
+        echo json_encode($lieu);
+        exit();
+>>>>>>> development
     }
 
     /**
@@ -82,10 +100,14 @@ class LieuController extends Controller
      */
     public function update(Request $request, $id)
     {
+<<<<<<< HEAD
         $lieu = Lieu::find($id);
         $lieu->lieu = $request->input("lieu");     
         $lieu->save();
         return response()->json(['status' => true,'message' => 'Lieu modifiée avec succès']); 
+=======
+        //
+>>>>>>> development
     }
 
     /**
@@ -98,6 +120,10 @@ class LieuController extends Controller
     {
         $lieu = Lieu::find($id);
         $lieu->delete();
+<<<<<<< HEAD
         return response()->json(['status' => true,'message' => 'Lieu supprimée avec succès']); 
+=======
+        return redirect()->back()->with('success','Matrice supprimée avec succès');
+>>>>>>> development
     }
 }

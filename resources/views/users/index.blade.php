@@ -162,7 +162,7 @@
                                                     class="fa fa-edit"></i></button>
                                         </div>
                                         <div class="col">
-                                            <form method="POST" action="{{ url('/users/' . $user->id) }}">
+                                            <form method="POST" class="formDelete" action="{{ url('/users/' . $user->id) }}">
                                                 @csrf
                                                 {{ @method_field('DELETE') }}
                                                 <button type="supmit" class="btn btn-danger btn-sm btnAction"><i
@@ -193,6 +193,11 @@
     </script>
     <script>
         $(document).ready(function() {
+            $(".formDelete").click(function(event) {
+                if(!confirm('Are you sure that you want to delete this user') ){
+                    event.preventDefault();
+                } 
+            });
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

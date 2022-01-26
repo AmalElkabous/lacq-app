@@ -26,11 +26,11 @@ class CreateLieusTable extends Migration
                 ),
                 array(
                     'id' => '2',
-                    'lieu' => 'intern'
+                    'lieu' => 'Sous traiter'
                 ),
                 array(
                     'id' => '3',
-                    'lieu' => 'extern'
+                    'lieu' => 'Elephant vert agropolise meknes'
                 )
             )
         );

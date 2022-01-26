@@ -73,7 +73,7 @@ class CreateUsersTable extends Migration
                 array(
                     'id' => '5',
                     'name' => "amine",
-                    "last_name" => "el-kabous",
+                    "last_name" => "bouslamti",
                     "email" => "amine.bouslamti@elephant-vert.com",
                     "password" =>  Hash::make("Lacq2021"),
                     "role_id" => 1,

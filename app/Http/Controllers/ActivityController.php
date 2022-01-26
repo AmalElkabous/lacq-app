@@ -27,7 +27,7 @@ class ActivityController extends Controller
         $Activitys = Activity::join("users","users.id","=","activity_log.causer_id")
         ->select("activity_log.*","users.name","users.last_name")
         ->orderBy('id', 'desc')
-        ->paginate(8);
+        ->paginate(10);
         //dd($Activitys);
         return view("activitys.index",["Activitys" => $Activitys]);
     }
