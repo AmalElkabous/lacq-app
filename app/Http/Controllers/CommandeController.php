@@ -41,7 +41,7 @@ class CommandeController extends Controller
         ->join('commercials', 'commercials.id', '=', 'commandes.commercial_id')
         ->join('menus', 'menus.id', '=', 'commandes.menu_id')
         ->select("commandes.*","menus.name as menu","clients.exploiteur as client","commercials.name as commercial")
-        ->paginate(5);
+        ->paginate(20);
         $listCommandes->setPath('/commandes');
 
 
@@ -54,7 +54,7 @@ class CommandeController extends Controller
         ->join('commercials', 'commercials.id', '=', 'commandes.commercial_id')
         ->join('menus', 'menus.id', '=', 'commandes.menu_id')
         ->select("commandes.*","menus.name as menu","clients.exploiteur as client","commercials.name as commercial")
-        ->paginate(10);
+        ->paginate(20);
         $listCommandes->setPath('/commandes');
 
         $table = view('commandes.table', compact('listCommandes'))->render();
@@ -258,7 +258,7 @@ class CommandeController extends Controller
         ->first()["startCode"];
         $lastCode = Commande::select("code_commande as code")
         ->where("code_commande","like",$codeMatrice."%")
-        ->orderByRaw('updated_at desc')
+        ->orderByRaw('id desc')
         ->first();
         (!empty($lastCode)) ? $code = $lastCode["code"] + 1 : $code = $codeMatrice."001";
         return  $code;
