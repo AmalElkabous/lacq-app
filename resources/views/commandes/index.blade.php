@@ -309,12 +309,9 @@
             $("#commantaireInpute").addClass("d-none")
             $("#commantaireLabel").removeClass("d-none")
             $.get('/commandes/commantaire/' + id, function(data) {
-                data = JSON.parse(data);
-
                 $("#commantaireLabel").html(data.commantaire)
                 $("#modalCommantaire").modal("show");
                 $('html').preloader('remove')
-
             });
         }
 

@@ -16,6 +16,7 @@
             <th class="text-center pr-4 text-nowrap">Horizon</th>
             <th class="text-center pr-4 text-nowrap">Temperature</th>
             <th class="text-center pr-4 text-nowrap">Date prélevement</th>
+            <th class="text-center pr-4 text-nowrap">Quantité</th>
             <th class="text-center pr-4">Etat</th>
             <th class="text-center pr-4">Action</th>
         </tr>
@@ -24,12 +25,10 @@
         @foreach ($listCommandes as $commande)
             <tr>
                 <td id="id" class="text-center text-nowrap">{{ $commande->id }}</td>
-                <td class="text-center"><span
-                        class="badge badge-success">{{ $commande->code_commande }}</span></td>
+                <td class="text-center"><span class="badge badge-success">{{ $commande->code_commande }}</span></td>
                 <td class="text-center text-nowrap">{{ $commande->date_reception }}</td>
                 <td class="text-center text-nowrap">{{ $commande->client }}</td>
                 <td class="text-center text-nowrap">{{ $commande->ref_client }}</td>
-
                 <td class="text-center text-nowrap">{{ $commande->commercial }}</td>
                 <td class="text-center text-nowrap">{{ $commande->menu }}</td>
                 <td class="text-center text-nowrap">{{ $commande->nature }}</td>
@@ -40,10 +39,13 @@
                 <td class="text-center text-nowrap">
                     @if (!empty($commande->horizon_2))
                         {{ $commande->horizon_1 }} --> {{ $commande->horizon_2 }}
+                    @else
+                        _
                     @endif
                 </td>
                 <td class="text-center text-nowrap">{{ $commande->temperature }}</td>
                 <td class="text-center text-nowrap">{{ $commande->date_prelevement }}</td>
+                <td class="text-center text-nowrap">{{ $commande->quantite }}</td>
                 @if ($commande->state == 'Valid')
                     <td class="text-center text-nowrap"> <span
                             class="badge badge-success">{{ $commande->state }}</td>
@@ -92,7 +94,6 @@
                         </i></button>
                     </div>
                     @endif
-
                 </td>
             </tr>
         @endforeach
@@ -100,6 +101,7 @@
 </table>
 @if ($listCommandes instanceof \Illuminate\Pagination\LengthAwarePaginator)
 <div class="d-flex justify-content-center mt-2">
+    
     {!! $listCommandes->links('pagination::bootstrap-4') !!}
 </div>
 @endif
