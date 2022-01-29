@@ -93,6 +93,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/analyses', [AnalyseController::class,'index']);
 
     Route::get('report/{commande_id}', [ReportController::class, 'index']);
+    Route::get('report/{commande_id}', [ReportController::class, 'ameo']);
 
     Route::get('/', function () {
         return view('layouts.master');

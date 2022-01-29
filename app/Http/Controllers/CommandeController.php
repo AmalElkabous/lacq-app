@@ -100,6 +100,7 @@ class CommandeController extends Controller
             $commande->client_id = $id_client;
             $commande->commercial_id = $id_commercial;
             $commande->menu_id = $request["menu"][$i];
+            $commande->quantite= $request["quantite"][$i];
             $commande->lieu_id = $request["lieu_id"][0];
             $commande->ref_client = $request["ref_client"][$i];
             $commande->nature = $request["nature"][$i];
@@ -116,7 +117,7 @@ class CommandeController extends Controller
             $commande->state =  "En cours";
             $commande->save();
             ActivityController::addActivity(new Commande(),$commande->id);
-            self::notifNewCommande($commande->id);
+          //  self::notifNewCommande($commande->id);
         }
         return redirect()->back()->with('success','Commande ajoutée avec succès');
     }

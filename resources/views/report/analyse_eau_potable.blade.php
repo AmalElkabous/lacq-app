@@ -28,9 +28,7 @@
 
 <body style="text-align: center;margin:0 auto">
     <style>
-        table {
-        }
-
+        
         h6{ 
             display:inline !important;
             font-family: DejaVu Sans;
@@ -40,9 +38,11 @@
         .head {
             text-align: left;
             background-color: #b5feb4 !important;
+            
+            
         }
 
-        h4::before {
+        .h4::before {
             content: "*";
             color: red
         }
@@ -65,90 +65,101 @@
             border: 1px solid black;
         }
 
+        .text{
+            text-align: center;
+            bottom : 0px;
+            position: fixed; 
+            left: 0px; 
+            bottom: -180px; 
+            right: 0px; 
+            height: 150px; 
+            position: fixed; 
+            left: 0px; 
+            bottom: -140px; 
+            right: 0px;
+             height: 150px;
+             
+}
+
     </style>
 
     @php use App\Custom\Archivos; @endphp
     <table border="0">
         <tr>
             <td><img src="{{ Archivos::imagenABase64(public_path('img/LacqLogo.jpg')) }}" width="160px" height="40px">
+                <br>
+                <label style="font-size:9px;margin:0;padding:0;">Laboratoire d'Analyses et Contrôle<br> Qualité ELEPHANT
+                    VERT <br>MAROC S.A. </label>
+                    <br>
+                    <label style="color:green;font-size:11px;">LAB03F132-Vb.</label>
             </td>
             <td>
                 <h5 style="color:green;text-align:center; font-size:14px;">RAPPORT D'ANALYSE PHYSICO-CHIMIQUE D'EAU
-                    </br>N° EAUVEG100001 </h5>
+                    </br>N° EAU {{$commande_info->code_commande }} </h5>
             </td>
             <td style="text-align:right;"><img src="{{ Archivos::imagenABase64(public_path('img/semac.png')) }}"
-                    width="90px" height="40px"></td>
+                    width="90px" height="40px"><br>
+                <h6 style="color:brown;font-size:10px;margin:0;padding:0;text-align:right;">N° MCI/CE AL 93/2018</h6>
+                </td>
         </tr>
-        <tr>
-            <td><label style="font-size:9px;margin:0;padding:0;">Laboratoire d'Analyses et Contrôle<br> Qualité ELEPHANT
-                    VERT <br>MAROC S.A. </label></td>
-            <td></td>
-            <td style="text-align:right;">
-                <h6 style="color:brown;font-size:10px;margin:0;padding:0;">N° MCI/CE AL 93/2018</h6>
-            </td>
-        </tr>
-        <tr>
-            <td><label style="color:green;font-size:13px;">LAB03F62-Vb</label></td>
-            <td></td>
-            <td></td>
-        </tr>
+       
     </table>
 
     <table style="width:100%;font-size:10px;margin-top:">
 
         <tr>
-            <th class="head bordered">Client :</th>
-            <td class="col-md-3 bordered">{{ $client_info->exploiteur }}</td>
-            <th class=" head bordered">Dossier suivi par :</th>
-            <td class="col-md-3 bordered">{{ $commande_info->commercial }}</td>
+            <th class="head bordered" style="width:125px;">Client :</th>
+            <td class=" bordered">{{ $client_info->exploiteur }}</td>
+            <th class=" head bordered" style="width:110px;">Dossier suivi par :</th>
+            <td class="bordered">{{ $commande_info->commercial }}</td>
         </tr>
 
         <tr>
-            <th class="head bordered">N°CIN :</th>
-            <td class="col-md-3 bordered">{{ $client_info->cin_rc }}</td>
-            <th class="head bordered">Référence de l'échantillon :</th>
-            <td class="col-md-3 bordered"></td>
+            <th class="head bordered" style="width:125px;">N°CIN :</th>
+            <td class="bordered">{{ $client_info->cin_rc }}</td>
+            <th class="head bordered" style="width:110px;">Référence d'échantillon :</th>
+            <td class="bordered">{{$commande_info->code_commande}} </td>
         </tr>
 
         <tr>
-            <th class="head bordered">Adresse :</th>
-            <td class="col-md-3 bordered">{{ $client_info->address }}</td>
-            <th class="head bordered">Date de prélèvement :</th>
-            <td class="col-md-3 bordered">{{ $commande_info->date_prelevement }}</td>
+            <th class="head bordered" style="width:125px;">Adresse :</th>
+            <td class="bordered">{{ $client_info->address }}</td>
+            <th class="head bordered" style="width:110px;">Date de prélèvement :</th>
+            <td class="bordered">{{ $commande_info->date_prelevement }}</td>
         </tr>
 
         <tr>
-            <th class="head bordered">Référence client :</th>
-            <td class="col-md-3 bordered">{{ $commande_info->ref_client }}</td>
-            <th class="head bordered">Date de réception :</th>
-            <td class="col-md-3 bordered">{{ $commande_info->date_reception }}</td>
+            <th class="head bordered" style="width:125px;">Référence client :</th>
+            <td class="bordered">{{ $commande_info->ref_client }}</td>
+            <th class="head bordered" style="width:110px;">Date de réception :</th>
+            <td class="bordered">{{ $commande_info->date_reception }}</td>
         </tr>
 
         <tr>
-            <th class="head bordered">Nature déchantillon :</th>
-            <td class="col-md-3 bordered">{{ $commande_info->nature }}</td>
-            <th class="head bordered">Date d'analyse :</th>
-            <td class="col-md-3 bordered">{{ $commande_info->date_edition }}</td>
+            <th class="head bordered" style="width:125px;">Nature déchantillon :</th>
+            <td class="bordered">{{ $commande_info->nature }}</td>
+            <th class="head bordered" style="width:110px;">Date d'analyse :</th>
+            <td class="bordered" >{{  }}</td>
         </tr>
 
         <tr>
-            <th class="head bordered">Température à la réception :</th>
-            <td class="col-md-3 bordered">{{ $commande_info->temperature }}</td>
-            <th class="head bordered">Date d'édition :</th>
-            <td class="col-md-3 bordered">{{ $commande_info->date_edition }}</td>
+            <th class="head bordered" style="width:125px;">Température à la réception :</th>
+            <td class="bordered">{{ $commande_info->temperature }}</td>
+            <th class="head bordered" style="width:110px;">Date d'édition :</th>
+            <td class="bordered">{{ $commande_info->date_edition }}</td>
         </tr>
 
         <tr>
-            <th class="head bordered">Coordonnées GPS :</th>
-            <td class="col-md-3 bordered">{{ $commande_info->gps_1 }}</td>
-            <th class="head bordered">Organisme :</th>
-            <td class="col-md-3 bordered">{{ $client_info->organisme }}</td>
+            <th class="head bordered" style="width:125px;">Coordonnées GPS :</th>
+            <td class="bordered">{{ $commande_info->gps_1 }}</td>
+            <th class="head bordered" style="width:110px;">Organisme :</th>
+            <td class="bordered">{{ $client_info->organisme }}</td>
         </tr>
         <tr>
-            <th class="head bordered">Lieu d'analyse :</th>
-            <td class="col-md-3 bordered">{{ $commande_info->lieu }}</td>
-            <th class="head bordered">Quantité:</th>
-            <td class="col-md-3 bordered"></td>
+            <th class="head bordered" style="width:125px;">Lieu d'exécution des essais :</th>
+            <td class="bordered">{{ $commande_info->lieu }}</td>
+            <th class="head bordered" style="width:110px;">Quantité récéptionnée:</th>
+            <td class="bordered">{{ $commande_info->quantite }}</td>
         </tr>
     </table>
 
@@ -191,7 +202,7 @@
                 }
             @endphp
             <tr>
-                <td class="col-md-3 bordered">Potentiel hydrogène(<h6 style='color:red;'>*</h6>)</td>
+                <td class="bordered">Potentiel hydrogène(<h6 style='color:red;'>*</h6>)</td>
                 <td class="col-md-3 bordered">PH</td>
                 <td class="col-md-3 bordered">NM ISO 10523:V2012</td>
                 <td class="col-md-3 bordered">Unités pH</td>
@@ -205,11 +216,11 @@
                         }
                     @endphp
                 </td>
-                <td class="col-md-3 bordered"> 6,5_8,5</td>
+                <td class="col-md-3 bordered"> 6,5-8,5</td>
             </tr>
 
             <tr>
-                <td class="col-md-3 bordered">Conductivité éléctrique(<h6 style='color:red;'>*</h6>)</td>
+                <td class="bordered">Conductivité éléctrique(<h6 style='color:red;'>*</h6>)</td>
                 <td class="col-md-3 bordered">EC</td>
                 <td class="col-md-3 bordered"> NF EN 27888:V2001</td>
                 <td class="col-md-3 bordered">uS/cm</td>
@@ -226,7 +237,7 @@
             </tr>
 
             <tr>
-                <td class="col-md-3 bordered">Nitrates</td>
+                <td class="bordered">Nitrates</td>
                 <td class="col-md-3 bordered">NO3</td>
                 <td class="col-md-3 bordered">NF EN ISO 13395:V1996</td>
                 <td class="col-md-3 bordered">mg/L</td>
@@ -243,7 +254,7 @@
             </tr>
 
             <tr>
-                <td class="col-md-3 bordered">Nitrites</td>
+                <td class="bordered">Nitrites</td>
                 <td class="col-md-3 bordered">NO2</td>
                 <td class="col-md-3 bordered">NF EN ISO 13395:V1996</td>
                 <td class="col-md-3 bordered">mg/L</td>
@@ -260,7 +271,7 @@
             </tr>
 
             <tr>
-                <td class="col-md-3 bordered">Ammonium</td>
+                <td class="bordered">Ammonium</td>
                 <td class="col-md-3 bordered">NH4</td>
                 <td class="col-md-3 bordered">NF EN ISO 11732:V2005</td>
                 <td class="col-md-3 bordered">mg/L</td>
@@ -277,7 +288,7 @@
             </tr>
 
             <tr>
-                <td class="col-md-3 bordered">Chlorures</td>
+                <td class="bordered">Chlorures</td>
                 <td class="col-md-3 bordered">Cl</td>
                 <td class="col-md-3 bordered"> NF EN ISO 15682:V2001</td>
                 <td class="col-md-3 bordered">mg/L</td>
@@ -294,7 +305,7 @@
             </tr>
 
             <tr>
-                <td class="col-md-3 bordered">Sulfates</td>
+                <td class="bordered">Sulfates</td>
                 <td class="col-md-3 bordered">SO4</td>
                 <td class="col-md-3 bordered"> NF T 90_040:V1986</td>
                 <td class="col-md-3 bordered">mg/L</td>
@@ -311,7 +322,7 @@
             </tr>
 
             <tr>
-                <td class="col-md-3 bordered">Calcium(<h6 style='color:red;'>*</h6>)</td>
+                <td class="bordered">Calcium(<h6 style='color:red;'>*</h6>)</td>
                 <td class="col-md-3 bordered">Ca</td>
                 <td class="col-md-3 bordered"> NF EN ISO 11885:V2009</td>
                 <td class="col-md-3 bordered">mg/L</td>
@@ -329,7 +340,7 @@
             </tr>
 
             <tr>
-                <td class="col-md-3 bordered">Magnésium(<h6 style='color:red;'>*</h6>)</td>
+                <td class="bordered">Magnésium(<h6 style='color:red;'>*</h6>)</td>
                 <td class="col-md-3 bordered">Mg</td>
                 <td class="col-md-3 bordered"> NF EN ISO 11885:V2009</td>
                 <td class="col-md-3 bordered">mg/L</td>
@@ -346,7 +357,7 @@
             </tr>
 
             <tr>
-                <td class="col-md-3 bordered">Dureté total</td>
+                <td class="bordered">Dureté total</td>
                 <td class="col-md-3 bordered">THt</td>
                 <td class="col-md-3 bordered"> Calcul.</td>
                 <td class="col-md-3 bordered">°f</td>
@@ -363,7 +374,7 @@
             </tr>
 
             <tr>
-                <td class="col-md-3 bordered">Bicarbonates</td>
+                <td class="bordered">Bicarbonates</td>
                 <td class="col-md-3 bordered">HCO3</td>
                 <td class="col-md-3 bordered"> MN ISO 9963-1:V2001</td>
                 <td class="col-md-3 bordered">mg/L</td>
@@ -380,7 +391,7 @@
             </tr>
 
             <tr>
-                <td class="col-md-3 bordered">Alcalinité</td>
+                <td class="bordered">Alcalinité</td>
                 <td class="col-md-3 bordered">TAC</td>
                 <td class="col-md-3 bordered"> MN ISO 9963-1 </td>
                 <td class="col-md-3 bordered">°f</td>
@@ -397,7 +408,7 @@
             </tr>
 
             <tr>
-                <td class="col-md-3 bordered">Oxydabilité ay KMnO4</td>
+                <td class="bordered">Oxydabilité ay KMnO4</td>
                 <td class="col-md-3 bordered">-</td>
                 <td class="col-md-3 bordered"> MN 03 7 015 </td>
                 <td class="col-md-3 bordered">mgO2/L</td>
@@ -414,7 +425,7 @@
             </tr>
 
             <tr>
-                <td class="col-md-3 bordered">Turbidité</td>
+                <td class="bordered">Turbidité</td>
                 <td class="col-md-3 bordered"> -</td>
                 <td class="col-md-3 bordered"> MN 03 7 010</td>
                 <td class="col-md-3 bordered">NTU</td>
@@ -431,7 +442,7 @@
             </tr>
 
             <tr>
-                <td class="col-md-3 bordered">Cuivre(<h6 style='color:red;'>*</h6>)</td>
+                <td class="bordered">Cuivre(<h6 style='color:red;'>*</h6>)</td>
                 <td class="col-md-3 bordered">Cu</td>
                 <td class="col-md-3 bordered"> NF EN ISO 11885:V2009</td>
                 <td class="col-md-3 bordered">mg/L</td>
@@ -448,7 +459,7 @@
             </tr>
 
             <tr>
-                <td class="col-md-3 bordered">Zinc(<h6 style='color:red;'>*</h6>)</td>
+                <td class="bordered">Zinc(<h6 style='color:red;'>*</h6>)</td>
                 <td class="col-md-3 bordered">Zn</td>
                 <td class="col-md-3 bordered">NF EN ISO 11885:V2009 </td>
                 <td class="col-md-3 bordered">mg/L</td>
@@ -465,7 +476,7 @@
             </tr>
 
             <tr>
-                <td class="col-md-3 bordered">Mangénèse(<h6 style='color:red;'>*</h6>)</td>
+                <td class="bordered">Mangénèse(<h6 style='color:red;'>*</h6>)</td>
                 <td class="col-md-3 bordered"> Mn</td>
                 <td class="col-md-3 bordered"> NF EN ISO 11885:V2009</td>
                 <td class="col-md-3 bordered">mg/L</td>
@@ -482,7 +493,7 @@
             </tr>
 
             <tr>
-                <td class="col-md-3 bordered">Fer(<h6 style='color:red;'>*</h6>)</td>
+                <td class="bordered">Fer(<h6 style='color:red;'>*</h6>)</td>
                 <td class="col-md-3 bordered"> Fe</td>
                 <td class="col-md-3 bordered"> NF EN ISO 11885:V2009</td>
                 <td class="col-md-3 bordered">mg/L</td>
@@ -509,14 +520,17 @@
             </tr>
     </table>
 
-    <h5 style="font-size:14px;text-align:left;margin:2px;padding:0"> <u>Commentaire :</u> </h5>
-    <p style="font-size:10px; text-align:left;margin:2px;padding:0">{{ $commantair_analyse }}</p>
-    <h4 style="font-size:12px;text-align:left;margin:2px;padding:0"> Paramètre accrédité</h4>
-    <img src="{{ Archivos::imagenABase64(public_path('img/signature.png')) }}" style="margin-top:15px" width="500px" height="100px">
-    <p style="font-size:9px;text-align:center;">Laboratoire LACQ <br>
-        AGROPOLIS-GI5 GI6, Commune de Mejjate, Meknès, Maroc <br>
-        Tel:+212 538 00 49 20 <br>
-        www.elephantvert.ch - contactmaroc@elephantvert.ch</p>
+    <h5 style="font-size:11px;text-align:left;margin:2px;padding:0"> <u>Commentaire :</u> </h5>
+    <p style="font-size:12px; text-align:left;margin:2px;padding:0">{{ $commantair_analyse }}</p>
+    <p class="h4" style="font-size:11px;text-align:left"> Paramètre accrédité</p>
+    <img src="{{ Archivos::imagenABase64(public_path('img/signature.png')) }}" style="margin-top:50px" width="560px">
+    <p class="text" style="font-size:8px;">Laboratoire LACQ <br>
+        AGROPOLIS-GI5 GI6, Commune de Mejjate, Meknes, Maroc <br>
+        Tel:+212 535 52 94 01 <br>
+        contact.lacq@elephant-vert.com <br>
+        <span style="margin-left: 650px;font-size:8px;">Fin de page</span>
+        </p>
+        
 
 </body>
 
